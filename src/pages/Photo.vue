@@ -36,7 +36,8 @@ export default {
   },
   methods: {
     saveImageList(image, index) {
-      this.imageList.splice(index, 0, image);
+      console.log(index)
+      this.imageList.splice(index, 1, image);
       this.$store.dispatch("itemInformation/saveImageList", this.imageList);
     },
     fileClick: function() {

@@ -6,6 +6,21 @@ const state = {
     name: ""
   },
   imageList: [
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    },
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    },
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    }
   ]
 };
 
