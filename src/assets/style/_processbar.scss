@@ -1,0 +1,34 @@
+.c-process-container {
+  height: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 50%;
+  max-width: 1000px;
+  margin: 10px auto;
+}
+
+.c-process-container .c-process-bar {
+  height: 5px;
+  background: #dedede;
+  border-radius: 3px;
+  width: 30%;
+  display: inline-block;
+}
+
+.c-process-container .c-process-bar.active {
+  background: #ff8e74;
+}
+
+/* sp レスポンス対応 */
+@media only screen and (max-width: 767px) {
+  .c-process-container {
+    width: 90%;
+    margin: 5px auto 10px;
+  }
+}
+
+
+
+
