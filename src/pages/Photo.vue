@@ -20,7 +20,6 @@
       accept="image/*"
       @change="onFileChange($event)"
     />
-    {{ this.imageList }}
   </div>
 </template>
 
