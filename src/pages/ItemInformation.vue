@@ -3,21 +3,24 @@
     <div class="c-page-title">
       <p>商品１情報</p>
     </div>
-    <div class="c-page-subtitle">
-      <p>写真</p>
-      <require-tag />
-    </div>
-    <div class="c-photo-container row">
-      <div v-for="(image, index) in imageList" :key="index">
-          <image-upload :image="image" :index="index"/>
+
+    <div class="c-page-row">
+      <div class="c-page-subtitle">
+        <p>写真</p>
+        <require-tag />
+      </div>
+      <div class="c-photo-row">
+        <div v-for="(image, index) in imageList" :key="index">
+          <image-upload :image="image" :index="index" />
+        </div>
       </div>
     </div>
 
-    <div class="c-page-subtitle">
-      <p>商品名</p>
-      <require-tag />
-    </div>
-    <div class="c-photo-container">
+    <div class="c-page-row">
+      <div class="c-page-subtitle">
+        <p>商品名</p>
+        <require-tag />
+      </div>
       <input-model
         v-model="itemForm.name"
         type="text"
@@ -27,19 +30,19 @@
       />
     </div>
 
-    <div class="c-page-subtitle">
-      <p>カテゴリー</p>
-      <require-tag />
-    </div>
-    <div class="c-photo-container">
+    <div class="c-page-row">
+      <div class="c-page-subtitle">
+        <p>カテゴリー</p>
+        <require-tag />
+      </div>
       <item-categories />
     </div>
 
-    <div class="c-page-subtitle">
-      <p>付属品</p>
-      <option-tag />
-    </div>
-    <div class="c-photo-container">
+    <div class="c-page-row up">
+      <div class="c-page-subtitle">
+        <p>付属品</p>
+        <option-tag />
+      </div>
       <textarea-model
         v-model="itemForm.accessories"
         placeholder="付属品の内容を記入ください"
@@ -89,4 +92,16 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.c-photo-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.c-page-row.up {
+  margin-top: -10px;
+}
+</style>

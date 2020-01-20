@@ -3,7 +3,7 @@
     <div class="c-page-title">
       <p>商品１情報</p>
     </div>
-    <div class="c-photo-container center" @click="fileClick()">
+    <div class="c-page-row center" @click="fileClick()">
       <p>スマホで簡単査定</p>
       <button class="c-photo-btn">
         <span class="iconfont icon-camera"></span>

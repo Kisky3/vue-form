@@ -83,15 +83,14 @@ export default {
 </script>
 <style>
 .c-upload-btn {
-  width: 10vw;
-  height: 10vw;
+  width: 150px;
+  height: 150px;
   border: 1px dashed #dedede;
-  margin: 0px 5px;
+  margin: 15px 10px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 5px;
 }
 
 .c-upload-btn.active {
@@ -145,6 +144,7 @@ export default {
   .c-upload-btn {
     width: 25vw;
     height: 25vw;
+    margin: 0px 5px;
   }
 
   .c-upload-camera {
