@@ -1,7 +1,7 @@
 <template>
   <footer>
-      <span>Marketenterprise Co.,Ltd.</span>
-      <span>Copyright © 2007-2012 LIG inc. All Rights Reserved</span>
+      <span>MarketEnterprise Co.,Ltd</span>
+      <span>© 2006-2020 Marketenterprise inc.</span>
     </footer>
 </template>
 

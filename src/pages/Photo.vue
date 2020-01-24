@@ -4,7 +4,9 @@
       <p>商品１情報</p>
     </div>
     <div class="c-page-row center" @click="fileClick()">
-      <p>スマホで簡単査定</p>
+      <div class="ribbon">
+          スマホで簡単査定
+      </div>
       <button class="c-photo-btn">
         <span class="iconfont icon-camera"></span>
       </button>

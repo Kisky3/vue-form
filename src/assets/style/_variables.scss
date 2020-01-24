@@ -38,10 +38,12 @@ select {
   -webkit-appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none
+  appearance: none;
 }
 
-input,select,textarea {
+input,
+select,
+textarea {
   font-size: 14px;
   border-radius: 5px;
 }
@@ -113,10 +115,11 @@ textarea {
 
 input-container {
   width: 100%;
-  padding:5px;
+  padding: 5px;
 }
 
-input,select {
+input,
+select {
   width: 100%;
   border: solid 1px #e1e1e1;
   height: 50px;
@@ -181,7 +184,8 @@ input,select {
   width: 80vw;
 }
 
-.c-page-title,.c-page-subtitle {
+.c-page-title,
+.c-page-subtitle {
   width: 100%;
   display: flex;
   justify-content: start;
@@ -265,7 +269,7 @@ input,select {
 
 /* エラーメッセージ */
 .error-message {
-  color: #FF6A71;
+  color: #ff6a71;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -274,10 +278,39 @@ input,select {
 }
 
 .error-active {
-  border: solid 1px #FF6A71;
-  box-shadow: 0 0 3px 0 #FF6A71 inset;
+  border: solid 1px #ff6a71;
+  box-shadow: 0 0 3px 0 #ff6a71 inset;
 }
 
+.ribbon {
+  display: inline-block;
+  position: relative;
+  padding: 10px 40px;
+  font-size: 18px;
+  color: #fff;
+  background: #c1baaf;
+  z-index: 1;
+}
+
+.ribbon:before {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  border: none;
+  border-bottom: solid 10px transparent;
+  border-right: solid 15px rgb(149, 158, 155);
+}
+
+.ribbon:after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  right: 0;
+  border: none;
+  border-bottom: solid 10px transparent;
+  border-left: solid 15px rgb(149, 158, 155);
+}
 
 /*　for sp 　*/
 @media only screen and (max-width: 767px) {
@@ -288,9 +321,8 @@ input,select {
 }
 
 /*　for iPad 　*/
-@media screen and (min-width:768px) and ( max-width:1024px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .c-page-row.row {
     width: 100vw;
   }
 }
-
