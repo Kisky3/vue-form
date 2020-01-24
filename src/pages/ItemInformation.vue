@@ -56,10 +56,7 @@
           value="value"
         />
       </div>
-      <next-btn
-        @goToNext="goToNext"
-        :class="invalid ? 'disabled' : ''"
-      />
+      <next-btn @goToNext="goToNext" :class="invalid ? 'disabled' : ''" />
     </div>
   </validation-observer>
 </template>
@@ -99,13 +96,12 @@ export default {
     };
   },
   methods: {
-    goToNext: function(str) {
-      alert(str);
-      const isValid = this.$refs.observer.validate();
-      if (isValid) {
-        alert("success!!!!");
+    async goToNext(str) {
+      const isValid = await this.$refs.observer.validate();
+      if (!isValid) {
+        alert("エラーあり");
       } else {
-        alert("failed!!!!");
+        alert("エラーなし！次に進みましょう");
       }
     }
   }
@@ -114,7 +110,7 @@ export default {
 <style>
 .c-photo-row {
   display: flex;
-  justify-content: start;
+  justify-content: space-around;
   width: 100%;
   flex-direction: row;
   align-items: center;

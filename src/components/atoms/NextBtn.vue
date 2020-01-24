@@ -36,7 +36,6 @@ export default {
 
   .c-next-btn.disabled {
     background: #999;
-    cursor: not-allowed;
   }
 
   .icon-next {
