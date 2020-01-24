@@ -19,13 +19,18 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: "ImageUpload",
   props: ["index", "image"],
   data() {
     return {
-      imageList: this.$store.getters["itemInformation/getImageList"]
     };
+  },
+  computed: {
+    ...mapGetters({
+      imageList: 'itemInformation/getImageList'
+    })
   },
   methods: {
     fileClick: function() {
@@ -99,7 +104,6 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
-  
 }
 
 .c-upload-btn.active {

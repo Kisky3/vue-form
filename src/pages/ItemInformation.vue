@@ -27,7 +27,7 @@
           <require-tag />
         </div>
         <input-model
-          v-model="itemForm.name"
+          v-model="tile"
           type="text"
           placeholder="例）SHARP 40インチTV"
           value="value"
@@ -49,7 +49,7 @@
           <option-tag />
         </div>
         <textarea-model
-          v-model="itemForm.accessories"
+          v-model="item_comment"
           placeholder="付属品の内容を記入ください"
           name="item-accessories"
           :rows="4"
@@ -62,6 +62,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from 'vuex'
 import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
 import OptionTag from "./../components/atoms/OptionTag";
@@ -72,6 +73,7 @@ import NextBtn from "./../components/atoms/NextBtn";
 import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
+/* 必須項目のエラーメッセージ設定 */
 required.message = "{_field_}を選択してください";
 extend("required", required);
 
@@ -89,23 +91,29 @@ export default {
   },
   data() {
     return {
-      itemForm: {
-        accessories: ""
-      },
-      imageList: this.$store.getters["itemInformation/getImageList"]
+      itemData: {},
     };
   },
+  computed: {
+    ...mapGetters({
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
+    })
+  },
   methods: {
+    ...mapActions({
+      saveStoreItemData: 'itemInformation/saveItemList'
+    }),
     async goToNext(str) {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
+        // this.saveItemData();
         this.openItemsPreviewPage();
       }
     },
-    saveItemInformation(item) {
+    saveItemData() {
       this.imageList.splice(index, 1, image);
-      this.$store.dispatch("itemInformation/saveImageList", this.imageList);
-      this.openItemInformationPage();
+      this.saveStoreItemData(this.itemData)
     },
     openItemsPreviewPage() {
       this.$router.push(
@@ -120,7 +128,7 @@ export default {
 <style>
 .c-photo-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   width: 100%;
   flex-direction: row;
   align-items: center;

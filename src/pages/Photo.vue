@@ -24,19 +24,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: "Photo",
   data() {
     return {
       errorMsg: "",
-      showErrorMsg: false,
-      imageList: this.$store.getters["itemInformation/getImageList"]
+      showErrorMsg: false
     };
   },
+  computed: {
+    ...mapGetters({
+      imageList: 'itemInformation/getImageList'
+    })
+  },
   methods: {
+    ...mapActions({
+      saveStoreImageList: 'itemInformation/saveImageList'
+    }),
     saveImageList(image, index) {
       this.imageList.splice(index, 1, image);
-      this.$store.dispatch("itemInformation/saveImageList", this.imageList);
+      this.saveStoreImageList(this.imageList);
       this.openItemInformationPage();
     },
     fileClick: function() {

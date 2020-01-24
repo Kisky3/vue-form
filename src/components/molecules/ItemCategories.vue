@@ -5,8 +5,8 @@
       <validation-provider rules="required" name="カテゴリー 大項目">
         <div slot-scope="ProviderProps">
           <select
-            v-model="itemForm.main_category"
-            @change="(sub_category = null), (sub_sub_category = null)"
+            v-model="cat_lvl0"
+            @change="(cat_lvl1 = null), (cat_lvl2 = null)"
             :class="ProviderProps.errors[0] ? 'error-active' : ''"
           >
             <option disabled="disabled" :value="null">
@@ -36,8 +36,8 @@
         <validation-provider rules="required" name="カテゴリー 中項目">
           <div slot-scope="ProviderProps">
             <select
-              v-model="itemForm.sub_category"
-              @change="sub_sub_category = null"
+              v-model="cat_lvl1"
+              @change="cat_lvl2 = null"
               :class="ProviderProps.errors[0] ? 'error-active' : ''"
             >
               <option disabled="disabled" :value="null"
@@ -70,7 +70,10 @@
         <i class="iconfont icon-pulldown"></i>
         <validation-provider rules="required" name="カテゴリー 小項目">
           <div slot-scope="ProviderProps">
-            <select v-model="itemForm.sub_sub_category" :class="ProviderProps.errors[0] ? 'error-active' : ''">
+            <select
+              v-model="cat_lvl2"
+              :class="ProviderProps.errors[0] ? 'error-active' : ''"
+            >
               <option disabled="disabled" :value="null"
                 >小項目を選択してください</option
               >
@@ -129,23 +132,21 @@ export default {
   },
   data() {
     return {
-      itemForm: {
-        main_category: null,
-        sub_category: null,
-        sub_sub_category: null
-      },
+      cat_lvl0: null,
+      cat_lvl1: null,
+      cat_lvl2: null,
       categoryList: categoryList
     };
   },
   computed: {
     subCategoryArray: function() {
-      return this.itemForm.main_category !== null
-        ? this.categoryList[this.itemForm.main_category].sub_category
+      return this.cat_lvl0 !== null
+        ? this.categoryList[this.cat_lvl0].sub_category
         : null;
     },
     subSubCategoryArray: function() {
-      return this.itemForm.sub_category !== null && this.subCategoryArray.length
-        ? this.subCategoryArray[this.itemForm.sub_category].sub_sub_category
+      return this.cat_lvl1 !== null && this.subCategoryArray.length
+        ? this.subCategoryArray[this.cat_lvl1].sub_sub_category
         : null;
     }
   }
