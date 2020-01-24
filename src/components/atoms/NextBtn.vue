@@ -30,7 +30,13 @@ export default {
     font-size: 15px;
     height: 50px;
     border: none;
-    margin-bottom: 30px;
+    margin: 30px 0;
+    border-radius: 5px;
+  }
+
+  .c-next-btn.disabled {
+    background: #999;
+    cursor: not-allowed;
   }
 
   .icon-next {

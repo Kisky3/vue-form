@@ -1,60 +1,66 @@
 <template>
-<validation-observer  ref="observer"
-      @submit.prevent="goToNext()">
-  <div class="c-page-container">
-    <div class="c-page-title">
-      <p>商品１情報</p>
-    </div>
-
-    <div class="c-page-row">
-      <div class="c-page-subtitle">
-        <p>写真</p>
-        <require-tag />
+  <validation-observer
+    ref="observer"
+    v-slot="{ invalid }"
+    @submit.prevent="goToNext()"
+  >
+    <div class="c-page-container">
+      <div class="c-page-title">
+        <p>商品１情報</p>
       </div>
-      <div class="c-photo-row">
-        <div v-for="(image, index) in imageList" :key="index">
-          <image-upload :image="image" :index="index" />
+
+      <div class="c-page-row">
+        <div class="c-page-subtitle">
+          <p>写真</p>
+          <require-tag />
+        </div>
+        <div class="c-photo-row">
+          <div v-for="(image, index) in imageList" :key="index">
+            <image-upload :image="image" :index="index" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="c-page-row">
-      <div class="c-page-subtitle">
-        <p>商品名</p>
-        <require-tag />
+      <div class="c-page-row">
+        <div class="c-page-subtitle">
+          <p>商品名</p>
+          <require-tag />
+        </div>
+        <input-model
+          v-model="itemForm.name"
+          type="text"
+          placeholder="例）SHARP 40インチTV"
+          value="value"
+          name="item-name"
+        />
       </div>
-      <input-model
-        v-model="itemForm.name"
-        type="text"
-        placeholder="例）SHARP 40インチTV"
-        value="value"
-        name="item-name"
+
+      <div class="c-page-row">
+        <div class="c-page-subtitle">
+          <p>カテゴリー</p>
+          <require-tag />
+        </div>
+        <item-categories />
+      </div>
+
+      <div class="c-page-row up">
+        <div class="c-page-subtitle">
+          <p>付属品</p>
+          <option-tag />
+        </div>
+        <textarea-model
+          v-model="itemForm.accessories"
+          placeholder="付属品の内容を記入ください"
+          name="item-accessories"
+          :rows="4"
+          value="value"
+        />
+      </div>
+      <next-btn
+        @goToNext="goToNext"
+        :class="invalid ? 'disabled' : ''"
       />
     </div>
-
-    <div class="c-page-row">
-      <div class="c-page-subtitle">
-        <p>カテゴリー</p>
-        <require-tag />
-      </div>
-      <item-categories />
-    </div>
-
-    <div class="c-page-row up">
-      <div class="c-page-subtitle">
-        <p>付属品</p>
-        <option-tag />
-      </div>
-      <textarea-model
-        v-model="itemForm.accessories"
-        placeholder="付属品の内容を記入ください"
-        name="item-accessories"
-        :rows="3"
-        value="value"
-      />
-    </div>
-    <next-btn @goToNext="goToNext" />
-  </div>
   </validation-observer>
 </template>
 <script>
@@ -69,8 +75,8 @@ import NextBtn from "./../components/atoms/NextBtn";
 import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
-required.message = '{_field_}を選択してください'
-extend('required', required);
+required.message = "{_field_}を選択してください";
+extend("required", required);
 
 export default {
   name: "ItemInformation",
@@ -95,11 +101,11 @@ export default {
   methods: {
     goToNext: function(str) {
       alert(str);
-      const isValid = this.$refs.observer.validate()
+      const isValid = this.$refs.observer.validate();
       if (isValid) {
-        alert('success!!!!')
+        alert("success!!!!");
       } else {
-        alert('failed!!!!')
+        alert("failed!!!!");
       }
     }
   }
@@ -108,10 +114,11 @@ export default {
 <style>
 .c-photo-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   width: 100%;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .c-page-row.up {

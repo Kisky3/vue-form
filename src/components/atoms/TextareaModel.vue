@@ -24,7 +24,7 @@ export default {
 <style>
 textarea {
   width: 100%;
-  border: solid 1px #eaeaea;
+  border: solid 1px #e1e1e1;
   padding: 5px;
 
 }

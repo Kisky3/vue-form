@@ -1,13 +1,21 @@
 <template>
   <div class="c-upload-btn" @click="fileClick">
-    <span v-show="!previewImage(image)" class="iconfont icon-camera c-upload-camera"></span>
+    <span
+      v-show="!previewImage(image)"
+      class="iconfont icon-camera c-upload-camera"
+    ></span>
     <div v-if="previewImage(image)">
       <div class="c-upload-btn active">
         <img :src="image.thumnail" class="c-upload-img" />
       </div>
       <a class="c-close_button" @click="deleteImage"></a>
     </div>
-    <input :id="'upload_' + index" type="file" accept="image/*" @change="onFileChange($event)" />
+    <input
+      :id="'upload_' + index"
+      type="file"
+      accept="image/*"
+      @change="onFileChange($event)"
+    />
   </div>
 </template>
 <script>
@@ -16,7 +24,7 @@ export default {
   props: ["index", "image"],
   data() {
     return {
-      imageList: this.$store.getters['itemInformation/getImageList']
+      imageList: this.$store.getters["itemInformation/getImageList"]
     };
   },
   methods: {
@@ -91,10 +99,12 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
+  
 }
 
 .c-upload-btn.active {
-  border: 2px solid #dedede;
+  border: 2px solid #b1b1b1;
+  box-shadow: 0px 0px 5px 3px rgb(232, 232, 232);
 }
 
 .c-upload-camera {
@@ -129,14 +139,18 @@ export default {
 
 .c-close_button {
   position: absolute;
-  width: 20px;
-  top: -2px;
-  right: 2px;
-  font-size: 25px;
+  width: 100%;
+  height:30%;
+  left: 0;
+  bottom: 0;
+  font-size: 35px;
   font-weight: bold;
   color: #fff;
-  background: #aba9a9;
+  background: rgba(0, 0, 0, 0.6);
   cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* sp レスポンス対応 */
@@ -144,7 +158,12 @@ export default {
   .c-upload-btn {
     width: 25vw;
     height: 25vw;
-    margin: 0px 5px;
+    margin: 5px 5px 5px 0;
+  }
+
+  .c-close_button {
+    left:-2px;
+    bottom: 2px;
   }
 
   .c-upload-camera {
