@@ -17,7 +17,7 @@ const state = {
       name: ""
     }
   ],
-  itemInformation:{
+  itemData:{
   },
   itemList:[],
 };
@@ -27,8 +27,8 @@ const getters = {
     return state.imageList;
   },
 
-  getItemInformation(state) {
-    return state.itemInformation;
+  getItemData(state) {
+    return state.itemData;
   }
 };
 
