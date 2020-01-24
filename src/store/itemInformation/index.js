@@ -1,10 +1,5 @@
 import Vue from "vue";
 const state = {
-  initialImage: {
-    thumnail: "",
-    uploadFile: {},
-    name: ""
-  },
   imageList: [
     {
       thumnail: "",
@@ -21,7 +16,10 @@ const state = {
       uploadFile: {},
       name: ""
     }
-  ]
+  ],
+  itemInformation:{
+  },
+  itemList:[],
 };
 
 const getters = {
@@ -29,20 +27,28 @@ const getters = {
     return state.imageList;
   },
 
-  getInitialImage(state) {
-    return state.initialImage;
+  getItemInformation(state) {
+    return state.itemInformation;
   }
 };
 
 const actions = {
   saveImageList({ commit }, imageList) {
     commit("saveImageList", imageList);
+  },
+
+  saveItemList({ commit }, itemList) {
+    commit('saveItemList')
   }
 };
 
 const mutations = {
   saveImageList(state, imageList) {
     Vue.set(state.imageList, imageList);
+  },
+
+  saveItemList(state, itemList){
+    Vue.set(state.itemList, itemList);
   }
 };
 

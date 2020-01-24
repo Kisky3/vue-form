@@ -35,9 +35,9 @@ export default {
   },
   methods: {
     saveImageList(image, index) {
-      console.log(index)
       this.imageList.splice(index, 1, image);
       this.$store.dispatch("itemInformation/saveImageList", this.imageList);
+      this.openItemInformationPage();
     },
     fileClick: function() {
       $("#upload_file").click();
@@ -48,7 +48,6 @@ export default {
         files.forEach((file, index) => {
           this.createImage(file, index);
         });
-        this.openItemInformationPage();
       }
     },
     createImage: function(file, index) {
@@ -60,7 +59,7 @@ export default {
         obj.uploadFile = file;
         obj.name = file.name;
 
-        // アップロード成功すれば商品ページに遷移する
+        // アップロード成功すれば保存する
         if (vm.checkEmptyImage(obj)) {
           vm.setErrorMsg();
         } else {

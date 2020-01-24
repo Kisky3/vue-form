@@ -98,11 +98,21 @@ export default {
   methods: {
     async goToNext(str) {
       const isValid = await this.$refs.observer.validate();
-      if (!isValid) {
-        alert("エラーあり");
-      } else {
-        alert("エラーなし！次に進みましょう");
+      if (isValid) {
+        this.openItemsPreviewPage();
       }
+    },
+    saveItemInformation(item) {
+      this.imageList.splice(index, 1, image);
+      this.$store.dispatch("itemInformation/saveImageList", this.imageList);
+      this.openItemInformationPage();
+    },
+    openItemsPreviewPage() {
+      this.$router.push(
+        "items_preview",
+        () => {},
+        () => {}
+      );
     }
   }
 };

@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     submit: function () {
-      this.$emit('goToNext', 'cc12345')
+      this.$emit('goToNext')
     }
   }
 }
