@@ -263,6 +263,21 @@ input,select {
   max-width: 600px;
 }
 
+/* エラーメッセージ */
+.error-message {
+  color: #FF6A71;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  float: right;
+  margin: 2px 0 0 0;
+}
+
+.error-active {
+  border: solid 1px #FF6A71;
+  box-shadow: 0 0 3px 0 #FF6A71 inset;
+}
+
 
 /*　for sp 　*/
 @media only screen and (max-width: 767px) {

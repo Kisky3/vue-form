@@ -1,18 +1,31 @@
 <template>
   <div class="input-container">
-    <input
-      :type="type"
-      :value="value"
-      :name="name"
-      :placeholder="placeholder"
-      @input="updateValue"
-    />
+    <validation-provider rules="required" name="商品名">
+      <div slot-scope="ProviderProps">
+        <input
+          :type="type"
+          :value="value"
+          :name="name"
+          :placeholder="placeholder"
+          :class="(ProviderProps.errors[0]) ? 'error-active' : ''"
+          @input="updateValue"
+        />
+        <div class="error-message">
+           <span v-show="ProviderProps.errors[0]" class="iconfont icon-warn"></span>
+           {{ ProviderProps.errors[0] }}
+        </div>
+      </div>
+    </validation-provider>
   </div>
 </template>
 
 <script>
+import { ValidationProvider } from "vee-validate";
 export default {
   name: "InputModel",
+  components: {
+    ValidationProvider
+  },
   props: {
     value: { type: String, required: false },
     type: { type: String, required: true },
@@ -26,5 +39,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

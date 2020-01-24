@@ -1,4 +1,6 @@
 <template>
+<validation-observer  ref="observer"
+      @submit.prevent="goToNext()">
   <div class="c-page-container">
     <div class="c-page-title">
       <p>商品１情報</p>
@@ -53,6 +55,7 @@
     </div>
     <next-btn @goToNext="goToNext" />
   </div>
+  </validation-observer>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -63,6 +66,12 @@ import TextareaModel from "./../components/atoms/TextareaModel";
 import InputModel from "./../components/atoms/InputModel";
 import ItemCategories from "./../components/molecules/ItemCategories";
 import NextBtn from "./../components/atoms/NextBtn";
+import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
+
+required.message = '{_field_}を選択してください'
+extend('required', required);
+
 export default {
   name: "ItemInformation",
   components: {
@@ -72,7 +81,8 @@ export default {
     ItemCategories,
     RequireTag,
     OptionTag,
-    NextBtn
+    NextBtn,
+    ValidationObserver
   },
   data() {
     return {
@@ -85,9 +95,12 @@ export default {
   methods: {
     goToNext: function(str) {
       alert(str);
-    },
-    saveImage: function(index, image) {
-      this.$store.dispatch("saveImageList", index, image);
+      const isValid = this.$refs.observer.validate()
+      if (isValid) {
+        alert('success!!!!')
+      } else {
+        alert('failed!!!!')
+      }
     }
   }
 };
