@@ -47,7 +47,7 @@ const actions = {
   },
 
   saveItemList({ commit }, itemList) {
-    commit('saveItemList')
+    commit('saveItemList', itemList)
   }
 };
 
@@ -57,6 +57,8 @@ const mutations = {
   },
 
   saveItemList(state, itemList){
+    console.log('itemList');
+    console.log(itemList);
     Vue.set(state.itemList, itemList);
   }
 };

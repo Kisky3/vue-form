@@ -107,8 +107,7 @@ export default {
   computed: {
     ...mapGetters({
       imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList",
-      itemDataStore: "itemInformation/getItemData"
+      itemList: "itemInformation/getItemList"
     })
   },
   methods: {
@@ -123,11 +122,9 @@ export default {
       }
     },
     saveItemData() {
+      this.itemList.push(this.itemData)
       // 生成された商品データをstoreに保存する
-      let itemLabel = Object.keys(this.itemDataStore);
-      itemLabel.forEach(label => {
-        this.itemDataStore[label] = this.itemData[label];
-      });
+      this.saveStoreItemData(this.itemList)
     },
     openItemsPreviewPage() {
       this.$router.push(
