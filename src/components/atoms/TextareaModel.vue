@@ -1,6 +1,6 @@
 <template>
   <div class="input-container">
-    <textarea :rows="rows" :placeholder="placeholder" @input="updateValue"></textarea>
+    <textarea :rows="rows" :value="value" :placeholder="placeholder" @input="updateValue"></textarea>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   name: "TextareaModel",
   props: {
-    value: { type: String, required: true },
+    value: { type: String, required: false },
     name: { type: String, required: true },
     placeholder: { type: String, required: false },
     rows: { type: Number, required: false },

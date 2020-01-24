@@ -27,7 +27,7 @@
           <require-tag />
         </div>
         <input-model
-          v-model="tile"
+          v-model="title"
           type="text"
           placeholder="例）SHARP 40インチTV"
           value="value"
@@ -91,7 +91,10 @@ export default {
   },
   data() {
     return {
-      itemData: {},
+      title: null,
+      item_comment: null,
+      itemData: {
+      },
     };
   },
   computed: {
