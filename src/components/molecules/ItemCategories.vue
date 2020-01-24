@@ -6,7 +6,8 @@
         <div slot-scope="ProviderProps">
           <select
             v-model="cat_lvl0"
-            @change="(cat_lvl1 = null), (cat_lvl2 = null)"
+            @change="
+              (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0)"
             :class="ProviderProps.errors[0] ? 'error-active' : ''"
           >
             <option disabled="disabled" :value="null">
@@ -37,7 +38,7 @@
           <div slot-scope="ProviderProps">
             <select
               v-model="cat_lvl1"
-              @change="cat_lvl2 = null"
+              @change="(cat_lvl2 = null), submitCatLvl1(cat_lvl1)"
               :class="ProviderProps.errors[0] ? 'error-active' : ''"
             >
               <option disabled="disabled" :value="null"
@@ -72,6 +73,7 @@
           <div slot-scope="ProviderProps">
             <select
               v-model="cat_lvl2"
+              @change="submitCatLvl2(cat_lvl2)"
               :class="ProviderProps.errors[0] ? 'error-active' : ''"
             >
               <option disabled="disabled" :value="null"
@@ -148,6 +150,17 @@ export default {
       return this.cat_lvl1 !== null && this.subCategoryArray.length
         ? this.subCategoryArray[this.cat_lvl1].sub_sub_category
         : null;
+    }
+  },
+  methods: {
+    submitCatLvl0(catLvl0) {
+      this.$emit("submitCatLvl0", catLvl0);
+    },
+     submitCatLvl1(catLvl1) {
+      this.$emit("submitCatLvl1", catLvl1);
+    },
+     submitCatLvl2(catLvl2) {
+      this.$emit("submitCatLvl2", catLvl2);
     }
   }
 };

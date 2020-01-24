@@ -27,7 +27,7 @@
           <require-tag />
         </div>
         <input-model
-          v-model="title"
+          v-model="itemData.title"
           type="text"
           placeholder="例）SHARP 40インチTV"
           value="value"
@@ -40,7 +40,11 @@
           <p>カテゴリー</p>
           <require-tag />
         </div>
-        <item-categories />
+        <item-categories
+          @submitCatLvl0="changeCatLvl0"
+          @submitCatLvl1="changeCatLvl1"
+          @submitCatLvl2="changeCatLvl2"
+        />
       </div>
 
       <div class="c-page-row up">
@@ -49,7 +53,7 @@
           <option-tag />
         </div>
         <textarea-model
-          v-model="item_comment"
+          v-model="itemData.item_comment"
           placeholder="付属品の内容を記入ください"
           name="item-accessories"
           :rows="4"
@@ -62,7 +66,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
 import OptionTag from "./../components/atoms/OptionTag";
@@ -91,32 +95,39 @@ export default {
   },
   data() {
     return {
-      title: null,
-      item_comment: null,
       itemData: {
-      },
+        title: null,
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
+      }
     };
   },
   computed: {
     ...mapGetters({
       imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
+      itemList: "itemInformation/getItemList",
+      itemDataStore: "itemInformation/getItemData"
     })
   },
   methods: {
     ...mapActions({
-      saveStoreItemData: 'itemInformation/saveItemList'
+      saveStoreItemData: "itemInformation/saveItemList"
     }),
     async goToNext(str) {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
-        // this.saveItemData();
+        this.saveItemData();
         this.openItemsPreviewPage();
       }
     },
     saveItemData() {
-      this.imageList.splice(index, 1, image);
-      this.saveStoreItemData(this.itemData)
+      // 生成された商品データをstoreに保存する
+      let itemLabel = Object.keys(this.itemDataStore);
+      itemLabel.forEach(label => {
+        this.itemDataStore[label] = this.itemData[label];
+      });
     },
     openItemsPreviewPage() {
       this.$router.push(
@@ -124,6 +135,18 @@ export default {
         () => {},
         () => {}
       );
+    },
+    changeCatLvl0(catLvl0) {
+      this.itemData.cat_lvl0 = catLvl0;
+      alert("catLvl0" + this.itemData.cat_lvl0);
+    },
+    changeCatLvl1(catLvl1) {
+      this.itemData.cat_lvl1 = catLvl1;
+      alert("catLvl1" + this.itemData.cat_lvl1);
+    },
+    changeCatLvl2(catLvl2) {
+      this.itemData.cat_lvl2 = catLvl2;
+      alert("catLvl2" + this.itemData.cat_lvl2);
     }
   }
 };

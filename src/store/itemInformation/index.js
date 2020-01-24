@@ -18,6 +18,11 @@ const state = {
     }
   ],
   itemData:{
+    title: null,
+    cat_lvl0: null,
+    cat_lvl1: null,
+    cat_lvl2: null,
+    item_comment: null
   },
   itemList:[],
 };
@@ -29,6 +34,10 @@ const getters = {
 
   getItemData(state) {
     return state.itemData;
+  },
+
+  getItemList(state) {
+    return state.itemList;
   }
 };
 
