@@ -217,7 +217,8 @@ select {
   flex-direction: row;
   margin-bottom: 25px;
   flex-wrap: wrap;
-  width: 40vw;
+  width: 60vw;
+  max-width: 600px;
 }
 
 .c-page-row.center {
@@ -316,6 +317,7 @@ select {
 @media only screen and (max-width: 767px) {
   .c-page-row.row {
     width: 100vw;
+    max-width: 600px;
     margin-bottom: 15px;
   }
 }
@@ -324,5 +326,6 @@ select {
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .c-page-row.row {
     width: 100vw;
+    max-width: 600px;
   }
 }

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Photo from '../pages/Photo.vue'
 import ItemInformation from '../pages/ItemInformation.vue'
-import ItemsPreview from '../pages/ItemsPreview.vue'
+import ItemsList from '../pages/ItemsList.vue'
 import UserInformation from '../pages/UserInformation.vue'
 import Complete from '../pages/Complete.vue'
 
@@ -22,9 +22,9 @@ export default new Router({
       component: ItemInformation
     },
     {
-      path: '/items_preview',
-      name: 'itemsPreview',
-      component: ItemsPreview
+      path: '/items_list',
+      name: 'itemsList',
+      component: ItemsList
     },
     {
         path: '/user_information',

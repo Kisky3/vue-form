@@ -118,7 +118,7 @@ export default {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
         this.saveItemData();
-        this.openItemsPreviewPage();
+        this.openItemsListPage();
       }
     },
     saveItemData() {
@@ -126,24 +126,21 @@ export default {
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList)
     },
-    openItemsPreviewPage() {
+    openItemsListPage() {
       this.$router.push(
-        "items_preview",
+        "items_list",
         () => {},
         () => {}
       );
     },
     changeCatLvl0(catLvl0) {
       this.itemData.cat_lvl0 = catLvl0;
-      alert("catLvl0" + this.itemData.cat_lvl0);
     },
     changeCatLvl1(catLvl1) {
       this.itemData.cat_lvl1 = catLvl1;
-      alert("catLvl1" + this.itemData.cat_lvl1);
     },
     changeCatLvl2(catLvl2) {
       this.itemData.cat_lvl2 = catLvl2;
-      alert("catLvl2" + this.itemData.cat_lvl2);
     }
   }
 };
