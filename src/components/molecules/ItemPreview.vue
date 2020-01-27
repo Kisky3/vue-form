@@ -15,13 +15,15 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import defaultImage from "../../assets/img/default.png";
 export default {
   name: "ItemPreview",
   props: ["item", "index"],
   computed: {
     ...mapGetters({
-      imageList: "itemInformation/getImageList"
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
     }),
     ItemPrevieimage() {
       if (this.imageList[this.index] !== undefined) {
@@ -31,8 +33,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      saveStoreItemList: "itemInformation/saveItemList",
+      saveStoreImageList: "itemInformation/saveImageList"
+    }),
     editItem: function() {
-       this.$router.push({
+      this.$router.push({
         path: "/item_information",
         query: {
           item_id: this.index
@@ -40,10 +46,8 @@ export default {
       });
     },
     deleteItem: function() {
-      alert("delete");
-    },
-    saveItem: function() {
-      alert("save");
+      this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1));
+      this.saveStoreItemList(this.itemList.splice(this.itemIndex, 1));
     }
   }
 };
@@ -59,11 +63,10 @@ export default {
   position: relative;
   flex-direction: column;
   background: #fff;
-  padding: 5px;
 }
 
 .c-item-img {
-  width: 90%;
+  width: 100%;
 }
 
 .c-item-label {
@@ -74,6 +77,10 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 5px;
 }
 
 .c-item-edit-panel {
@@ -84,6 +91,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background:#dedede;
 }
 
 /* sp */
