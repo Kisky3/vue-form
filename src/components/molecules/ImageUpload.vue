@@ -150,7 +150,6 @@ export default {
   background-color: #fff;
   cursor: pointer;
   height: 100%;
-  padding: 5px;
 }
 
 .c-close_button::before {

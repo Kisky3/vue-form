@@ -102,14 +102,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      imageData: "itemInformation/getImageData",
+      initialImageData: "itemInformation/getImageData",
+      initialItemData: "itemInformation/getItemData",
       imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList",
-      initialItemData: "itemInformation/getItemData"
+      itemList: "itemInformation/getItemList"
     }),
     itemImage() {
       if (this.imageList.length === 0) {
-        return this.imageData;
+        return this.initialImageData;
       }
       return this.imageList[this.itemIndex];
     },
@@ -127,8 +127,8 @@ export default {
     async goToNext() {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
-        this.saveItemData();
-        this.openItemsListPage();
+        await this.saveItemData();
+        await this.openItemsListPage();
       }
     },
     saveItemData() {

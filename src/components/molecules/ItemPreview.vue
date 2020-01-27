@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="c-page-subtitle">
-      <p>商品{{ index + 1 }}</p>
+    <div class="c-page-subtitle wrap">
+      <span>商品{{ index + 1 }}:</span> {{ item.title }}
     </div>
     <div class="c-item-container">
-      <img :src="ItemPrevieimage" class="c-item-img" alt="" />
-      <div class="c-item-label">商品名： {{ item.title }}</div>
-      <div class="c-item-edit-panel">
-        <span @click="editItem()">編集</span>
-        <span @click="deleteItem()">削除</span>
-      </div>
+      <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
+      <span class="iconfont icon-check item-check"></span>
+    </div>
+    <div class="c-item-edit-panel">
+      <span @click="editItem()">編集</span>
+      <span @click="deleteItem()">削除</span>
     </div>
   </div>
 </template>
@@ -53,59 +53,13 @@ export default {
 };
 </script>
 <style>
-.c-item-container {
-  width: 200px;
-  margin: 5px 10px 10px;
-  border: 2px solid #dedede;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  flex-direction: column;
+.item-check {
+  position: absolute;
+  bottom: 5px;
+  right: 0px;
+  font-size: 35px;
+  color: #1dc050;
   background: #fff;
-}
-
-.c-item-img {
-  width: 100%;
-}
-
-.c-item-label {
-  font-size: 14px;
-  margin-top: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-align: left;
-  word-wrap: break-word;
-  word-break: break-all;
-  padding: 5px;
-}
-
-.c-item-edit-panel {
-  width: 200px;
-  height: 60px;
-  padding: 20px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background:#dedede;
-}
-
-/* sp */
-@media only screen and (max-width: 767px) {
-  .c-item-container {
-    width: 35vw;
-  }
-
-  .c-item-edit-panel {
-    width: 35vw;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  border-radius: 20px;
 }
 </style>

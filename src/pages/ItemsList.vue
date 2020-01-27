@@ -4,6 +4,7 @@
         <p>登録商品一覧</p>
       </div>
     <div class="c-page-row row">
+      <add-item @addItem="addItem()"/>
       <div v-for="(item, index) in itemList" :key="index">
         <item-preview :item="item" :index="index" />
       </div>
@@ -13,20 +14,27 @@
 
 <script>
 import ItemPreview from "../components/molecules/ItemPreview";
+import AddItem from "../components/molecules/ItemAdd";
 import { mapGetters } from "vuex";
 
 export default {
   name: "ItemsList",
   props: {},
   components: {
-    ItemPreview
+    ItemPreview,
+    AddItem
   },
   computed: {
     ...mapGetters({
       itemList: "itemInformation/getItemList",
       imageData: "itemInformation/getImageData"
     })
-  }
+  },
+  methods: {
+    addItem: function(){
+      alert('hhhh')
+    }
+  },
 };
 </script>
 
