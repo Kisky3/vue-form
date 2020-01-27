@@ -108,7 +108,6 @@ export default {
 
 .c-upload-btn.active {
   border: 2px solid #b1b1b1;
-  box-shadow: 0px 0px 5px 3px rgb(232, 232, 232);
 }
 
 .c-upload-camera {
@@ -132,9 +131,10 @@ export default {
   line-height: 100px;
   display: table-cell;
   text-align: center;
-  background-color: #eee;
+  background-color: #fff;
   cursor: pointer;
   height: 100%;
+  padding: 5px;
 }
 
 .c-close_button::before {
