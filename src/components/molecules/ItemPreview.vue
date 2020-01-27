@@ -1,11 +1,13 @@
 <template>
   <div class="c-item-container">
     <span class="iconfont icon-camera item-camera"></span>
+    {{item.title}}
   </div>
 </template>
 <script>
 export default {
-  name: "ItemPreview"
+  name: "ItemPreview",
+  props:['item','index']
 };
 </script>
 <style>

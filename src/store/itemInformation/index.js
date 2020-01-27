@@ -58,7 +58,7 @@ const mutations = {
 
   saveItemList(state, itemList){
     console.log('itemList');
-    console.log(itemList);
+    console.log(itemList.length);
     Vue.set(state.itemList, itemList);
   }
 };
