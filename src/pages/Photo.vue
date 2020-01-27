@@ -1,11 +1,11 @@
 <template>
   <div class="c-page-container">
     <div class="c-page-title">
-      <p>商品１情報</p>
+      <p>商品写真登録</p>
     </div>
     <div class="c-page-row center" @click="fileClick()">
       <div class="ribbon">
-        スマホで簡単査定
+        60秒スマホで簡単査定
       </div>
       <button class="c-photo-btn">
         <span class="iconfont icon-camera"></span>

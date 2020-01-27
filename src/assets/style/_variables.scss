@@ -192,7 +192,6 @@ select {
   align-items: center;
   flex-direction: row;
   color: #262628;
-  max-width: 40vw;
 }
 
 .c-page-title {
@@ -204,6 +203,7 @@ select {
 .c-page-subtitle {
   font-size: 15px;
   margin-bottom: 5px;
+  max-width: 40vw;
 }
 
 .c-page-subtitle > span {
@@ -211,12 +211,11 @@ select {
 }
 
 .wrap {
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
+  white-space: nowrap;  
+
+ text-overflow:ellipsis; 
+
+ overflow:hidden;
 }
 
 .c-page-row {
@@ -261,7 +260,7 @@ select {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  max-width: 600px;
+  max-width: 400px;
 }
 
 .c-photo-btn span {
@@ -279,7 +278,8 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 600px;
+  max-width: 400px;
+  min-height:40px;
 }
 
 /* エラーメッセージ */
@@ -302,9 +302,10 @@ select {
   position: relative;
   padding: 10px 40px;
   font-size: 18px;
-  color: #fff;
-  background: #c1baaf;
+  background: #dedede;
   z-index: 1;
+  white-space: nowrap;
+  margin-top: 10px;
 }
 
 .ribbon:before {
