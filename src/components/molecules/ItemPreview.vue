@@ -1,6 +1,6 @@
 <template>
   <div class="c-item-container">
-    <span class="iconfont icon-camera"></span>
+    <span class="iconfont icon-camera item-camera"></span>
   </div>
 </template>
 <script>
@@ -13,12 +13,17 @@ export default {
   width: 200px;
   height: 200px;
   margin: 5px 10px 10px;
-  background: pink;
   border: 1px dashed #dedede;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.item-camera {
+  color: #dedede;
+  font-size: 80px;
+  font-weight: bold;
 }
 
 /* sp */
@@ -27,6 +32,12 @@ export default {
     width: 35vw;
     height: 35vw;
   }
+
+  .item-camera {
+  color: #dedede;
+  font-size: 60px;
+  font-weight: bold;
+}
 }
 
 /* ipad */
