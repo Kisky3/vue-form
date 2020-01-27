@@ -5,7 +5,7 @@
     </div>
     <div class="c-page-row center" @click="fileClick()">
       <div class="ribbon">
-          スマホで簡単査定
+        スマホで簡単査定
       </div>
       <button class="c-photo-btn">
         <span class="iconfont icon-camera"></span>
@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Photo",
   data() {
@@ -38,16 +38,25 @@ export default {
   },
   computed: {
     ...mapGetters({
-      imageList: 'itemInformation/getImageList'
+      imageData: "itemInformation/getImageData",
+      imageList: "itemInformation/getImageList"
     })
   },
   methods: {
     ...mapActions({
-      saveStoreImageList: 'itemInformation/saveImageList'
+      saveStoreImageData: "itemInformation/saveImageData",
+      saveStoreImageList: "itemInformation/saveImageList"
     }),
-    saveImageList(image, index) {
-      this.imageList.splice(index, 1, image);
+    saveImageData(image, index) {
+      /* 各商品の画像オブジェクトに保存 */
+      this.imageData.splice(index, 1, image);
+      this.saveStoreImageData(this.imageData);
+
+      /* 全体の商品イメージリストに保存する */
+      this.imageList.splice(0, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
+
+      /* 商品情報ページに遷移 */
       this.openItemInformationPage();
     },
     fileClick: function() {
@@ -74,14 +83,16 @@ export default {
         if (vm.checkEmptyImage(obj)) {
           vm.setErrorMsg();
         } else {
-          vm.saveImageList(obj, index);
+          vm.saveImageData(obj, index);
         }
       };
       reader.readAsDataURL(file);
     },
     checkEmptyImage: function(image) {
       return (
-        image.thumnail === "" && Object.keys(image.uploadFile).length === 0 && image.name === ""
+        image.thumnail === "" &&
+        Object.keys(image.uploadFile).length === 0 &&
+        image.name === ""
       );
     },
     openItemInformationPage() {

@@ -1,6 +1,8 @@
 <template>
   <div class="c-page-container">
-    <div>Items List Preview</div>
+     <div class="c-page-title">
+        <p>登録商品一覧</p>
+      </div>
     <div class="c-page-row row">
       <div v-for="(item, index) in itemList" :key="index">
         <item-preview :item="item" :index="index" />
@@ -21,7 +23,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      itemList: "itemInformation/getItemList"
+      itemList: "itemInformation/getItemList",
+      imageData: "itemInformation/getImageData"
     })
   }
 };

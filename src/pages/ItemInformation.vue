@@ -15,7 +15,7 @@
           <require-tag />
         </div>
         <div class="c-photo-row">
-          <div v-for="(image, index) in imageList" :key="index">
+          <div v-for="(image, index) in itemImage" :key="index">
             <image-upload :image="image" :index="index" />
           </div>
         </div>
@@ -106,9 +106,14 @@ export default {
   },
   computed: {
     ...mapGetters({
+      imageData: "itemInformation/getImageData",
       imageList: "itemInformation/getImageList",
       itemList: "itemInformation/getItemList"
-    })
+    }),
+    itemImage() {
+      let itemIndex = this.itemList.length;
+      return this.imageList[itemIndex];
+    }
   },
   methods: {
     ...mapActions({
@@ -122,9 +127,9 @@ export default {
       }
     },
     saveItemData() {
-      this.itemList.push(this.itemData)
+      this.itemList.push(this.itemData);
       // 生成された商品データをstoreに保存する
-      this.saveStoreItemData(this.itemList)
+      this.saveStoreItemData(this.itemList);
     },
     openItemsListPage() {
       this.$router.push(

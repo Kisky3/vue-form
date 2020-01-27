@@ -1,13 +1,18 @@
 <template>
-  <div class="c-item-container">
-    <span class="iconfont icon-camera item-camera"></span>
-    {{item.title}}
+  <div>
+    <div class="c-page-subtitle">
+      <p>商品{{ index + 1 }}</p>
+    </div>
+    <div class="c-item-container">
+      <span class="iconfont icon-camera item-camera"></span>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "ItemPreview",
-  props:['item','index']
+  props: ["item", "index"],
+  methods: {}
 };
 </script>
 <style>
@@ -15,7 +20,7 @@ export default {
   width: 200px;
   height: 200px;
   margin: 5px 10px 10px;
-  border: 1px dashed #dedede;
+  border: 2px solid #dedede;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,10 +41,10 @@ export default {
   }
 
   .item-camera {
-  color: #dedede;
-  font-size: 60px;
-  font-weight: bold;
-}
+    color: #dedede;
+    font-size: 60px;
+    font-weight: bold;
+  }
 }
 
 /* ipad */

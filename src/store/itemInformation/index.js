@@ -1,6 +1,6 @@
 import Vue from "vue";
 const state = {
-  imageList: [
+  imageData: [
     {
       thumnail: "",
       uploadFile: {},
@@ -17,19 +17,20 @@ const state = {
       name: ""
     }
   ],
-  itemData:{
+  itemData: {
     title: null,
     cat_lvl0: null,
     cat_lvl1: null,
     cat_lvl2: null,
     item_comment: null
   },
-  itemList:[],
+  itemList: [],
+  imageList: []
 };
 
 const getters = {
-  getImageList(state) {
-    return state.imageList;
+  getImageData(state) {
+    return state.imageData;
   },
 
   getItemData(state) {
@@ -38,28 +39,42 @@ const getters = {
 
   getItemList(state) {
     return state.itemList;
+  },
+
+  getImageList(state) {
+    return state.imageList;
   }
 };
 
 const actions = {
-  saveImageList({ commit }, imageList) {
-    commit("saveImageList", imageList);
+  saveImageData({ commit }, imageData) {
+    commit("saveImageData", imageData);
   },
 
   saveItemList({ commit }, itemList) {
-    commit('saveItemList', itemList)
+    commit("saveItemList", itemList);
+  },
+
+  saveImageList({ commit }, imageList) {
+    commit("saveImageList", imageList);
   }
 };
 
 const mutations = {
-  saveImageList(state, imageList) {
-    Vue.set(state.imageList, imageList);
+  saveImageData(state, imageData) {
+    Vue.set(state.imageData, imageData);
   },
 
-  saveItemList(state, itemList){
-    console.log('itemList');
+  saveItemList(state, itemList) {
+    console.log("itemList");
     console.log(itemList.length);
     Vue.set(state.itemList, itemList);
+  },
+
+  saveImageList(state, imageList) {
+    console.log("imageList");
+    console.log(imageList[0]);
+    Vue.set(state.imageList, imageList);
   }
 };
 

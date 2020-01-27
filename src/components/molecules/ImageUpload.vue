@@ -19,20 +19,26 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "ImageUpload",
   props: ["index", "image"],
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
-      imageList: 'itemInformation/getImageList'
+      imageData: "itemInformation/getImageData",
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
     })
   },
   methods: {
+    ...mapActions({
+      saveStoreImageData: "itemInformation/saveImageData",
+      saveStoreImageList: "itemInformation/saveImageList"
+    }),
     fileClick: function() {
       $("#upload_" + this.index).click();
     },
@@ -53,7 +59,16 @@ export default {
       reader.readAsDataURL(file);
     },
     saveImageStore: function(image) {
-      // this.$emit("saveImage", index, image);
+      /* 各商品の画像オブジェクトに保存 */
+      this.imageData.splice(this.index, 1, image);
+      this.saveStoreImageData(this.imageData);
+
+      /* 全体の商品イメージリストに保存する */
+      let itemIndex = this.itemList.length;
+      console.log('itemIndex');
+      console.log(itemIndex);
+      this.imageList.splice(itemIndex, 1, this.imageData);
+      this.saveStoreImageList(this.imageList);
     },
     previewImage: function(image) {
       return !(
@@ -69,6 +84,7 @@ export default {
         name: ""
       };
       event.stopPropagation();
+      this.saveImageStore(this.image);
     },
     submitImage: function(e) {
       var formData = new FormData();
@@ -144,7 +160,7 @@ export default {
 .c-close_button {
   position: absolute;
   width: 100%;
-  height:30%;
+  height: 30%;
   left: 0;
   bottom: 0;
   font-size: 35px;
@@ -152,7 +168,7 @@ export default {
   color: #fff;
   background: rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -166,7 +182,7 @@ export default {
   }
 
   .c-close_button {
-    left:-2px;
+    left: -2px;
     bottom: 2px;
   }
 
