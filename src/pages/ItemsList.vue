@@ -32,7 +32,12 @@ export default {
   },
   methods: {
     addItem: function(){
-      alert('hhhh')
+      this.$router.push({
+        path: "/item_information",
+        query: {
+          item_id: (this.itemList.length + 1)
+        }
+      });
     }
   },
 };
