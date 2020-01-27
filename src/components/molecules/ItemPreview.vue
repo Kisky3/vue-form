@@ -32,13 +32,18 @@ export default {
   },
   methods: {
     editItem: function() {
-      
+      this.$router.push({
+        path: "/item_information",
+        query: {
+          item_id: this.index
+        }
+      });
     },
     deleteItem: function() {
       alert("delete");
     },
-    saveItem: function(){
-       alert("save");
+    saveItem: function() {
+      alert("save");
     }
   }
 };
