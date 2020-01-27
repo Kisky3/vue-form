@@ -114,10 +114,7 @@ export default {
       return this.imageList[this.itemIndex];
     },
     itemData() {
-      if (this.itemList.length === 0) {
-        return this.initialItemData;
-      }
-      return this.itemList[this.itemIndex];
+        return this.initialItemData(this.itemIndex);
     }
   },
   methods: {
