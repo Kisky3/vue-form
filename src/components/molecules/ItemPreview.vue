@@ -4,13 +4,7 @@
       <p>商品{{ index + 1 }}</p>
     </div>
     <div class="c-item-container">
-      <img
-        :src="
-          ItemPrevieimage.thumnail ? ItemPrevieimage.thumnail : defaultImage
-        "
-        class="c-item-img"
-        alt=""
-      />
+      <img :src="ItemPrevieimage" class="c-item-img" alt="" />
       <div><span>商品名：</span>{{ item.title }}</div>
     </div>
   </div>
@@ -26,7 +20,10 @@ export default {
       imageList: "itemInformation/getImageList"
     }),
     ItemPrevieimage() {
-      return this.imageList[this.index][0];
+      if (this.imageList[this.index] !== undefined) {
+        return this.imageList[this.index][0].thumnail;
+      }
+      return defaultImage;
     }
   },
   methods: {}
