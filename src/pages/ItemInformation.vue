@@ -61,7 +61,7 @@
           value="value"
         />
       </div>
-      <next-btn @goToNext="goToNext" :class="invalid ? 'disabled' : ''" />
+      <next-btn @goToNext="goToNext()" :class="invalid ? 'disabled' : ''" />
     </div>
   </validation-observer>
 </template>
@@ -124,7 +124,7 @@ export default {
     ...mapActions({
       saveStoreItemData: "itemInformation/saveItemList"
     }),
-    async goToNext(str) {
+    async goToNext() {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
         this.saveItemData();
@@ -132,7 +132,7 @@ export default {
       }
     },
     saveItemData() {
-      this.itemList.push(this.itemData);
+      this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
     },
