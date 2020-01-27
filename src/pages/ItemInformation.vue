@@ -6,7 +6,7 @@
   >
     <div class="c-page-container">
       <div class="c-page-title">
-        <p>商品１情報</p>
+        <p>商品１情報 {{item_index}}</p>
       </div>
 
       <div class="c-page-row">
@@ -102,7 +102,8 @@ export default {
         cat_lvl1: null,
         cat_lvl2: null,
         item_comment: null
-      }
+      },
+      item_index: this.$route.query.item_id? this.$route.query.item_id: 0
     };
   },
   computed: {
