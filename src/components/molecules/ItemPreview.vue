@@ -5,7 +5,11 @@
     </div>
     <div class="c-item-container">
       <img :src="ItemPrevieimage" class="c-item-img" alt="" />
-      <div><span>商品名：</span>{{ item.title }}</div>
+      <div class="c-item-label">商品名： {{ item.title }}</div>
+      <div class="c-item-edit-panel">
+        <span>編集</span>
+        <span>削除</span>
+      </div>
     </div>
   </div>
 </template>
@@ -42,15 +46,43 @@ export default {
   background: #fff;
   padding: 5px;
 }
+
 .c-item-img {
   width: 90%;
+}
+
+.c-item-label {
+  font-size: 14px;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.c-item-edit-panel {
+  width: 200px;
+  height: 60px;
+  padding: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* sp */
 @media only screen and (max-width: 767px) {
   .c-item-container {
     width: 35vw;
-    height: 35vw;
+  }
+
+  .c-item-edit-panel {
+    width: 35vw;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
