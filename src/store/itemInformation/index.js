@@ -17,7 +17,7 @@ const state = {
       name: ""
     }
   ],
-  itemData: {
+  initialItemData: {
     title: null,
     cat_lvl0: null,
     cat_lvl1: null,
@@ -33,8 +33,11 @@ const getters = {
     return state.imageData;
   },
 
-  getItemData(state) {
-    return state.itemData;
+  getItemData(state, index) {
+    if (this.itemList.length === 0) {
+      return state.initialItemData;
+    }
+    return state.itemList[index];
   },
 
   getItemList(state) {

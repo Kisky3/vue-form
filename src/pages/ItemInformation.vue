@@ -83,6 +83,7 @@ extend("required", required);
 
 export default {
   name: "ItemInformation",
+  props: ["itemIndex"],
   components: {
     ImageUpload,
     InputModel,

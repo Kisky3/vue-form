@@ -7,8 +7,8 @@
       <img :src="ItemPrevieimage" class="c-item-img" alt="" />
       <div class="c-item-label">商品名： {{ item.title }}</div>
       <div class="c-item-edit-panel">
-        <span>編集</span>
-        <span>削除</span>
+        <span @click="editItem()">編集</span>
+        <span @click="deleteItem()">削除</span>
       </div>
     </div>
   </div>
@@ -30,7 +30,17 @@ export default {
       return defaultImage;
     }
   },
-  methods: {}
+  methods: {
+    editItem: function() {
+      
+    },
+    deleteItem: function() {
+      alert("delete");
+    },
+    saveItem: function(){
+       alert("save");
+    }
+  }
 };
 </script>
 <style>
