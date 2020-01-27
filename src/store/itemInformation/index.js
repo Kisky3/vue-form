@@ -34,7 +34,7 @@ const getters = {
   },
 
   getItemData(state, index) {
-    if (this.itemList.length === 0) {
+    if (state.itemList.length === 0) {
       return state.initialItemData;
     }
     return state.itemList[index];

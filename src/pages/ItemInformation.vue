@@ -6,7 +6,7 @@
   >
     <div class="c-page-container">
       <div class="c-page-title">
-        <p>商品１情報 {{item_index}}</p>
+        <p>商品 {{ itemIndex + 1 }} 情報</p>
       </div>
 
       <div class="c-page-row">
@@ -41,6 +41,7 @@
           <require-tag />
         </div>
         <item-categories
+          :itemData="itemData"
           @submitCatLvl0="changeCatLvl0"
           @submitCatLvl1="changeCatLvl1"
           @submitCatLvl2="changeCatLvl2"
@@ -83,7 +84,7 @@ extend("required", required);
 
 export default {
   name: "ItemInformation",
-  props: ["itemIndex"],
+  props: ["item_id"],
   components: {
     ImageUpload,
     InputModel,
@@ -96,25 +97,27 @@ export default {
   },
   data() {
     return {
-      itemData: {
-        title: null,
-        cat_lvl0: null,
-        cat_lvl1: null,
-        cat_lvl2: null,
-        item_comment: null
-      },
-      item_index: this.$route.query.item_id? this.$route.query.item_id: 0
+      itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0
     };
   },
   computed: {
     ...mapGetters({
       imageData: "itemInformation/getImageData",
       imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
+      itemList: "itemInformation/getItemList",
+      initialItemData: "itemInformation/getItemData"
     }),
     itemImage() {
-      let itemIndex = this.itemList.length;
-      return this.imageList[itemIndex];
+      if (this.imageList.length === 0) {
+        return this.imageData;
+      }
+      return this.imageList[this.itemIndex];
+    },
+    itemData() {
+      if (this.itemList.length === 0) {
+        return this.initialItemData;
+      }
+      return this.itemList[this.itemIndex];
     }
   },
   methods: {

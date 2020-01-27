@@ -7,7 +7,8 @@
           <select
             v-model="cat_lvl0"
             @change="
-              (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0)"
+              (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0)
+            "
             :class="ProviderProps.errors[0] ? 'error-active' : ''"
           >
             <option disabled="disabled" :value="null">
@@ -129,14 +130,15 @@ import categoryList from "../../settings/categoryList";
 import { ValidationProvider, extend } from "vee-validate";
 export default {
   name: "ItemCategories",
+  props: ["itemData"],
   components: {
     ValidationProvider
   },
   data() {
     return {
-      cat_lvl0: null,
-      cat_lvl1: null,
-      cat_lvl2: null,
+      cat_lvl0: this.itemData.cat_lvl0,
+      cat_lvl1: this.itemData.cat_lvl1,
+      cat_lvl2: this.itemData.cat_lvl2,
       categoryList: categoryList
     };
   },
@@ -156,10 +158,10 @@ export default {
     submitCatLvl0(catLvl0) {
       this.$emit("submitCatLvl0", catLvl0);
     },
-     submitCatLvl1(catLvl1) {
+    submitCatLvl1(catLvl1) {
       this.$emit("submitCatLvl1", catLvl1);
     },
-     submitCatLvl2(catLvl2) {
+    submitCatLvl2(catLvl2) {
       this.$emit("submitCatLvl2", catLvl2);
     }
   }

@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     editItem: function() {
-      this.$router.push({
+       this.$router.push({
         path: "/item_information",
         query: {
           item_id: this.index
