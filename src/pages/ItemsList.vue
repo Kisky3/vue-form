@@ -9,7 +9,10 @@
         <item-preview :item="item" :index="index" />
       </div>
     </div>
-    <next-btn @goToNext="goToNext()" :class="goToNext ? '' : 'disabled'" />
+    <next-btn
+      @goToNext="openUserInformation()"
+      :class="goToNext ? '' : 'disabled'"
+    />
   </div>
 </template>
 
@@ -84,6 +87,13 @@ export default {
       /* 商品リストに空のデータを追加する */
       this.itemList.splice(this.itemList.length, 1, this.initialItemData);
       this.saveStoreItemList(this.itemList);
+    },
+    openUserInformation: function() {
+      this.$router.push(
+        "user_information",
+        () => {},
+        () => {}
+      );
     }
   }
 };
