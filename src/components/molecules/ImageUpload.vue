@@ -82,7 +82,6 @@ export default {
         name: ""
       };
       event.stopPropagation();
-
       let obj = this.imageList[this.itemIndex];
       obj.splice(this.index, 1, this.image);
 
