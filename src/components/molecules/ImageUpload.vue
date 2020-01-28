@@ -25,11 +25,28 @@ export default {
   name: "ImageUpload",
   props: ["index", "image"],
   data() {
-    return {};
+    return {
+      imageData: [
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        }
+      ]
+    };
   },
   computed: {
     ...mapGetters({
-      imageData: "itemInformation/getImageData",
       imageList: "itemInformation/getImageList",
       itemList: "itemInformation/getItemList"
     })
@@ -61,7 +78,6 @@ export default {
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
       this.imageData.splice(this.index, 1, image);
-      this.saveStoreImageData(this.imageData);
 
       /* 全体の商品イメージリストに保存する */
       let itemIndex = this.itemList.length;

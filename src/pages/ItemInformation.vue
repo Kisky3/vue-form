@@ -8,7 +8,7 @@
       <div class="c-page-title">
         <p>商品 {{ itemIndex + 1 }} 情報</p>
       </div>
-
+{{itemIndex}}
       <div class="c-page-row">
         <div class="c-page-subtitle">
           <p>写真</p>
@@ -162,7 +162,7 @@ export default {
     saveItemImage() {
       this.imageList.splice(this.itemIndex, 1, this.itemImage);
       // 生成された商品データをstoreに保存する
-      this.saveStoreImageData(this.itemImage);
+      this.saveStoreImageData(this.itemList);
     },
     openItemsListPage() {
       this.$router.push(

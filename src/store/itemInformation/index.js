@@ -55,14 +55,10 @@ const mutations = {
   },
 
   saveItemList(state, itemList) {
-    console.log("itemList");
-    console.log(itemList.length);
     Vue.set(state.itemList, itemList);
   },
 
   saveImageList(state, imageList) {
-    console.log("imageList");
-    console.log(imageList[0]);
     Vue.set(state.imageList, imageList);
   }
 };
