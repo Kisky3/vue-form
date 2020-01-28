@@ -97,29 +97,55 @@ export default {
   },
   data() {
     return {
-      itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0
+      itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
+      initialItemData: {
+        title: null,
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
+      },
+      initialImageData: [
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters({
-      initialImageData: "itemInformation/getImageData",
-      initialItemData: "itemInformation/getItemData",
       imageList: "itemInformation/getImageList",
       itemList: "itemInformation/getItemList"
     }),
     itemImage() {
-      if (this.imageList.length === 0) {
+      if (this.imageList.length === 0 || this.itemList.length <= this.itemIndex) {
         return this.initialImageData;
       }
       return this.imageList[this.itemIndex];
     },
     itemData() {
-        return this.initialItemData(this.itemIndex);
+      if (this.itemList.length === 0 || this.itemList.length <= this.itemIndex) {
+        return this.initialItemData;
+      }
+      return this.itemList[this.itemIndex];
     }
   },
   methods: {
     ...mapActions({
-      saveStoreItemData: "itemInformation/saveItemList"
+      saveStoreItemData: "itemInformation/saveItemList",
+      saveStoreImageData: "itemInformation/saveImageList"
     }),
     async goToNext() {
       const isValid = await this.$refs.observer.validate();
@@ -132,6 +158,11 @@ export default {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
+    },
+    saveItemImage() {
+      this.imageList.splice(this.itemIndex, 1, this.itemImage);
+      // 生成された商品データをstoreに保存する
+      this.saveStoreImageData(this.itemImage);
     },
     openItemsListPage() {
       this.$router.push(

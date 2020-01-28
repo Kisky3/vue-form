@@ -17,13 +17,6 @@ const state = {
       name: ""
     }
   ],
-  initialItemData: {
-    title: null,
-    cat_lvl0: null,
-    cat_lvl1: null,
-    cat_lvl2: null,
-    item_comment: null
-  },
   itemList: [],
   imageList: []
 };
@@ -31,13 +24,6 @@ const state = {
 const getters = {
   getImageData(state) {
     return state.imageData;
-  },
-
-  getItemData(state, index) {
-    if (state.itemList.length === 0 || state.itemList.length < index) {
-      return state.initialItemData;
-    }
-    return state.itemList[index];
   },
 
   getItemList(state) {

@@ -1,10 +1,10 @@
 <template>
   <div class="c-page-container">
-     <div class="c-page-title">
-        <p>登録商品一覧</p>
-      </div>
+    <div class="c-page-title">
+      <p>登録商品一覧</p>
+    </div>
     <div class="c-page-row row">
-      <add-item @addItem="addItem()"/>
+      <add-item @addItem="addItem()" />
       <div v-for="(item, index) in itemList" :key="index">
         <item-preview :item="item" :index="index" />
       </div>
@@ -31,15 +31,15 @@ export default {
     })
   },
   methods: {
-    addItem: function(){
+    addItem: function() {
       this.$router.push({
         path: "/item_information",
         query: {
-          item_id: (this.itemList.length + 1)
+          item_id: this.itemList.length
         }
       });
     }
-  },
+  }
 };
 </script>
 

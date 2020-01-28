@@ -65,8 +65,6 @@ export default {
 
       /* 全体の商品イメージリストに保存する */
       let itemIndex = this.itemList.length;
-      console.log('itemIndex');
-      console.log(itemIndex);
       this.imageList.splice(itemIndex, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
     },
