@@ -211,11 +211,11 @@ select {
 }
 
 .wrap {
-  white-space: nowrap;  
+  white-space: nowrap;
 
- text-overflow:ellipsis; 
+  text-overflow: ellipsis;
 
- overflow:hidden;
+  overflow: hidden;
 }
 
 .c-page-row {
@@ -279,7 +279,7 @@ select {
   justify-content: center;
   align-items: center;
   max-width: 400px;
-  min-height:40px;
+  min-height: 40px;
 }
 
 /* エラーメッセージ */
@@ -330,8 +330,9 @@ select {
 
 .c-item-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  height: 140px;
+  width: 180px;
+  min-width: 150px;
   border: 2px solid #dedede;
   display: flex;
   justify-content: center;
@@ -341,9 +342,11 @@ select {
   background: #fff;
 }
 
-.c-item-container.top {
-  margin-top: 25px;
-  height: 180px;
+.c-page-row.row:after {
+  content: "";
+  display: block;
+  width: 180px;
+  height: 0;
 }
 
 .c-item-img {
@@ -368,7 +371,7 @@ select {
 }
 
 .c-item-edit-panel {
-  width: 200px;
+  width: 180px;
   height: 60px;
   padding: 20px;
   font-weight: bold;
@@ -390,29 +393,6 @@ select {
     width: 100vw;
     max-width: 650px;
     margin-bottom: 15px;
-  }
-
-  .c-item-container {
-    width: 40vw;
-  }
-
-  .c-item-edit-panel {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 45vw;
-  }
-
-  .c-item-container {
-    height: 140px;
-    min-width: 150px;
-  }
-
-  .c-item-container.top {
-    margin-top: 25px;
-    height: 120px;
   }
 }
 

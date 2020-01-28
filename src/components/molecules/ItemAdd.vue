@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="c-item-container top" @click="addItem">
+    <div class="c-item-container" @click="addItem">
       <span class="iconfont icon-camera item-camera"></span>
     </div>
     <div class="c-item-add-panel">
