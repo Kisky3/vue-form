@@ -136,7 +136,7 @@ export default {
     itemImage() {
       if (
         this.imageList.length === 0 ||
-        this.itemList.length <= this.itemIndex
+        (this.itemList.length <= this.itemIndex &&this.itemList.length !== 0)
       ) {
         return this.initialImageData;
       }
