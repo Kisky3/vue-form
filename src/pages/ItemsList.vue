@@ -13,13 +13,35 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import ItemPreview from "../components/molecules/ItemPreview";
 import AddItem from "../components/molecules/ItemAdd";
-import { mapGetters } from "vuex";
 
 export default {
   name: "ItemsList",
   props: {},
+  data() {
+    return {
+      initialImage: [
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    },
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    },
+    {
+      thumnail: "",
+      uploadFile: {},
+      name: ""
+    }
+  ]
+    }
+  },
   components: {
     ItemPreview,
     AddItem
@@ -27,10 +49,13 @@ export default {
   computed: {
     ...mapGetters({
       itemList: "itemInformation/getItemList",
-      imageData: "itemInformation/getImageData"
+      imagemList: "itemInformation/getImageList"
     })
   },
   methods: {
+     ...mapActions({
+      saveStoreImageData: "itemInformation/saveImageList"
+    }),
     addItem: function() {
       this.$router.push({
         path: "/item_information",
@@ -38,6 +63,8 @@ export default {
           item_id: this.itemList.length
         }
       });
+      this.imagemList.splice(this.itemList.length, 1, this.initialImage)
+      this.saveStoreImageData(this.imagemList)
     }
   }
 };

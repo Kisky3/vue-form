@@ -25,25 +25,7 @@ export default {
   name: "ImageUpload",
   props: ["index", "image", "itemIndex"],
   data() {
-    return {
-      initialImageData: [
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        }
-      ]
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -77,10 +59,13 @@ export default {
     },
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
-      this.initialImageData.splice(this.index, 1, image);
+      this.image = image;
 
-      /* 全体の商品イメージリストに保存する */
-      this.imageList.splice(this.itemIndex, 1, this.initialImageData);
+      let obj = this.imageList[this.itemIndex];
+      obj.splice(this.index, 1, this.image);
+
+      this.imageList.splice(this.itemIndex, 1, obj);
+
       this.saveStoreImageList(this.imageList);
     },
     previewImage: function(image) {
@@ -97,13 +82,11 @@ export default {
         name: ""
       };
       event.stopPropagation();
-      this.saveImageStore(this.image);
 
-      /* 各商品の画像オブジェクトに保存 */
-      this.initialImageData.splice(this.index, 1, this.image);
+      let obj = this.imageList[this.itemIndex];
+      obj.splice(this.index, 1, this.image);
 
-      /* 全体の商品イメージリストに保存する */
-      this.imageList.splice(this.itemIndex, 1, this.initialImageData);
+      this.imageList.splice(this.itemIndex, 1, obj);
       this.saveStoreImageList(this.imageList);
     },
     submitImage: function(e) {
