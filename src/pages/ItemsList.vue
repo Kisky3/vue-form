@@ -13,6 +13,7 @@
       @goToNext="openUserInformation()"
       :class="goToNext ? '' : 'disabled'"
     />
+    <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
   </div>
 </template>
 
@@ -25,7 +26,6 @@ import AddItem from "../components/molecules/ItemAdd";
 
 export default {
   name: "ItemsList",
-  props: {},
   data() {
     return {
       initialImageData: [
@@ -51,7 +51,9 @@ export default {
         cat_lvl1: null,
         cat_lvl2: null,
         item_comment: null
-      }
+      },
+      errorMsg: '',
+      showErrorMsg: false
     };
   },
   components: {
@@ -89,11 +91,19 @@ export default {
       this.saveStoreItemList(this.itemList);
     },
     openUserInformation: function() {
-      this.$router.push(
-        "user_information",
-        () => {},
-        () => {}
-      );
+      if (this.goToNext) {
+        this.$router.push(
+          "user_information",
+          () => {},
+          () => {}
+        );
+      } else {
+        this.setErrorMsg();
+      }
+    },
+    setErrorMsg: function() {
+      this.errorMsg = "商品を追加してください";
+      this.showErrorMsg = true;
     }
   }
 };

@@ -110,9 +110,4 @@ export default {
 };
 </script>
 <style>
-.error-msg {
-  color: red;
-  font-size: 16px;
-  margin-top: 10px;
-}
 </style>
