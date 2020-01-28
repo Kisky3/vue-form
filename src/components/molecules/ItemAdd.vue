@@ -9,21 +9,9 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
 export default {
   name: "AddItem",
-  computed: {
-    ...mapGetters({
-      imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
-    })
-  },
   methods: {
-    ...mapActions({
-      saveStoreItemList: "itemInformation/saveItemList",
-      saveStoreImageList: "itemInformation/saveImageList"
-    }),
     addItem: function() {
       this.$emit("addItem");
     }

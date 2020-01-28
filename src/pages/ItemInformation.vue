@@ -8,7 +8,6 @@
       <div class="c-page-title">
         <p>商品 {{ itemIndex + 1 }} 情報</p>
       </div>
-      {{ itemIndex }}
       <div class="c-page-row">
         <div class="c-page-subtitle">
           <p>写真</p>
@@ -138,7 +137,7 @@ export default {
         this.imageList.length === 0 ||
         (this.itemList.length <= this.itemIndex &&this.itemList.length !== 0)
       ) {
-        return this.initialImageData;
+        return this.imageList[this.itemIndex];
       }
       return this.imageList[this.itemIndex];
     },
@@ -170,9 +169,8 @@ export default {
       this.saveStoreItemData(this.itemList);
     },
     saveItemImage() {
-      this.imageList.splice(this.itemIndex, 1, this.itemImage);
       // 生成された商品データをstoreに保存する
-      this.saveStoreImageData(this.itemList);
+      this.saveStoreImageData(this.imageList.splice(this.itemIndex, 1, this.itemImage));
     },
     openItemsListPage() {
       this.$router.push(

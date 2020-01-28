@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      saveStoreImageData: "itemInformation/saveImageData",
       saveStoreImageList: "itemInformation/saveImageList"
     }),
     fileClick: function() {
@@ -59,13 +58,13 @@ export default {
     },
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
-      this.image = image;
-
       let obj = this.imageList[this.itemIndex];
-      obj.splice(this.index, 1, this.image);
+
+      obj.splice(this.index, 1, image);
 
       this.imageList.splice(this.itemIndex, 1, obj);
-
+      console.log("saveImageStore: ");
+      console.log(this.imageList[this.itemIndex]);
       this.saveStoreImageList(this.imageList);
     },
     previewImage: function(image) {
@@ -81,12 +80,14 @@ export default {
         uploadFile: {},
         name: ""
       };
+
       event.stopPropagation();
       let obj = this.imageList[this.itemIndex];
       obj.splice(this.index, 1, this.image);
-
-      this.imageList.splice(this.itemIndex, 1, obj);
-      this.saveStoreImageList(this.imageList);
+      this.image = obj;
+      console.log("deleteImage: ");
+      console.log(this.imageList[this.itemIndex]);
+      this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
     },
     submitImage: function(e) {
       var formData = new FormData();

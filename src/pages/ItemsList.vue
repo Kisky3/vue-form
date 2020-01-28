@@ -23,24 +23,24 @@ export default {
   props: {},
   data() {
     return {
-      initialImage: [
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
-    },
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
-    },
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
-    }
-  ]
-    }
+      initialImageData: [
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        }
+      ]
+    };
   },
   components: {
     ItemPreview,
@@ -49,12 +49,12 @@ export default {
   computed: {
     ...mapGetters({
       itemList: "itemInformation/getItemList",
-      imagemList: "itemInformation/getImageList"
+      imageList: "itemInformation/getImageList"
     })
   },
   methods: {
-     ...mapActions({
-      saveStoreImageData: "itemInformation/saveImageList"
+    ...mapActions({
+      saveStoreImagList: "itemInformation/saveImageList"
     }),
     addItem: function() {
       this.$router.push({
@@ -63,8 +63,10 @@ export default {
           item_id: this.itemList.length
         }
       });
-      this.imagemList.splice(this.itemList.length, 1, this.initialImage)
-      this.saveStoreImageData(this.imagemList)
+      this.imageList.splice(this.itemList.length, 1, this.initialImageData);
+      console.log("imageList length");
+      console.log(this.imageList.length);
+      this.saveStoreImageList(this.imageList);
     }
   }
 };
