@@ -23,10 +23,10 @@ import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
   name: "ImageUpload",
-  props: ["index", "image"],
+  props: ["index", "image", "itemIndex"],
   data() {
     return {
-      imageData: [
+      initialImageData: [
         {
           thumnail: "",
           uploadFile: {},
@@ -77,11 +77,10 @@ export default {
     },
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
-      this.imageData.splice(this.index, 1, image);
+      this.initialImageData.splice(this.index, 1, image);
 
       /* 全体の商品イメージリストに保存する */
-      let itemIndex = this.itemList.length;
-      this.imageList.splice(itemIndex, 1, this.imageData);
+      this.imageList.splice(this.itemIndex, 1, this.initialImageData);
       this.saveStoreImageList(this.imageList);
     },
     previewImage: function(image) {
@@ -99,6 +98,13 @@ export default {
       };
       event.stopPropagation();
       this.saveImageStore(this.image);
+
+      /* 各商品の画像オブジェクトに保存 */
+      this.initialImageData.splice(this.index, 1, this.image);
+
+      /* 全体の商品イメージリストに保存する */
+      this.imageList.splice(this.itemIndex, 1, this.initialImageData);
+      this.saveStoreImageList(this.imageList);
     },
     submitImage: function(e) {
       var formData = new FormData();

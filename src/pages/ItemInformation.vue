@@ -8,7 +8,7 @@
       <div class="c-page-title">
         <p>商品 {{ itemIndex + 1 }} 情報</p>
       </div>
-{{itemIndex}}
+      {{ itemIndex }}
       <div class="c-page-row">
         <div class="c-page-subtitle">
           <p>写真</p>
@@ -16,7 +16,11 @@
         </div>
         <div class="c-photo-row">
           <div v-for="(image, index) in itemImage" :key="index">
-            <image-upload :image="image" :index="index" />
+            <image-upload
+              :image="image"
+              :index="index"
+              :itemIndex="itemIndex"
+            />
           </div>
         </div>
       </div>
@@ -130,13 +134,19 @@ export default {
       itemList: "itemInformation/getItemList"
     }),
     itemImage() {
-      if (this.imageList.length === 0 || this.itemList.length <= this.itemIndex) {
+      if (
+        this.imageList.length === 0 ||
+        this.itemList.length <= this.itemIndex
+      ) {
         return this.initialImageData;
       }
       return this.imageList[this.itemIndex];
     },
     itemData() {
-      if (this.itemList.length === 0 || this.itemList.length <= this.itemIndex) {
+      if (
+        this.itemList.length === 0 ||
+        this.itemList.length <= this.itemIndex
+      ) {
         return this.initialItemData;
       }
       return this.itemList[this.itemIndex];
