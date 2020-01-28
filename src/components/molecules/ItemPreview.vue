@@ -46,8 +46,8 @@ export default {
       });
     },
     deleteItem: function() {
-      this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1));
-      this.saveStoreItemList(this.itemList.splice(this.itemIndex, 1));
+      this.saveStoreImageList(this.imageList.splice(this.index, 1));
+      this.saveStoreItemList(this.itemList.splice(this.index, 1));
     }
   }
 };

@@ -9,6 +9,7 @@
         <item-preview :item="item" :index="index" />
       </div>
     </div>
+    <next-btn @goToNext="goToNext()" :class="goToNext ? '' : 'disabled'" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import ItemPreview from "../components/molecules/ItemPreview";
+import NextBtn from "../components/atoms/NextBtn";
 import AddItem from "../components/molecules/ItemAdd";
 
 export default {
@@ -51,13 +53,17 @@ export default {
   },
   components: {
     ItemPreview,
-    AddItem
+    AddItem,
+    NextBtn
   },
   computed: {
     ...mapGetters({
       itemList: "itemInformation/getItemList",
       imageList: "itemInformation/getImageList"
-    })
+    }),
+    goToNext() {
+      return this.itemList.length > 0 ? true : false;
+    }
   },
   methods: {
     ...mapActions({
@@ -71,8 +77,11 @@ export default {
           item_id: this.itemList.length
         }
       });
+      /* 画像リストに空のデータを追加する */
       this.imageList.splice(this.itemList.length, 1, this.initialImageData);
       this.saveStoreImageList(this.imageList);
+
+      /* 商品リストに空のデータを追加する */
       this.itemList.splice(this.itemList.length, 1, this.initialItemData);
       this.saveStoreItemList(this.itemList);
     }
