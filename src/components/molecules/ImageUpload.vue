@@ -63,8 +63,6 @@ export default {
       obj.splice(this.index, 1, image);
 
       this.imageList.splice(this.itemIndex, 1, obj);
-      console.log("saveImageStore: ");
-      console.log(this.imageList[this.itemIndex]);
       this.saveStoreImageList(this.imageList);
     },
     previewImage: function(image) {
@@ -85,8 +83,6 @@ export default {
       let obj = this.imageList[this.itemIndex];
       obj.splice(this.index, 1, this.image);
       this.image = obj;
-      console.log("deleteImage: ");
-      console.log(this.imageList[this.itemIndex]);
       this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
     },
     submitImage: function(e) {

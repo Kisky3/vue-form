@@ -39,7 +39,14 @@ export default {
           uploadFile: {},
           name: ""
         }
-      ]
+      ],
+      initialItemData: {
+        title: null,
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
+      }
     };
   },
   components: {
@@ -54,7 +61,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      saveStoreImagList: "itemInformation/saveImageList"
+      saveStoreImageList: "itemInformation/saveImageList",
+      saveStoreItemList: "itemInformation/saveItemList"
     }),
     addItem: function() {
       this.$router.push({
@@ -64,9 +72,9 @@ export default {
         }
       });
       this.imageList.splice(this.itemList.length, 1, this.initialImageData);
-      console.log("imageList length");
-      console.log(this.imageList.length);
       this.saveStoreImageList(this.imageList);
+      this.itemList.splice(this.itemList.length, 1, this.initialItemData);
+      this.saveStoreItemList(this.itemList);
     }
   }
 };

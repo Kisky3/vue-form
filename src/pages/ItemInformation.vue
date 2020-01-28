@@ -107,24 +107,7 @@ export default {
         cat_lvl1: null,
         cat_lvl2: null,
         item_comment: null
-      },
-      initialImageData: [
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        }
-      ]
+      }
     };
   },
   computed: {
@@ -133,19 +116,10 @@ export default {
       itemList: "itemInformation/getItemList"
     }),
     itemImage() {
-      if (
-        this.imageList.length === 0 ||
-        (this.itemList.length <= this.itemIndex &&this.itemList.length !== 0)
-      ) {
-        return this.imageList[this.itemIndex];
-      }
       return this.imageList[this.itemIndex];
     },
     itemData() {
-      if (
-        this.itemList.length === 0 ||
-        this.itemList.length <= this.itemIndex
-      ) {
+      if (this.itemList.length === 0) {
         return this.initialItemData;
       }
       return this.itemList[this.itemIndex];
@@ -170,7 +144,9 @@ export default {
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する
-      this.saveStoreImageData(this.imageList.splice(this.itemIndex, 1, this.itemImage));
+      this.saveStoreImageData(
+        this.imageList.splice(this.itemIndex, 1, this.itemImage)
+      );
     },
     openItemsListPage() {
       this.$router.push(
