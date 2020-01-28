@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div class="c-page-subtitle wrap">
-      <span>商品{{ index + 1 }}:</span> {{ item.title }}
+    <div class="c-page-subtitle">
+      <span>商品{{ index + 1 }}:</span>
     </div>
     <div class="c-item-container">
       <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
       <span class="iconfont icon-check item-check"></span>
     </div>
+    {{ item.title }}
     <div class="c-item-edit-panel">
       <span @click="editItem()">編集</span>
       <span @click="deleteItem()">削除</span>

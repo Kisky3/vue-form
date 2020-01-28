@@ -179,7 +179,7 @@ select {
   align-items: center;
   flex-direction: column;
   background: #fcfcfc;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   width: 80vw;
 }
@@ -231,7 +231,7 @@ select {
   margin-bottom: 25px;
   flex-wrap: wrap;
   width: 60vw;
-  max-width: 600px;
+  max-width: 650px;
 }
 
 .c-page-row.center {
@@ -332,7 +332,7 @@ select {
   position: relative;
   height: 140px;
   width: 180px;
-  min-width: 150px;
+  min-width: 180px;
   border: 2px solid #dedede;
   display: flex;
   justify-content: center;
@@ -345,7 +345,7 @@ select {
 .c-page-row.row:after {
   content: "";
   display: block;
-  width: 180px;
+  width: 45%;
   height: 0;
 }
 
@@ -394,12 +394,19 @@ select {
     max-width: 650px;
     margin-bottom: 15px;
   }
+
+  .c-page-row.row:after {
+    content: "";
+    display: block;
+    width: 45%;
+    height: 0;
+  }
 }
 
 /*　for iPad 　*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .c-page-row.row {
     width: 100vw;
-    max-width: 600px;
+    max-width: 650px;
   }
 }

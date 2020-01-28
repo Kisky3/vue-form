@@ -111,8 +111,8 @@ export default {
 </script>
 <style>
 .c-upload-btn {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border: 1px dashed #dedede;
   margin: 15px 10px 15px;
   display: flex;
