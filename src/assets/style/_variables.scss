@@ -48,6 +48,64 @@ textarea {
   border-radius: 5px;
 }
 
+input[type=radio] {
+  display: none;
+}
+
+.radio {
+  box-sizing: border-box;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  position: relative;
+  display: inline-block;
+  margin: 0 20px 8px 0;
+  padding: 12px 12px 12px 42px;
+  border-radius: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.radio:hover {
+  background-color: #e2edd7;
+}
+
+.radio:hover:after {
+  border-color: #53b300;
+}
+.radio:after {
+  -webkit-transition: border-color 0.2s linear;
+  transition: border-color 0.2s linear;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  display: block;
+  margin-top: -10px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #bbb;
+  border-radius: 6px;
+  content: "";
+}
+
+.radio:before {
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  display: block;
+  margin-top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #53b300;
+  content: "";
+  opacity: 0;
+}
+
+input[type=radio]:checked + .radio:before {
+  opacity: 1;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -118,7 +176,7 @@ input-container {
   padding: 5px;
 }
 
-input,
+input[type="text"],
 select {
   width: 100%;
   border: solid 1px #e1e1e1;
@@ -203,8 +261,8 @@ select {
 .c-page-subtitle {
   font-size: 15px;
   margin: 5px;
-  max-width: 40vw;
-  background:#fcfcfc;
+  background: #fcfcfc;
+  white-space: nowrap;
 }
 
 .c-page-subtitle > span {
@@ -369,7 +427,7 @@ select {
   word-break: break-all;
   padding: 5px;
   color: #222222;
-  background:#fcfcfc;
+  background: #fcfcfc;
 }
 
 .c-item-label > span {
