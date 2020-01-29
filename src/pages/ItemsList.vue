@@ -11,6 +11,7 @@
     </div>
     <next-btn
       @goToNext="openUserInformation()"
+      :message="btnMessage"
       :class="goToNext ? '' : 'disabled'"
     />
     <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
@@ -28,6 +29,7 @@ export default {
   name: "ItemsList",
   data() {
     return {
+      btnMessage: '次へ',
       initialImageData: [
         {
           thumnail: "",

@@ -34,23 +34,25 @@
         <p>県名</p>
         <require-tag />
       </div>
+      <div class="select-wrap">
+        <i class="iconfont icon-pulldown"></i>
       <select id="geoapi-prefectures" name="geoapi-prefectures">
-        <option value="都道府県を選択してください"
-          >都道府県を選択してください</option
-        >
+        <option value="都道府県を選択してください">選択してください</option>
       </select>
+      </div>
     </div>
 
     <div class="c-page-row">
       <div class="c-page-subtitle">
-        <p>県名</p>
+        <p>市区町村</p>
         <require-tag />
       </div>
-      <select id="geoapi-cities" name="geoapi-cities">
-        <option value="市区町村名を選択してください"
-          >市区町村名を選択してください</option
-        >
-      </select>
+      <div class="select-wrap">
+        <i class="iconfont icon-pulldown"></i>
+        <select id="geoapi-cities" name="geoapi-cities">
+          <option value="市区町村名を選択してください">選択してください</option>
+        </select>
+      </div>
     </div>
 
     <div class="c-page-row">
@@ -58,9 +60,12 @@
         <p>町域名</p>
         <require-tag />
       </div>
-      <select id="geoapi-towns" name="geoapi-towns">
-        <option value="町域を選択してください">町域を選択してください</option>
-      </select>
+      <div class="select-wrap">
+        <i class="iconfont icon-pulldown"></i>
+        <select id="geoapi-towns" name="geoapi-towns">
+          <option value="町域を選択してください">選択してください</option>
+        </select>
+      </div>
     </div>
 
     <div class="c-page-row">
@@ -78,23 +83,40 @@
         />階
       </div>
       <div class="c-item-elevator">
-        <input
-          type="radio"
-          id="one"
-          value="One"
-          class="radio"
-          v-model="picked"
-        />
+        <input type="radio" id="one" value="true" v-model="userData.elevator" />
         <label for="one" class="radio">あり</label>
         <input
           type="radio"
           id="two"
-          value="Two"
-          v-model="picked"
+          value="false"
+          v-model="userData.elevator"
         />
         <label for="two" class="radio">なし</label>
       </div>
+      <div class="c-page-row">
+        <div class="c-page-subtitle">
+          <p>査定への回答期限</p>
+          <option-tag />
+        </div>
+        <div class="c-item-answerday-wrap">
+          <div class="c-select-wrap">
+            <i class="iconfont icon-pulldown"></i>
+            <select v-model="userData.answer_day">
+              <option v-for="day in 13" :value="day" :key="day">{{
+                day + 1
+              }}</option>
+            </select>
+          </div>
+
+          <p>日以内に回答が欲しい</p>
+        </div>
+      </div>
     </div>
+    <next-btn
+      @goToNext="goToNext()"
+      :message="btnMessage"
+      :class="invalid ? 'disabled' : ''"
+    ></next-btn>
   </div>
 </template>
 
@@ -102,21 +124,27 @@
 import InputModel from "../components/atoms/InputModel";
 import UserCities from "../components/molecules/UserCities";
 import RequireTag from "../components/atoms/RequireTag";
+import OptionTag from "../components/atoms/OptionTag";
+import NextBtn from "../components/atoms/NextBtn";
 
 export default {
   name: "UserInformation",
   data() {
     return {
+      btnMessage: "買取価格を調べる",
       userData: {
         name: null,
-        kana: null
+        kana: null,
+        elevator: null,
+        answer_day: 2
       }
     };
   },
   components: {
     InputModel,
-
-    RequireTag
+    NextBtn,
+    RequireTag,
+    OptionTag
   }
 };
 </script>
@@ -133,5 +161,23 @@ export default {
   justify-content: start;
   align-items: center;
   flex-direction: row;
+}
+
+.c-item-answerday {
+  position: relative;
+  width: 40%;
+  margin-right: 5px;
+}
+
+.c-select-wrap {
+  position: relative;
+  width: 40%;
+  margin-right: 15px;
+}
+
+.c-item-answerday-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 </style>

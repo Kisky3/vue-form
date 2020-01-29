@@ -64,7 +64,7 @@
           value="value"
         />
       </div>
-      <next-btn @goToNext="goToNext()" :class="invalid ? 'disabled' : ''" />
+      <next-btn @goToNext="goToNext()" :message="btnMessage" :class="invalid ? 'disabled' : ''" />
     </div>
   </validation-observer>
 </template>
@@ -101,6 +101,7 @@ export default {
   data() {
     return {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
+      btnMessage: '次へ',
       initialItemData: {
         title: null,
         cat_lvl0: null,

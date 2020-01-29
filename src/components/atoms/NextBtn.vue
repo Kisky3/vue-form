@@ -1,18 +1,13 @@
 <template>
   <button class="c-next-btn" @click="submit">
     <span class="iconfont icon-next"></span>
-    次へ
+     {{message}}
   </button>
 </template>
 <script>
 export default {
   name: 'NextBtn',
-  props:{
-    fatherMethod: {
-        type: Function,
-        default: null
-      }
-  },
+  props:['message'],
   methods: {
     submit: function () {
       this.$emit('goToNext')
