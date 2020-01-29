@@ -60,7 +60,7 @@
           v-model="itemData.item_comment"
           placeholder="付属品の内容を記入ください"
           name="item-accessories"
-          :rows="4"
+          :rows="3"
           value="value"
         />
       </div>

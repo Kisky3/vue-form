@@ -4,9 +4,7 @@
       <p>商品写真登録</p>
     </div>
     <div class="c-page-row center" @click="fileClick()">
-      <div class="ribbon">
-        60秒スマホで簡単査定
-      </div>
+      <label class="c-photo-label"> スマホで簡単査定!</label>
       <button class="c-photo-btn">
         <span class="iconfont icon-camera"></span>
       </button>

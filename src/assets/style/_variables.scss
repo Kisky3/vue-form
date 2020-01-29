@@ -48,7 +48,7 @@ textarea {
   border-radius: 5px;
 }
 
-input[type=radio] {
+input[type="radio"] {
   display: none;
 }
 
@@ -102,7 +102,7 @@ input[type=radio] {
   opacity: 0;
 }
 
-input[type=radio]:checked + .radio:before {
+input[type="radio"]:checked + .radio:before {
   opacity: 1;
 }
 
@@ -188,8 +188,8 @@ select {
 
 input[type="text"]:focus,
 select:focus {
-  border: solid 1px #00B770;
-  box-shadow: 0 0 3px 0 #00B770 inset;
+  border: solid 1px #00b770;
+  box-shadow: 0 0 3px 0 #00b770 inset;
 }
 
 .select-wrap {
@@ -260,6 +260,13 @@ select:focus {
   *zoom: 1;
 }
 
+.c-photo-label {
+  color: #ff9b27;
+  white-space: nowrap;
+  font-size: 55px;
+  font-weight: bold;
+}
+
 .c-page-container {
   display: flex;
   justify-content: center;
@@ -324,7 +331,6 @@ select:focus {
 
 .c-page-row.center {
   width: 60%;
-  height: 55vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -340,16 +346,16 @@ select:focus {
 
 .c-photo-btn {
   width: 60vw;
+  height: 80vw;
+  max-width: 350px;
+  max-height: 350px;
   border: 2px dashed #dedede;
   border-bottom: 0;
-  height: 80vh;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  max-width: 400px;
-  max-height: 500px;
 }
 
 .c-photo-btn span {
@@ -358,17 +364,17 @@ select:focus {
 }
 
 .c-photo-add-btn {
+  width: 60vw;
+  height: 80vw;
+  max-width: 350px;
+  max-height: 120px;
   background: #1dc050;
   color: #fff;
   font-weight: bold;
-  font-size: 15px;
-  height: 20vh;
-  width: 60vw;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 400px;
-  min-height: 40px;
 }
 
 /* エラーメッセージ */
@@ -382,39 +388,8 @@ select:focus {
 }
 
 .error-active {
-  border: solid 1px #ff6a71!important;
-  box-shadow: 0 0 3px 0 #ff6a71 inset!important;
-}
-
-.ribbon {
-  display: inline-block;
-  position: relative;
-  padding: 10px 40px;
-  font-size: 18px;
-  background: #dedede;
-  z-index: 1;
-  white-space: nowrap;
-  margin-top: 10px;
-}
-
-.ribbon:before {
-  position: absolute;
-  content: "";
-  top: 100%;
-  left: 0;
-  border: none;
-  border-bottom: solid 10px transparent;
-  border-right: solid 15px rgb(149, 158, 155);
-}
-
-.ribbon:after {
-  position: absolute;
-  content: "";
-  top: 100%;
-  right: 0;
-  border: none;
-  border-bottom: solid 10px transparent;
-  border-left: solid 15px rgb(149, 158, 155);
+  border: solid 1px #ff6a71 !important;
+  box-shadow: 0 0 3px 0 #ff6a71 inset !important;
 }
 
 .c-item-container {
@@ -497,6 +472,36 @@ select:focus {
     display: block;
     width: 45%;
     height: 0;
+  }
+
+  .c-photo-btn {
+    width: 65vw;
+    max-height: 200px;
+    max-width: 250px;
+  }
+
+  .c-photo-btn span {
+    color: #dedede;
+    font-size: 70px;
+  }
+
+  .c-photo-label {
+    font-size: 35px;
+    margin-top: 0px;
+  }
+
+  .c-photo-add-btn {
+    background: #1dc050;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    height: 150px;
+    width: 65vw;
+    max-height: 90px;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
