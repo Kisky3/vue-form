@@ -113,7 +113,7 @@
       </div>
     </div>
     <next-btn
-      @goToNext="goToNext()"
+      @goToNext="openCompletePage()"
       :message="btnMessage"
       :class="invalid ? 'disabled' : ''"
     ></next-btn>
