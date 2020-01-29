@@ -186,6 +186,12 @@ select {
   outline: none;
 }
 
+input[type="text"]:focus,
+select:focus {
+  border: solid 1px #00B770;
+  box-shadow: 0 0 3px 0 #00B770 inset;
+}
+
 .select-wrap {
   margin: 0 0 10px 0;
   position: relative;
@@ -376,8 +382,8 @@ select {
 }
 
 .error-active {
-  border: solid 1px #ff6a71;
-  box-shadow: 0 0 3px 0 #ff6a71 inset;
+  border: solid 1px #ff6a71!important;
+  box-shadow: 0 0 3px 0 #ff6a71 inset!important;
 }
 
 .ribbon {
