@@ -7,6 +7,10 @@
   margin-top: 60px;
 }
 
+.bold {
+  font-weight: bold
+}
+
 html,
 body,
 div,
@@ -31,6 +35,7 @@ td,
 select {
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
 select {
@@ -270,6 +275,8 @@ select:focus {
   white-space: nowrap;
   font-size: 55px;
   font-weight: bold;
+  text-align: center!important;
+  margin-bottom: 20px;
 }
 
 .c-page-container {
