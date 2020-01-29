@@ -5,21 +5,23 @@
     </div>
     <div class="c-page-row center" @click="fileClick()">
       <label class="c-photo-label"> スマホで簡単査定!</label>
-      <button class="c-photo-btn">
-        <span class="iconfont icon-camera"></span>
-      </button>
-      <div class="c-photo-add-btn">
-        + 商品を追加する
+      <div class="c-photo-wrap">
+        <div class="c-photo-btn">
+          <span class="iconfont icon-camera"></span>
+        </div>
+        <div class="c-photo-add-btn">
+          + 商品を追加する
+        </div>
       </div>
+      <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
+      <input
+        id="upload_file"
+        multiple="multiple"
+        type="file"
+        accept="image/*"
+        @change="onFileChange($event)"
+      />
     </div>
-    <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
-    <input
-      id="upload_file"
-      multiple="multiple"
-      type="file"
-      accept="image/*"
-      @change="onFileChange($event)"
-    />
   </div>
 </template>
 
@@ -107,5 +109,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

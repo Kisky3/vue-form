@@ -260,6 +260,11 @@ select:focus {
   *zoom: 1;
 }
 
+.c-photo-wrap {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
+  margin-top: 20px;
+}
+
 .c-photo-label {
   color: #ff9b27;
   white-space: nowrap;
@@ -355,7 +360,6 @@ select:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 }
 
 .c-photo-btn span {
@@ -419,7 +423,7 @@ select:focus {
 }
 
 .c-item-label {
-  font-size: 14px;
+  font-size: 15px;
   margin-top: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
