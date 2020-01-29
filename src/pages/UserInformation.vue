@@ -29,11 +29,23 @@
         name="kana"
       />
     </div>
+    <select id="geoapi-prefectures" name="geoapi-prefectures">
+  <option value="都道府県を選択してください">都道府県を選択してください</option>
+</select>
+<select id="geoapi-cities" name="geoapi-cities">
+  <option value="市区町村名を選択してください">市区町村名を選択してください</option>
+</select>
+<select id="geoapi-towns" name="geoapi-towns">
+  <option value="町域を選択してください">町域を選択してください</option>
+</select>
   </div>
 </template>
 
 <script>
 import InputModel from '../components/atoms/InputModel'
+import UserCities from '../components/molecules/UserCities'
+import RequireTag from '../components/atoms/RequireTag'
+
 export default {
   name: "UserInformation",
   data() {
@@ -45,7 +57,9 @@ export default {
     }
   },
   components: {
-    InputModel
+    InputModel,
+    
+    RequireTag
   }
 }
 </script>

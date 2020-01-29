@@ -119,6 +119,7 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
+  background: #fff;
 }
 
 .c-upload-btn.active {

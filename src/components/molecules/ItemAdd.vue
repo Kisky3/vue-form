@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div class="c-item-container" @click="addItem">
+  <div class="c-item-wrap">
+    <div @click="addItem">
       <span class="iconfont icon-camera item-camera"></span>
     </div>
     <div class="c-item-add-panel">
-      商品を追加
+      + 商品を追加する
     </div>
   </div>
 </template>
@@ -23,22 +23,25 @@ export default {
   font-size: 60px;
   font-weight: bold;
   color: #dedede;
-  height: 35vw;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .c-item-add-panel {
+  position: absolute;
   background: #1dc050;
   width: 100%;
-  height: 65px;
+  height: 80px;
   font-size: 15px;
   color: #fff;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  bottom: 0;
+  border-radius: 0 0 5px 5px;
 }
 /* sp */
 @media only screen and (max-width: 767px) {

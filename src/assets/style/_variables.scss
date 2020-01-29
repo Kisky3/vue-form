@@ -202,8 +202,9 @@ select {
 
 .c-page-subtitle {
   font-size: 15px;
-  margin-bottom: 5px;
+  margin: 5px;
   max-width: 40vw;
+  background:#fcfcfc;
 }
 
 .c-page-subtitle > span {
@@ -261,6 +262,7 @@ select {
   align-items: center;
   margin-top: 20px;
   max-width: 400px;
+  max-height: 500px;
 }
 
 .c-photo-btn span {
@@ -331,9 +333,7 @@ select {
 .c-item-container {
   position: relative;
   height: 140px;
-  width: 180px;
-  min-width: 180px;
-  border: 2px solid #dedede;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -368,17 +368,27 @@ select {
   word-wrap: break-word;
   word-break: break-all;
   padding: 5px;
+  color: #222222;
+  background:#fcfcfc;
+}
+
+.c-item-label > span {
+  font-weight: bold;
 }
 
 .c-item-edit-panel {
-  width: 180px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   height: 60px;
   padding: 20px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #dedede;
+  background: #fcfcfc;
+  color: #222222;
+  font-size: 16px;
 }
 
 .error-msg {

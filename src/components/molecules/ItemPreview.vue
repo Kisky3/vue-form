@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <div class="c-page-subtitle">
-      <span>商品{{ index + 1 }}:</span>
+  <div class="c-item-wrap">
+    <div class="c-item-label">
+      {{ item.title }}
     </div>
     <div class="c-item-container">
       <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
       <span class="iconfont icon-check item-check"></span>
     </div>
-    {{ item.title }}
     <div class="c-item-edit-panel">
       <span @click="editItem()">編集</span>
       <span @click="deleteItem()">削除</span>
@@ -62,5 +61,16 @@ export default {
   color: #1dc050;
   background: #fff;
   border-radius: 20px;
+  z-index: 3;
+}
+
+.c-item-wrap {
+  position: relative;
+  border: solid 1px #e1e1e1;
+  background: #fff;
+  height: 240px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
+  width: 180px;
 }
 </style>
