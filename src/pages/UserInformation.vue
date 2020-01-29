@@ -145,6 +145,15 @@ export default {
     NextBtn,
     RequireTag,
     OptionTag
+  },
+  methods: {
+    openCompletePage: function () {
+      this.$router.push(
+        "complete",
+        () => {},
+        () => {}
+      );
+    }
   }
 };
 </script>
