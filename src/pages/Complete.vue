@@ -1,6 +1,6 @@
 <template>
   <div class="c-page-container">
-    <div>
+    <div class="c-page-wrap">
       <div class="c-photo-label"> 申込完了</div>
       <p class="bold">ご依頼番号は{{ v2_id }}です。</p>
       <p>
@@ -25,6 +25,10 @@
         させていただく場合がございます。
       </p>
       <next-btn @goToNext="goToTopPage()" :message="btnMessage" />
+      <div class="c-page-banner-wrap">
+        <img src="../assets/img/banner1.svg" alt="">
+        <img src="../assets/img/banner2.svg" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +61,7 @@ export default {
 
 <style scoped>
 .c-item-contact-wrap {
-  padding: 60px;
+  padding: 30px;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -77,5 +81,23 @@ export default {
   font-size: 25px;
   color: #FFA031;
   margin-right: 20px;
+}
+
+.c-page-wrap p {
+  line-height: 2;
+}
+
+.c-page-banner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.c-page-banner-wrap img {
+  width: 45%;
+  margin-right: 3%;
 }
 </style>

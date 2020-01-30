@@ -64,7 +64,11 @@
           value="value"
         />
       </div>
-      <next-btn @goToNext="goToNext()" :message="btnMessage" :class="invalid ? 'disabled' : ''" />
+      <next-btn
+        @goToNext="goToNext()"
+        :message="btnMessage"
+        :class="invalid ? 'disabled' : ''"
+      />
     </div>
   </validation-observer>
 </template>
@@ -101,7 +105,7 @@ export default {
   data() {
     return {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
-      btnMessage: '次へ',
+      btnMessage: "次へ",
       initialItemData: {
         title: null,
         cat_lvl0: null,
@@ -120,10 +124,9 @@ export default {
       return this.imageList[this.itemIndex];
     },
     itemData() {
-      if (this.itemList.length === 0) {
-        return this.initialItemData;
-      }
-      return this.itemList[this.itemIndex];
+      return this.itemList.length === 0
+        ? this.initialItemData
+        : this.itemList[this.itemIndex];
     }
   },
   methods: {
