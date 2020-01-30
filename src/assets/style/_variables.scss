@@ -266,7 +266,6 @@ select:focus {
 }
 
 .c-photo-wrap {
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
   margin-top: 20px;
 }
 
@@ -486,7 +485,7 @@ select:focus {
   }
 
   .c-photo-btn {
-    width: 65vw;
+    width: 60vw;
     max-height: 200px;
     max-width: 250px;
   }
@@ -507,7 +506,7 @@ select:focus {
     font-weight: bold;
     font-size: 15px;
     height: 150px;
-    width: 65vw;
+    width: 60vw;
     max-height: 90px;
     max-width: 250px;
     display: flex;
