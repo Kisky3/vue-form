@@ -32,9 +32,4 @@ textarea {
 textarea::placeholder {
   color: #7E7E7F;
 }
-
-.input-container {
-  width: 100%;
-  padding: 5px;
-}
 </style>

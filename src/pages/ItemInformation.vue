@@ -172,16 +172,4 @@ export default {
 };
 </script>
 <style>
-.c-photo-row {
-  display: flex;
-  justify-content: start;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.c-page-row.up {
-  margin-top: -10px;
-}
 </style>

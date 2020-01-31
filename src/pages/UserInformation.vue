@@ -34,11 +34,13 @@
         <p>県名</p>
         <require-tag />
       </div>
-      <div class="select-wrap">
-        <i class="iconfont icon-pulldown"></i>
-      <select id="geoapi-prefectures" name="geoapi-prefectures">
-        <option value="都道府県を選択してください">選択してください</option>
-      </select>
+      <div class="input-container">
+        <div class="select-wrap">
+          <i class="iconfont icon-pulldown"></i>
+          <select id="geoapi-prefectures" name="geoapi-prefectures">
+            <option value="都道府県を選択してください">選択してください</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -47,11 +49,15 @@
         <p>市区町村</p>
         <require-tag />
       </div>
-      <div class="select-wrap">
-        <i class="iconfont icon-pulldown"></i>
-        <select id="geoapi-cities" name="geoapi-cities">
-          <option value="市区町村名を選択してください">選択してください</option>
-        </select>
+      <div class="input-container">
+        <div class="select-wrap">
+          <i class="iconfont icon-pulldown"></i>
+          <select id="geoapi-cities" name="geoapi-cities">
+            <option value="市区町村名を選択してください"
+              >選択してください</option
+            >
+          </select>
+        </div>
       </div>
     </div>
 
@@ -60,11 +66,13 @@
         <p>町域名</p>
         <require-tag />
       </div>
-      <div class="select-wrap">
-        <i class="iconfont icon-pulldown"></i>
-        <select id="geoapi-towns" name="geoapi-towns">
-          <option value="町域を選択してください">選択してください</option>
-        </select>
+      <div class="input-container">
+        <div class="select-wrap">
+          <i class="iconfont icon-pulldown"></i>
+          <select id="geoapi-towns" name="geoapi-towns">
+            <option value="町域を選択してください">選択してください</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -98,17 +106,18 @@
           <p>査定への回答期限</p>
           <option-tag />
         </div>
-        <div class="c-item-answerday-wrap">
-          <div class="c-select-wrap">
-            <i class="iconfont icon-pulldown"></i>
-            <select v-model="userData.answer_day">
-              <option v-for="day in 13" :value="day" :key="day">{{
-                day + 1
-              }}</option>
-            </select>
+        <div class="input-container">
+          <div class="c-item-answerday-wrap">
+            <div class="c-select-wrap">
+              <i class="iconfont icon-pulldown"></i>
+              <select v-model="userData.answer_day">
+                <option v-for="day in 13" :value="day" :key="day">{{
+                  day + 1
+                }}</option>
+              </select>
+            </div>
+            <p>日以内に回答が欲しい</p>
           </div>
-
-          <p>日以内に回答が欲しい</p>
         </div>
       </div>
     </div>
@@ -147,7 +156,7 @@ export default {
     OptionTag
   },
   methods: {
-    openCompletePage: function () {
+    openCompletePage: function() {
       this.$router.push(
         "complete",
         () => {},
@@ -170,6 +179,10 @@ export default {
   justify-content: start;
   align-items: center;
   flex-direction: row;
+}
+
+.c-item-elevator {
+  margin-left: 15px;
 }
 
 .c-item-answerday {

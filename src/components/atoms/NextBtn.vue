@@ -16,31 +16,4 @@ export default {
 }
 </script>
 <style>
-  .c-next-btn {
-    position: relative;
-    width: 100%;
-    background: #1DC050;
-    color: #fff;
-    font-weight: bold;
-    font-size: 15px;
-    height: 50px;
-    border: none;
-    margin: 30px 0;
-    border-radius: 5px;
-  }
-
-  .c-next-btn.disabled {
-    background: #999;
-  }
-
-  .icon-next {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    z-index: 2;
-    color: #fff;
-    font-size: 15px;
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-  }
 </style>

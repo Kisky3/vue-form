@@ -53,25 +53,4 @@ export default {
 };
 </script>
 <style>
-.item-check {
-  position: absolute;
-  bottom: 5px;
-  right: 0px;
-  font-size: 35px;
-  color: #1dc050;
-  background: #fff;
-  border-radius: 20px;
-  z-index: 3;
-}
-
-.c-item-wrap {
-  position: relative;
-  border: solid 1px #e1e1e1;
-  background: #fff;
-  height: 240px;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
-  width: 180px;
-  margin-bottom: 20px;
-}
 </style>
