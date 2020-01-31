@@ -38,54 +38,8 @@
             label="お名前（カナ）"
           />
         </div>
-        <div class="c-page-row">
-          <div class="c-page-subtitle">
-            <p>県名</p>
-            <require-tag />
-          </div>
-          <div class="input-container">
-            <div class="select-wrap">
-              <i class="iconfont icon-pulldown"></i>
-              <select id="geoapi-prefectures" name="geoapi-prefectures">
-                <option value="都道府県を選択してください"
-                  >選択してください</option
-                >
-              </select>
-            </div>
-          </div>
-        </div>
 
-        <div class="c-page-row">
-          <div class="c-page-subtitle">
-            <p>市区町村</p>
-            <require-tag />
-          </div>
-          <div class="input-container">
-            <div class="select-wrap">
-              <i class="iconfont icon-pulldown"></i>
-              <select id="geoapi-cities" name="geoapi-cities">
-                <option value="市区町村名を選択してください"
-                  >選択してください</option
-                >
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="c-page-row">
-          <div class="c-page-subtitle">
-            <p>町域名</p>
-            <require-tag />
-          </div>
-          <div class="input-container">
-            <div class="select-wrap">
-              <i class="iconfont icon-pulldown"></i>
-              <select id="geoapi-towns" name="geoapi-towns">
-                <option value="町域を選択してください">選択してください</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <user-cities />
 
         <div class="c-page-row">
           <div class="c-page-subtitle">
@@ -148,10 +102,10 @@ import UserCities from "../components/molecules/UserCities";
 import RequireTag from "../components/atoms/RequireTag";
 import OptionTag from "../components/atoms/OptionTag";
 import NextBtn from "../components/atoms/NextBtn";
-import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
+import { extend, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import ProcessBar from "../components/molecules/Processbar";
-import userElevatorLabel from "../settings/setting"
+import userElevatorLabel from "./../settings/setting";
 
 /* 必須項目のエラーメッセージ設定 */
 required.message = "{_field_}は必須項目です";
@@ -176,6 +130,7 @@ export default {
     ProcessBar,
     InputText,
     InputRadio,
+    UserCities,
     NextBtn,
     RequireTag,
     OptionTag,
@@ -201,7 +156,8 @@ export default {
         () => {},
         () => {}
       );
-    }
+    },
+
   }
 };
 </script>
