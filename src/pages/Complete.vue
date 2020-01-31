@@ -24,7 +24,7 @@
         ※査定金額のお知らせの前に、ご依頼内容について連絡を
         させていただく場合がございます。
       </p>
-      <next-btn @goToNext="goToTopPage()" :message="btnMessage" />
+      <next-btn class="full-size" @goToNext="goToTopPage()" :message="btnMessage" />
       <div class="c-page-banner-wrap">
         <img src="../assets/img/banner1.svg" alt="">
         <img src="../assets/img/banner2.svg" alt="">
@@ -83,6 +83,10 @@ export default {
   margin-right: 20px;
 }
 
+.c-page-wrap {
+  padding: 20px;
+}
+
 .c-page-wrap p {
   line-height: 2;
 }
@@ -99,5 +103,9 @@ export default {
 .c-page-banner-wrap img {
   width: 45%;
   margin-right: 3%;
+}
+
+.c-next-btn.full-size {
+  width: 100%;
 }
 </style>
