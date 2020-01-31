@@ -8,8 +8,19 @@
       <div class="input-container">
         <div class="select-wrap">
           <i class="iconfont icon-pulldown"></i>
-          <select id="geoapi-prefectures" name="geoapi-prefectures">
-            <option value="都道府県を選択してください">選択してください</option>
+          <select
+            v-model="user.prefectures"
+            @change="(cities = null), (towns = null), submitCatLvl0(cat_lvl0)"
+          >
+            <option disabled="disabled" :value="null">
+              都道府県を選択してください</option
+            >
+            <option
+              v-for="(item, index) in prefecturesList"
+              :value="index"
+              :key="index"
+              >{{ user.prefectures }}</option
+            >
           </select>
         </div>
       </div>
@@ -45,6 +56,10 @@
           </select>
         </div>
       </div>
+
+      <button style="width:100px;background:red" @click="logout()">
+        ログアウト
+      </button>
     </div>
   </div>
 </template>
@@ -76,6 +91,7 @@
 <script>
 // import { ValidationProvider, extend } from "vee-validate";
 import RequireTag from "./../atoms/RequireTag";
+import api from "@/api/info";
 
 var geoapi_url = "http://geoapi.heartrails.com/api/json?jsonp=?";
 var geoapi_area_selected;
@@ -92,12 +108,51 @@ export default {
     RequireTag
   },
   data() {
-    return {};
+    return {
+      user: {
+        prefectures: null,
+        cities: null,
+        town: null
+      }
+    };
   },
-  mounted: function() {
-    this.geoApiInitialize();
+  computed: {
+    prefecturesList: function() {
+      return this.list;
+    }
   },
   methods: {
+    logout() {
+      const qs = require("qs");
+      return new Promise((resolve, reject) => {
+        api
+          .v2Get()
+          .then(data => {
+            resolve(data, data);
+            console.log(data)
+          })
+          .catch(error => reject(error));
+      });
+    },
+    list: function() {
+      getPrefectures()
+        .then(data => {
+          resolve(data, data);
+          alert("hey");
+          return false;
+        })
+        .catch(error => reject(error));
+      /*$.getJSON(
+        geoapi_url,
+        { method: "getPrefectures" },
+        this.getPrefecturesList
+      );*/
+    },
+    getPrefecturesList: function(json) {
+      var prefecturesList = json.response.prefecture;
+      return prefecturesList;
+    },
+    /* ffffffffffffffffffffffffffffffffffffffffffffffffffffff  */
     geoApiInitialize: function() {
       if ($("#geoapi-prefectures").length > 0) {
         this.geoApiInitializePrefectures();
@@ -111,26 +166,19 @@ export default {
       $("#geoapi-towns").change(this.geoApiChangeTown);
       $("#geoapi-postal-4").keyup(this.geoApiSearchByPostal);
     },
-    geoApiInitializePrefectures: function() {
-      $("#geoapi-prefectures").html(
-        '<option value="県名を選択してください">県名を選択してください</option>'
-      );
-      $.getJSON(
-        geoapi_url,
-        { method: "getPrefectures" },
-        this.geoApiSetPrefectures
-      );
-    },
+
     geoApiInitializeCities: function() {
       $("#geoapi-cities").html(
         '<option value="市区町村を選択してください">市区町村を選択してください&nbsp;&nbsp;</option>'
       );
     },
+
     geoApiInitializeTowns: function() {
       $("#geoapi-towns").html(
         '<option value="町域名を選択してください">町域名を選択してください&nbsp;&nbsp;</option>'
       );
     },
+
     geoApiChangeArea: function() {
       geoapi_area_selected = $("#geoapi-areas option:selected");
       this.geoApiInitializeCities();
@@ -144,6 +192,7 @@ export default {
         this.setCities
       );
     },
+
     geoApiChangePrefecture: function() {
       geoapi_prefecture_selected = $("#geoapi-prefectures option:selected");
       this.geoApiInitializeCities();
@@ -157,6 +206,7 @@ export default {
         this.setCities
       );
     },
+
     geoApiSetAreas: function(json) {
       var areas = json.response.area;
       for (var index = 0; index < areas.length; index++) {
@@ -164,15 +214,6 @@ export default {
         option.text(areas[index]);
         option.val(areas[index]);
         $("#geoapi-areas").append(option);
-      }
-    },
-    geoApiSetPrefectures: function(json) {
-      var prefectures = json.response.prefecture;
-      for (var index = 0; index < prefectures.length; index++) {
-        var option = $(document.createElement("option"));
-        option.text(prefectures[index]);
-        option.val(prefectures[index]);
-        $("#geoapi-prefectures").append(option);
       }
     },
 
@@ -185,6 +226,7 @@ export default {
         $("#geoapi-cities").append(option);
       }
     },
+
     geoApiChangeCity: function() {
       geoapi_city_selected = $("#geoapi-cities option:selected");
       this.geoApiInitializeTowns();
@@ -197,6 +239,7 @@ export default {
         this.geoApiSetTowns
       );
     },
+
     geoApiSetTowns: function(json) {
       geoapi_towns = json.response["location"];
       var cities = json.response["location"];
