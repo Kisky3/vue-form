@@ -31,7 +31,7 @@
             <p>商品名</p>
             <require-tag />
           </div>
-          <input-model
+          <input-text
             v-model="itemData.title"
             type="text"
             placeholder="例）SHARP 40インチTV"
@@ -84,14 +84,14 @@ import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
 import OptionTag from "./../components/atoms/OptionTag";
 import TextareaModel from "./../components/atoms/TextareaModel";
-import InputModel from "./../components/atoms/InputModel";
+import InputText from "./../components/atoms/InputText";
 import ItemCategories from "./../components/molecules/ItemCategories";
 import NextBtn from "./../components/atoms/NextBtn";
 import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
 /* 必須項目のエラーメッセージ設定 */
-required.message = "{_field_}を選択してください";
+required.message = "{_field_}は必須項目です";
 extend("required", required);
 
 export default {
@@ -100,7 +100,7 @@ export default {
   components: {
     ProcessBar,
     ImageUpload,
-    InputModel,
+    InputText,
     TextareaModel,
     ItemCategories,
     RequireTag,

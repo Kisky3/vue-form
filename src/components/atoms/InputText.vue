@@ -25,7 +25,7 @@
 <script>
 import { ValidationProvider } from "vee-validate";
 export default {
-  name: "InputModel",
+  name: "InputText",
   components: {
     ValidationProvider
   },

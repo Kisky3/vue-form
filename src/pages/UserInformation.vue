@@ -2,7 +2,7 @@
   <div>
     <process-bar :step="step" />
     <validation-observer
-      ref="observer"
+      ref="userInformation"
       v-slot="{ invalid }"
       @submit.prevent="goToNext()"
     >
@@ -15,7 +15,7 @@
             <p>お名前（漢字）</p>
             <require-tag />
           </div>
-          <input-model
+          <input-text
             v-model="userData.name"
             type="text"
             placeholder="例）買取  太郎"
@@ -29,7 +29,7 @@
             <p>お名前（カナ）</p>
             <require-tag />
           </div>
-          <input-model
+          <input-text
             v-model="userData.kana"
             type="text"
             placeholder="例）カイトリ  タロウ"
@@ -93,30 +93,22 @@
             <require-tag />
           </div>
           <div class="c-item-stair">
-            <input-model
+            <input-text
               v-model="userData.name"
               type="text"
               value="value"
               name="name"
               class="input-tiny"
-              label="お名前（漢字）"
+              label="階数 "
             />階
           </div>
           <div class="c-item-elevator">
-            <input
-              type="radio"
-              id="one"
-              value="true"
+            <input-radio
+              value="value"
               v-model="userData.elevator"
+              name="elevator"
+              :options="options"
             />
-            <label for="one" class="radio">あり</label>
-            <input
-              type="radio"
-              id="two"
-              value="false"
-              v-model="userData.elevator"
-            />
-            <label for="two" class="radio">なし</label>
           </div>
           <div class="c-page-row">
             <div class="c-page-subtitle">
@@ -139,7 +131,7 @@
           </div>
         </div>
         <next-btn
-          @goToNext="openCompletePage()"
+          @goToNext="goToNext()"
           :message="btnMessage"
           :class="invalid ? 'disabled' : ''"
         ></next-btn>
@@ -149,7 +141,8 @@
 </template>
 
 <script>
-import InputModel from "../components/atoms/InputModel";
+import InputText from "../components/atoms/InputText";
+import InputRadio from "../components/atoms/InputRadio";
 import UserCities from "../components/molecules/UserCities";
 import RequireTag from "../components/atoms/RequireTag";
 import OptionTag from "../components/atoms/OptionTag";
@@ -157,9 +150,10 @@ import NextBtn from "../components/atoms/NextBtn";
 import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import ProcessBar from "../components/molecules/Processbar";
+import userElevatorLabel from "../settings/setting"
 
 /* 必須項目のエラーメッセージ設定 */
-required.message = "{_field_}を選択してください";
+required.message = "{_field_}は必須項目です";
 extend("required", required);
 
 export default {
@@ -168,6 +162,7 @@ export default {
     return {
       btnMessage: "買取価格を調べる",
       step: 2,
+      options: userElevatorLabel,
       userData: {
         name: null,
         kana: null,
@@ -178,7 +173,8 @@ export default {
   },
   components: {
     ProcessBar,
-    InputModel,
+    InputText,
+    InputRadio,
     NextBtn,
     RequireTag,
     OptionTag,
@@ -186,10 +182,11 @@ export default {
   },
   methods: {
     async goToNext() {
-      const isValid = await this.$refs.observer.validate();
+      console.log(this.$refs.userInformation);
+      const isValid = await this.$refs.userInformation.validate();
       if (isValid) {
         await this.saveUserData();
-        await this.openCompletePage();
+        // await this.openCompletePage();
       }
     },
     saveUserData() {
