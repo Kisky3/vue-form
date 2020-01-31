@@ -1,26 +1,30 @@
 <template>
-  <div class="c-page-container">
-    <div class="c-page-title">
-      <p>登録商品一覧</p>
-    </div>
-    <div class="c-page-row row">
-      <add-item @addItem="addItem()" />
-      <div v-for="(item, index) in itemList" :key="index">
-        <item-preview :item="item" :index="index" />
+  <div>
+    <process-bar :step="step" />
+    <div class="c-page-container">
+      <div class="c-page-title">
+        <p>登録商品一覧</p>
       </div>
+      <div class="c-page-row row">
+        <add-item @addItem="addItem()" />
+        <div v-for="(item, index) in itemList" :key="index">
+          <item-preview :item="item" :index="index" />
+        </div>
+      </div>
+      <next-btn
+        @goToNext="openUserInformation()"
+        :message="btnMessage"
+        :class="goToNext ? '' : 'disabled'"
+      />
+      <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
     </div>
-    <next-btn
-      @goToNext="openUserInformation()"
-      :message="btnMessage"
-      :class="goToNext ? '' : 'disabled'"
-    />
-    <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import ProcessBar from "../components/molecules/Processbar";
 import ItemPreview from "../components/molecules/ItemPreview";
 import NextBtn from "../components/atoms/NextBtn";
 import AddItem from "../components/molecules/ItemAdd";
@@ -29,7 +33,8 @@ export default {
   name: "ItemsList",
   data() {
     return {
-      btnMessage: '次へ',
+      btnMessage: "次へ",
+      step: 1,
       initialImageData: [
         {
           thumnail: "",
@@ -54,11 +59,12 @@ export default {
         cat_lvl2: null,
         item_comment: null
       },
-      errorMsg: '',
+      errorMsg: "",
       showErrorMsg: false
     };
   },
   components: {
+    ProcessBar,
     ItemPreview,
     AddItem,
     NextBtn

@@ -1,26 +1,29 @@
 <template>
-  <div class="c-page-container">
-    <div class="c-page-title">
-      <p>商品写真登録</p>
-    </div>
-    <div class="c-page-row center" @click="fileClick()">
-      <label class="c-photo-label"> スマホで簡単査定!</label>
-      <div class="c-photo-wrap">
-        <div class="c-photo-btn">
-          <span class="iconfont icon-camera"></span>
-        </div>
-        <div class="c-photo-add-btn">
-          + 商品を追加する
-        </div>
+  <div>
+    <process-bar :step="step" />
+    <div class="c-page-container">
+      <div class="c-page-title">
+        <p>商品写真登録</p>
       </div>
-      <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
-      <input
-        id="upload_file"
-        multiple="multiple"
-        type="file"
-        accept="image/*"
-        @change="onFileChange($event)"
-      />
+      <div class="c-page-row center" @click="fileClick()">
+        <label class="c-photo-label"> スマホで簡単査定!</label>
+        <div class="c-photo-wrap">
+          <div class="c-photo-btn">
+            <span class="iconfont icon-camera"></span>
+          </div>
+          <div class="c-photo-add-btn">
+            + 商品を追加する
+          </div>
+        </div>
+        <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
+        <input
+          id="upload_file"
+          multiple="multiple"
+          type="file"
+          accept="image/*"
+          @change="onFileChange($event)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -28,13 +31,18 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import ProcessBar from "../components/molecules/Processbar";
 export default {
   name: "Photo",
   data() {
     return {
       errorMsg: "",
-      showErrorMsg: false
+      showErrorMsg: false,
+      step: 0,
     };
+  },
+  components: {
+    ProcessBar
   },
   computed: {
     ...mapGetters({

@@ -15,21 +15,6 @@ const state = {
       thumnail: "",
       uploadFile: {},
       name: ""
-    },
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
-    },
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
-    },
-    {
-      thumnail: "",
-      uploadFile: {},
-      name: ""
     }
   ],
   itemList: [],

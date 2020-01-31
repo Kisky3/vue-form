@@ -1,80 +1,85 @@
 <template>
-  <validation-observer
-    ref="observer"
-    v-slot="{ invalid }"
-    @submit.prevent="goToNext()"
-  >
-    <div class="c-page-container">
-      <div class="c-page-title">
-        <p>商品 {{ itemIndex + 1 }} 情報</p>
-      </div>
-      <div class="c-page-row">
-        <div class="c-page-subtitle">
-          <p>写真</p>
-          <require-tag />
+  <div>
+    <process-bar :step="step" />
+    <validation-observer
+      ref="observer"
+      v-slot="{ invalid }"
+      @submit.prevent="goToNext()"
+    >
+      <div class="c-page-container">
+        <div class="c-page-title">
+          <p>商品 {{ itemIndex + 1 }} 情報</p>
         </div>
-        <div class="c-photo-row">
-          <div v-for="(image, index) in itemImage" :key="index">
-            <image-upload
-              :image="image"
-              :index="index"
-              :itemIndex="itemIndex"
-            />
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>写真</p>
+            <require-tag />
+          </div>
+          <div class="c-photo-row">
+            <div v-for="(image, index) in itemImage" :key="index">
+              <image-upload
+                :image="image"
+                :index="index"
+                :itemIndex="itemIndex"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="c-page-row">
-        <div class="c-page-subtitle">
-          <p>商品名</p>
-          <require-tag />
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>商品名</p>
+            <require-tag />
+          </div>
+          <input-model
+            v-model="itemData.title"
+            type="text"
+            placeholder="例）SHARP 40インチTV"
+            value="value"
+            name="item-name"
+            label="商品名"
+          />
         </div>
-        <input-model
-          v-model="itemData.title"
-          type="text"
-          placeholder="例）SHARP 40インチTV"
-          value="value"
-          name="item-name"
+
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>カテゴリー</p>
+            <require-tag />
+          </div>
+          <item-categories
+            :itemData="itemData"
+            @submitCatLvl0="changeCatLvl0"
+            @submitCatLvl1="changeCatLvl1"
+            @submitCatLvl2="changeCatLvl2"
+          />
+        </div>
+
+        <div class="c-page-row up">
+          <div class="c-page-subtitle">
+            <p>付属品</p>
+            <option-tag />
+          </div>
+          <textarea-model
+            v-model="itemData.item_comment"
+            placeholder="付属品の内容を記入ください"
+            name="item-accessories"
+            :rows="3"
+            value="value"
+          />
+        </div>
+        <next-btn
+          @goToNext="goToNext()"
+          :message="btnMessage"
+          :class="invalid ? 'disabled' : ''"
         />
       </div>
-
-      <div class="c-page-row">
-        <div class="c-page-subtitle">
-          <p>カテゴリー</p>
-          <require-tag />
-        </div>
-        <item-categories
-          :itemData="itemData"
-          @submitCatLvl0="changeCatLvl0"
-          @submitCatLvl1="changeCatLvl1"
-          @submitCatLvl2="changeCatLvl2"
-        />
-      </div>
-
-      <div class="c-page-row up">
-        <div class="c-page-subtitle">
-          <p>付属品</p>
-          <option-tag />
-        </div>
-        <textarea-model
-          v-model="itemData.item_comment"
-          placeholder="付属品の内容を記入ください"
-          name="item-accessories"
-          :rows="3"
-          value="value"
-        />
-      </div>
-      <next-btn
-        @goToNext="goToNext()"
-        :message="btnMessage"
-        :class="invalid ? 'disabled' : ''"
-      />
-    </div>
-  </validation-observer>
+    </validation-observer>
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import ProcessBar from "../components/molecules/Processbar";
 import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
 import OptionTag from "./../components/atoms/OptionTag";
@@ -93,6 +98,7 @@ export default {
   name: "ItemInformation",
   props: ["item_id"],
   components: {
+    ProcessBar,
     ImageUpload,
     InputModel,
     TextareaModel,
@@ -106,6 +112,7 @@ export default {
     return {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
       btnMessage: "次へ",
+      step: 1,
       initialItemData: {
         title: null,
         cat_lvl0: null,
@@ -171,5 +178,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>
