@@ -107,6 +107,7 @@
               value="value"
               v-model="userData.elevator"
               name="elevator"
+              label="階数 "
               :options="options"
             />
           </div>
