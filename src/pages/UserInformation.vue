@@ -81,8 +81,8 @@
                 <div class="c-select-wrap">
                   <i class="iconfont icon-pulldown"></i>
                   <select v-model="userData.answer_day">
-                    <option v-for="day in 13" :value="day" :key="day">{{
-                      day + 1
+                    <option v-for="day in (2, 14)" :value="day" :key="day">{{
+                      day
                     }}</option>
                   </select>
                 </div>
@@ -133,7 +133,7 @@ export default {
         town: null,
         stair: null,
         elevator: null,
-        answer_day: 2
+        answer_day: 3
       }
     };
   },
@@ -168,13 +168,13 @@ export default {
         () => {}
       );
     },
-    submitPrefecture: function() {
+    submitPrefecture: function(prefecture) {
       this.userData.prefecture = prefecture;
     },
-    submitCity: function() {
+    submitCity: function(city) {
       this.userData.city = city;
     },
-    submitTown: function() {
+    submitTown: function(town) {
       this.userData.town = town;
     }
   }

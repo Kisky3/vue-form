@@ -55,7 +55,7 @@
                 <div slot-scope="ProviderProps">
                   <select
                     v-model="city"
-                    @change="submitCities()"
+                    @change="submitCity()"
                     :class="ProviderProps.errors[0] ? 'error-active' : ''"
                   >
                     <option disabled="disabled" :value="null">
