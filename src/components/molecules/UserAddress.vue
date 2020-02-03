@@ -11,8 +11,11 @@
           <validation-provider rules="required" name="都道府県">
             <div slot-scope="ProviderProps">
               <select
-                v-model="user.prefectures"
-                @change="changeCityList(user.prefectures)"
+                v-model="prefecture"
+                @change="
+                  changeCityList(prefecture),
+                    submitPrefecture()
+                "
                 :class="ProviderProps.errors[0] ? 'error-active' : ''"
               >
                 <option disabled="disabled" :value="null">
@@ -39,7 +42,7 @@
     </div>
 
     <transition name="expand">
-      <div class="input-container" v-show="user.prefectures !== null">
+      <div class="input-container" v-show="prefecture !== null">
         <div class="c-page-row">
           <div class="c-page-subtitle">
             <p>市区町村</p>
@@ -51,8 +54,8 @@
               <validation-provider rules="required" name="市区町村">
                 <div slot-scope="ProviderProps">
                   <select
-                    v-model="user.cities"
-                    @change="townsList = null"
+                    v-model="city"
+                    @change="submitCities()"
                     :class="ProviderProps.errors[0] ? 'error-active' : ''"
                   >
                     <option disabled="disabled" :value="null">
@@ -136,12 +139,10 @@ export default {
   },
   data() {
     return {
-      user: {
-        prefectures: null,
-        cities: null,
-        town: null
-      },
-      cityList: []
+    prefecture: null,
+    city: null,
+    town: null,
+    cityList: []
     };
   },
   computed: {
@@ -160,6 +161,26 @@ export default {
           })
           .catch(error => reject(error));
       });
+    },
+    changeTownList: function(cityCode) {
+      return new Promise((resolve, reject) => {
+        api
+          .getTownList(cityCode)
+          .then(data => {
+            resolve(data, data);
+            this.cityList = data.data;
+          })
+          .catch(error => reject(error));
+      });
+    },
+    submitPrefecture() {
+      this.$emit("submitPrefecture", this.prefecture );
+    },
+    submitCity() {
+      this.$emit("submitCity", this.city);
+    },
+    submitTown() {
+      this.$emit("submitTown", this.town );
     }
   }
 };

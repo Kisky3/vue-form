@@ -40,7 +40,11 @@
         </div>
 
         <div class="c-page-row">
-           <user-address />
+          <user-address
+            @submitPrefecture="submitPrefecture"
+            @submitCity="submitCity"
+            @submitTown="submitTown"
+          />
         </div>
 
         <div class="c-page-row up">
@@ -83,6 +87,7 @@
                   </select>
                 </div>
                 <p>日以内に回答が欲しい</p>
+                {{userData}}
               </div>
             </div>
           </div>
@@ -123,6 +128,9 @@ export default {
       userData: {
         name: null,
         kana: null,
+        prefecture: null,
+        city: null,
+        town: null,
         stair: null,
         elevator: null,
         answer_day: 2
@@ -145,7 +153,7 @@ export default {
       const isValid = await this.$refs.userInformation.validate();
       if (isValid) {
         await this.saveUserData();
-        // await this.openCompletePage();
+        await this.openCompletePage();
       }
     },
     saveUserData() {
@@ -159,6 +167,15 @@ export default {
         () => {},
         () => {}
       );
+    },
+    submitPrefecture: function() {
+      this.userData.prefecture = prefecture;
+    },
+    submitCity: function() {
+      this.userData.city = city;
+    },
+    submitTown: function() {
+      this.userData.town = town;
     }
   }
 };
