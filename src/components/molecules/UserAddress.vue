@@ -1,5 +1,5 @@
 <template>
-  <div class="input-container">
+<div>
     <div class="c-page-row">
       <div class="c-page-subtitle">
         <p>県名</p>
@@ -28,24 +28,21 @@
 
     <div class="c-page-row">
       <div class="c-page-subtitle">
-        <p>市区町村</p>{{cityList}}
+        <p>市区町村</p>
         <require-tag />
       </div>
       <div class="input-container">
         <div class="select-wrap">
           <i class="iconfont icon-pulldown"></i>
-          <select
-            v-model="user.cities"
-            @change="(townsList = null), submitCities(user.cities)"
-          >
+          <select v-model="user.cities" @change="townsList = null">
             <option disabled="disabled" :value="null">
               市区町村を選択してください</option
             >
             <option
               v-for="(city, index) in cityList"
-              :value="city.prefCode"
+              :value="city.id"
               :key="index"
-              >{{ city.prefName }}</option
+              >{{ city.name }}</option
             >
           </select>
         </div>
@@ -124,13 +121,12 @@ export default {
   },
   methods: {
     changeCityList: function(prefCode) {
-      const qs = require("qs");
       return new Promise((resolve, reject) => {
         api
           .getCityList(prefCode)
           .then(data => {
             resolve(data, data);
-            this.cityList = data;
+            this.cityList = data.data;
           })
           .catch(error => reject(error));
       });

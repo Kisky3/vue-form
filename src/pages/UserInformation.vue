@@ -39,7 +39,9 @@
           />
         </div>
 
-        <user-address />
+        <div class="c-page-row">
+           <user-address />
+        </div>
 
         <div class="c-page-row">
           <div class="c-page-subtitle">
@@ -156,8 +158,7 @@ export default {
         () => {},
         () => {}
       );
-    },
-
+    }
   }
 };
 </script>
