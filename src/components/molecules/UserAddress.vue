@@ -1,50 +1,64 @@
 <template>
-<div>
+  <div>
     <div class="c-page-row">
       <div class="c-page-subtitle">
-        <p>県名</p>
+        <p>都道府県</p>
         <require-tag />
       </div>
       <div class="input-container">
         <div class="select-wrap">
           <i class="iconfont icon-pulldown"></i>
-          <select
-            v-model="user.prefectures"
-            @change="changeCityList(user.prefectures)"
-          >
-            <option disabled="disabled" :value="null">
-              都道府県を選択してください</option
-            >
-            <option
-              v-for="(pref, index) in prefectureList"
-              :value="pref.prefCode"
-              :key="index"
-              >{{ pref.prefName }}</option
-            >
-          </select>
+          <validation-provider rules="required" name="都道府県">
+            <div slot-scope="ProviderProps">
+              <select
+                v-model="user.prefectures"
+                @change="changeCityList(user.prefectures)"
+                :class="ProviderProps.errors[0] ? 'error-active' : ''"
+              >
+                <option disabled="disabled" :value="null">
+                  都道府県を選択してください</option
+                >
+                <option
+                  v-for="(pref, index) in prefectureList"
+                  :value="pref.prefCode"
+                  :key="index"
+                  >{{ pref.prefName }}</option
+                >
+              </select>
+              <div class="error-message">
+                <span
+                  v-show="ProviderProps.errors[0]"
+                  class="iconfont icon-warn"
+                ></span>
+                {{ ProviderProps.errors[0] }}
+              </div>
+            </div>
+          </validation-provider>
         </div>
       </div>
     </div>
 
-    <div class="c-page-row">
-      <div class="c-page-subtitle">
-        <p>市区町村</p>
-        <require-tag />
-      </div>
-      <div class="input-container">
-        <div class="select-wrap">
-          <i class="iconfont icon-pulldown"></i>
-          <select v-model="user.cities" @change="townsList = null">
-            <option disabled="disabled" :value="null">
-              市区町村を選択してください</option
-            >
-            <option
-              v-for="(city, index) in cityList"
-              :value="city.id"
-              :key="index"
-              >{{ city.name }}</option
-            >
-          </select>
+    <div class="input-container">
+      <div class="c-page-row">
+        <div class="c-page-subtitle">
+          <p>市区町村</p>
+          <require-tag />
+        </div>
+        <div class="input-container">
+          <div class="select-wrap">
+            <i class="iconfont icon-pulldown"></i>
+            <select v-model="user.cities" @change="townsList = null">
+              <option disabled="disabled" :value="null">
+                市区町村を選択してください</option
+              >
+              <option
+                v-for="(city, index) in cityList"
+                :value="city.id"
+                :key="index"
+                >{{ city.name }}</option
+              >
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -92,16 +106,15 @@
 </style>
 
 <script>
-// import { ValidationProvider, extend } from "vee-validate";
+import { ValidationProvider, extend } from "vee-validate";
 import RequireTag from "./../atoms/RequireTag";
 import api from "@/api/info";
 import settings from "./../../settings/setting";
 
 export default {
   name: "UserCities",
-  props: ["itemData"],
   components: {
-    // ValidationProvider
+    ValidationProvider,
     RequireTag
   },
   data() {

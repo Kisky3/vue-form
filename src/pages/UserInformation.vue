@@ -43,7 +43,7 @@
            <user-address />
         </div>
 
-        <div class="c-page-row">
+        <div class="c-page-row up">
           <div class="c-page-subtitle">
             <p>階数 / エレベーターの有無</p>
             <require-tag />
