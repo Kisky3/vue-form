@@ -105,7 +105,7 @@ import NextBtn from "../components/atoms/NextBtn";
 import { extend, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import ProcessBar from "../components/molecules/Processbar";
-import userElevatorLabel from "./../settings/setting";
+import settings from "./../settings/setting";
 
 /* 必須項目のエラーメッセージ設定 */
 required.message = "{_field_}は必須項目です";
@@ -117,7 +117,7 @@ export default {
     return {
       btnMessage: "買取価格を調べる",
       step: 2,
-      options: userElevatorLabel,
+      options: settings.userElevatorLabel,
       userData: {
         name: null,
         kana: null,

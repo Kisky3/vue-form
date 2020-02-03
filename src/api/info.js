@@ -5,7 +5,7 @@ export default {
   getPrefecturesList() {
     return new Promise((resolve, reject) => {
       axios
-        .get("https://www.land.mlit.go.jp/webland/api/CitySearch?area=13")
+        .get("http://geoapi.heartrails.com/api/json?method=getPrefectures")
         .then(res => resolve(res.data))
         .catch(error => reject(error));
     });

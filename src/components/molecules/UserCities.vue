@@ -126,7 +126,7 @@ export default {
       const qs = require("qs");
       return new Promise((resolve, reject) => {
         api
-          .v2Get()
+          .getPrefecturesList()
           .then(data => {
             resolve(data, data);
             console.log(data)
