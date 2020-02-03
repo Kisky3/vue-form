@@ -67,7 +67,6 @@
               value="value"
               v-model="userData.elevator"
               name="elevator"
-              label="階数 "
               :options="elevator_options"
             />
           </div>
@@ -80,14 +79,13 @@
               <div class="c-item-answerday-wrap">
                 <div class="c-select-wrap">
                   <i class="iconfont icon-pulldown"></i>
-                  <select v-model="userData.answer_day">
+                  <select v-model="userData.answer_day" @change="saveStoreUserData">
                     <option v-for="day in (2, 14)" :value="day" :key="day">{{
                       day
                     }}</option>
                   </select>
                 </div>
                 <p>日以内に回答が欲しい</p>
-                {{userData}}
               </div>
             </div>
           </div>
@@ -103,6 +101,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import InputText from "../components/atoms/InputText";
 import InputRadio from "../components/atoms/InputRadio";
 import UserAddress from "../components/molecules/UserAddress";
@@ -148,8 +147,11 @@ export default {
     ValidationObserver
   },
   methods: {
+     ...mapActions({
+      saveStoreUserData: "userInformation/saveUserData"
+    }),
     async goToNext() {
-      console.log(this.$refs.userInformation);
+      console.log(this.$refs.userInformation.validate())
       const isValid = await this.$refs.userInformation.validate();
       if (isValid) {
         await this.saveUserData();
@@ -157,9 +159,8 @@ export default {
       }
     },
     saveUserData() {
-      // this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      // this.saveStoreItemData(this.itemList);
+      this.saveStoreUserData(this.userData);
     },
     openCompletePage: function() {
       this.$router.push(
