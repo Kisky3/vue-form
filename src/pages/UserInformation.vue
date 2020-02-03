@@ -130,7 +130,7 @@ export default {
     ProcessBar,
     InputText,
     InputRadio,
-    UserCities,
+    UserAddress,
     NextBtn,
     RequireTag,
     OptionTag,

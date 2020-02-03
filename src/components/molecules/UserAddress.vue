@@ -10,7 +10,7 @@
           <i class="iconfont icon-pulldown"></i>
           <select
             v-model="user.prefectures"
-            @change="(citiesList = null), (townsList = null), submitPrefectures(user.prefectures)"
+            @change="changeCityList(user.prefectures)"
           >
             <option disabled="disabled" :value="null">
               都道府県を選択してください</option
@@ -26,9 +26,9 @@
       </div>
     </div>
 
-     <div class="c-page-row">
+    <div class="c-page-row">
       <div class="c-page-subtitle">
-        <p>市区町村</p>
+        <p>市区町村</p>{{cityList}}
         <require-tag />
       </div>
       <div class="input-container">
@@ -98,8 +98,7 @@
 // import { ValidationProvider, extend } from "vee-validate";
 import RequireTag from "./../atoms/RequireTag";
 import api from "@/api/info";
-import settings from "./../../settings/setting"
-
+import settings from "./../../settings/setting";
 
 export default {
   name: "UserCities",
@@ -114,27 +113,28 @@ export default {
         prefectures: null,
         cities: null,
         town: null
-      }
+      },
+      cityList: []
     };
   },
   computed: {
-    prefecturesList: function() {
-      return settings.prefecturesList;
+    prefectureList: function() {
+      return settings.prefectureList;
     }
   },
   methods: {
-    /*apitest() {
+    changeCityList: function(prefCode) {
       const qs = require("qs");
       return new Promise((resolve, reject) => {
         api
-          .getPrefecturesList()
+          .getCityList(prefCode)
           .then(data => {
             resolve(data, data);
-            console.log(data)
+            this.cityList = data;
           })
           .catch(error => reject(error));
       });
-    },*/
+    }
   }
 };
 </script>
