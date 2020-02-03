@@ -99,19 +99,6 @@
   </div>
 </template>
 <style>
-.select-wrap {
-  margin: 0 0 10px 0;
-  position: relative;
-}
-.icon-pulldown {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  z-index: 2;
-  color: #999;
-  -webkit-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
 /* カテゴリーアニメーション */
 .expand-enter-active,
 .expand-leave-active {

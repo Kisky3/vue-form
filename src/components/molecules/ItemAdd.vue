@@ -31,7 +31,7 @@ export default {
 
 .c-item-add-panel {
   position: absolute;
-  background: #1dc050;
+  background: linear-gradient(#ff9b27, #fb7150);
   width: 100%;
   height: 80px;
   font-size: 15px;
