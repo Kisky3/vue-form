@@ -47,17 +47,32 @@
         <div class="input-container">
           <div class="select-wrap">
             <i class="iconfont icon-pulldown"></i>
-            <select v-model="user.cities" @change="townsList = null">
-              <option disabled="disabled" :value="null">
-                市区町村を選択してください</option
-              >
-              <option
-                v-for="(city, index) in cityList"
-                :value="city.id"
-                :key="index"
-                >{{ city.name }}</option
-              >
-            </select>
+            <validation-provider rules="required" name="市区町村">
+              <div slot-scope="ProviderProps">
+                <select
+                  v-model="user.cities"
+                  @change="townsList = null"
+                  :class="ProviderProps.errors[0] ? 'error-active' : ''"
+                >
+                  <option disabled="disabled" :value="null">
+                    市区町村を選択してください</option
+                  >
+                  <option
+                    v-for="(city, index) in cityList"
+                    :value="city.id"
+                    :key="index"
+                    >{{ city.name }}</option
+                  >
+                </select>
+                <div class="error-message">
+                  <span
+                    v-show="ProviderProps.errors[0]"
+                    class="iconfont icon-warn"
+                  ></span>
+                  {{ ProviderProps.errors[0] }}
+                </div>
+              </div>
+            </validation-provider>
           </div>
         </div>
       </div>
