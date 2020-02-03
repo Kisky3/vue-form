@@ -50,7 +50,7 @@
           </div>
           <div class="c-item-stair">
             <input-text
-              v-model="userData.name"
+              v-model="userData.stair"
               type="text"
               value="value"
               name="name"
@@ -123,6 +123,7 @@ export default {
       userData: {
         name: null,
         kana: null,
+        stair: null,
         elevator: null,
         answer_day: 2
       }
