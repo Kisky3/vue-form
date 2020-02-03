@@ -140,7 +140,7 @@ export default {
     prefecture: null,
     city: null,
     town: null,
-    cityList: []
+    cityList: null
     };
   },
   computed: {

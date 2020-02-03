@@ -50,6 +50,21 @@ export default {
           thumnail: "",
           uploadFile: {},
           name: ""
+        },
+         {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+         {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+         {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
         }
       ],
       initialItemData: {
