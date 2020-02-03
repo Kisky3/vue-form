@@ -134,14 +134,14 @@ export default {
     }
   },
   methods: {
-    submitCatLvl0() {
-      this.$emit("submitCatLvl0", this.catLvl0);
+    submitCatLvl0(catLvl0) {
+      this.$emit("submitCatLvl0", catLvl0);
     },
-    submitCatLvl1() {
-      this.$emit("submitCatLvl1", this.catLvl1);
+    submitCatLvl1(catLvl1) {
+      this.$emit("submitCatLvl1", catLvl1);
     },
-    submitCatLvl2() {
-      this.$emit("submitCatLvl2", this.catLvl2);
+    submitCatLvl2(catLvl2) {
+      this.$emit("submitCatLvl2", catLvl2);
     }
   }
 };

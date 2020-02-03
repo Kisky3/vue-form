@@ -434,7 +434,7 @@ select:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-align: left;
   word-wrap: break-word;
@@ -485,7 +485,7 @@ select:focus {
 .c-next-btn {
   position: relative;
   width: 100%;
-  background: linear-gradient(#ff9b27, #fb7150);
+  background: linear-gradient(#8BC34A, #4CAF50);
   color: #fff;
   font-weight: bold;
   font-size: 15px;
@@ -514,7 +514,7 @@ select:focus {
   bottom: 5px;
   right: 0px;
   font-size: 35px;
-  color: linear-gradient(#ff9b27, #fb7150);
+  color: #61BD4F;
   background: #fff;
   border-radius: 20px;
   z-index: 3;
