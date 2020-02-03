@@ -38,45 +38,47 @@
       </div>
     </div>
 
-    <div class="input-container">
-      <div class="c-page-row">
-        <div class="c-page-subtitle">
-          <p>市区町村</p>
-          <require-tag />
-        </div>
-        <div class="input-container">
-          <div class="select-wrap">
-            <i class="iconfont icon-pulldown"></i>
-            <validation-provider rules="required" name="市区町村">
-              <div slot-scope="ProviderProps">
-                <select
-                  v-model="user.cities"
-                  @change="townsList = null"
-                  :class="ProviderProps.errors[0] ? 'error-active' : ''"
-                >
-                  <option disabled="disabled" :value="null">
-                    市区町村を選択してください</option
+    <transition name="expand">
+      <div class="input-container" v-show="user.prefectures !== null">
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>市区町村</p>
+            <require-tag />
+          </div>
+          <div class="input-container">
+            <div class="select-wrap">
+              <i class="iconfont icon-pulldown"></i>
+              <validation-provider rules="required" name="市区町村">
+                <div slot-scope="ProviderProps">
+                  <select
+                    v-model="user.cities"
+                    @change="townsList = null"
+                    :class="ProviderProps.errors[0] ? 'error-active' : ''"
                   >
-                  <option
-                    v-for="(city, index) in cityList"
-                    :value="city.id"
-                    :key="index"
-                    >{{ city.name }}</option
-                  >
-                </select>
-                <div class="error-message">
-                  <span
-                    v-show="ProviderProps.errors[0]"
-                    class="iconfont icon-warn"
-                  ></span>
-                  {{ ProviderProps.errors[0] }}
+                    <option disabled="disabled" :value="null">
+                      市区町村を選択してください</option
+                    >
+                    <option
+                      v-for="(city, index) in cityList"
+                      :value="city.id"
+                      :key="index"
+                      >{{ city.name }}</option
+                    >
+                  </select>
+                  <div class="error-message">
+                    <span
+                      v-show="ProviderProps.errors[0]"
+                      class="iconfont icon-warn"
+                    ></span>
+                    {{ ProviderProps.errors[0] }}
+                  </div>
                 </div>
-              </div>
-            </validation-provider>
+              </validation-provider>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
 
     <!-- 商用の適切のAPIはまだ決めてないため、実装は一旦止まる
     <div class="c-page-row">
@@ -112,7 +114,7 @@
 /* カテゴリーアニメーション */
 .expand-enter-active,
 .expand-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 1s;
 }
 .expand-enter,
 .expand-leave-to {
