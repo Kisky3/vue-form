@@ -2,10 +2,13 @@
 import axios from "axios";
 
 export default {
-  getPrefecturesList() {
+  getCityList(areaCode) {
     return new Promise((resolve, reject) => {
       axios
-        .get("http://geoapi.heartrails.com/api/json?method=getPrefectures")
+        .get(
+          "https://www.land.mlit.go.jp/webland/api/CitySearch",
+          {params: { area: areaCode }}
+        )
         .then(res => resolve(res.data))
         .catch(error => reject(error));
     });

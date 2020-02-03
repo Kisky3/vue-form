@@ -39,7 +39,7 @@
           />
         </div>
 
-        <user-cities />
+        <user-address />
 
         <div class="c-page-row">
           <div class="c-page-subtitle">
@@ -62,7 +62,7 @@
               v-model="userData.elevator"
               name="elevator"
               label="階数 "
-              :options="options"
+              :options="elevator_options"
             />
           </div>
           <div class="c-page-row">
@@ -98,7 +98,7 @@
 <script>
 import InputText from "../components/atoms/InputText";
 import InputRadio from "../components/atoms/InputRadio";
-import UserCities from "../components/molecules/UserCities";
+import UserAddress from "../components/molecules/UserAddress";
 import RequireTag from "../components/atoms/RequireTag";
 import OptionTag from "../components/atoms/OptionTag";
 import NextBtn from "../components/atoms/NextBtn";
@@ -117,7 +117,7 @@ export default {
     return {
       btnMessage: "買取価格を調べる",
       step: 2,
-      options: settings.userElevatorLabel,
+      elevator_options: settings.userElevatorLabel,
       userData: {
         name: null,
         kana: null,
