@@ -177,12 +177,6 @@ export default {
   .c-upload-btn {
     width: 25vw;
     height: 25vw;
-    margin: 5px 5px 5px 0;
-  }
-
-  .c-close_button {
-    left: -2px;
-    bottom: 2px;
   }
 
   .c-upload-camera {

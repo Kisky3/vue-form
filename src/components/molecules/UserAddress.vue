@@ -42,8 +42,7 @@
     </div>
 
     <transition name="expand">
-      <div class="input-container" v-show="prefecture !== null">
-        <div class="c-page-row">
+        <div class="c-page-row" v-show="prefecture !== null">
           <div class="c-page-subtitle">
             <p>市区町村</p>
             <require-tag />
@@ -79,7 +78,6 @@
               </validation-provider>
             </div>
           </div>
-        </div>
       </div>
     </transition>
 
