@@ -1,0 +1,14 @@
+version: "3"
+services:
+  web:
+    container_name: takakuureru-form
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/src
+    stdin_open: true
+    tty: true
+    command: bash -c "npm install && npm install -g @vue/cli && npm run serve"
