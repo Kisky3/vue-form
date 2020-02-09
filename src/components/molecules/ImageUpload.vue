@@ -21,6 +21,8 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import lambda from "../../api/lambda";
+import axios from "axios";
 export default {
   name: "ImageUpload",
   props: ["index", "image", "itemIndex"],
@@ -55,13 +57,13 @@ export default {
       vm.previewImage(vm.image);
       vm.saveImageStore(vm.image);
       reader.readAsDataURL(file);
+      vm.submitImage(file);
     },
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
       let obj = this.imageList[this.itemIndex];
 
       obj.splice(this.index, 1, image);
-
       this.imageList.splice(this.itemIndex, 1, obj);
       this.saveStoreImageList(this.imageList);
     },
@@ -85,26 +87,44 @@ export default {
       this.image = obj;
       this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
     },
-    submitImage: function(e) {
-      var formData = new FormData();
-      formData.append("number", "123456");
-      for (var i = 0; i < this.images.length; i++) {
-        formData.append("yourimg" + i, this.images[i].uploadFile);
-      }
-      var config = {
-        headers: {
-          "content-type": "multipart/form-data"
-        }
-      };
-      axios
-        .post("post.php", formData, config)
-        .then(function(response) {
-          // response 処理
-          console.log(response);
+    async getPresignedUrl(file) {
+      return await lambda
+        .getSignedURL(file)
+        .then(res => {
+          console.log('get res from lambda')
+          console.log(res.data.url)
+          return res.data.url;
         })
-        .catch(function(error) {
-          // error 処理
+        .catch(err => {
+          console, log("error");
+          console.log(err);
         });
+    },
+    async uploadS3(preSignedUrl, up_file) {
+      try {
+      
+        const headers = {
+          "content-type": "image/jpeg"
+        };
+        console.log("S3 アップロード 開始");
+
+        let response = await axios.put(preSignedUrl, up_file, {
+          headers: headers
+        });
+        console.log('S3 アップロード response');
+        console.log(response);
+        console.log("S3 アップロード 成功");
+        return data.url + "/" + data.fields.key;
+      } catch (error) {
+        console.log(error)
+        console.log("S3 アップロード エラー");
+      }
+    },
+    async submitImage(upload_file) {
+      let preSignedUrl = await this.getPresignedUrl(upload_file);
+      console.log("preSignedUrl")
+      console.log(preSignedUrl)
+      let uploadS3Path = await this.uploadS3(preSignedUrl, upload_file);
     }
   }
 };
