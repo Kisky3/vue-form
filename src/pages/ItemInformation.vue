@@ -115,6 +115,23 @@ export default {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
       btnMessage: "次へ",
       step: 1,
+      initialImageData: [
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        }
+      ],
       initialItemData: {
         title: null,
         images: {},
@@ -131,7 +148,7 @@ export default {
       itemList: "itemInformation/getItemList"
     }),
     itemImage() {
-      return this.imageList[this.itemIndex];
+      return (this.imageList[this.itemIndex]) ? (this.imageList[this.itemIndex]) :this.initialImageData;
     },
     itemData() {
       return this.itemList.length === 0
