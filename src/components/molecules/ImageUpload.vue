@@ -55,9 +55,9 @@ export default {
         vm.image.name = file.name;
       };
       vm.previewImage(vm.image);
-      vm.saveImageStore(vm.image);
       reader.readAsDataURL(file);
       vm.submitImage(file);
+      vm.saveImageStore(vm.image);
     },
     saveImageStore: function(image) {
       /* 各商品の画像オブジェクトに保存 */
@@ -102,7 +102,6 @@ export default {
         const headers = {
           "content-type": "image/jpeg"
         };
-        console.log("S3 アップロード 開始");
 
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
@@ -113,6 +112,7 @@ export default {
         let imageKey;
         if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
           imageKey = preSignedUrl.split("?")[0];
+          console.log("imageKey");
           console.log(imageKey);
         }
         return imageKey;
@@ -127,6 +127,7 @@ export default {
       console.log(preSignedUrl);
       let imageKey = await this.uploadS3(preSignedUrl, upload_file);
       console.log(imageKey)
+      this.$emit('saveImageKey')
     }
   }
 };

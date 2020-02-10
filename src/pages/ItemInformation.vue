@@ -21,6 +21,7 @@
                 :image="image"
                 :index="index"
                 :itemIndex="itemIndex"
+                @saveImageKey="saveImageKey"
               />
             </div>
           </div>
@@ -115,6 +116,7 @@ export default {
       step: 1,
       initialItemData: {
         title: null,
+        images:{},
         cat_lvl0: null,
         cat_lvl1: null,
         cat_lvl2: null,
@@ -147,6 +149,9 @@ export default {
         await this.saveItemData();
         await this.openItemsListPage();
       }
+    },
+    async saveImageKey() {
+      
     },
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
