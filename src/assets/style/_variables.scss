@@ -193,8 +193,8 @@ select {
 
 input[type="text"]:focus,
 select:focus {
-  border: solid 1px #00b770;
-  box-shadow: 0 0 3px 0 #00b770 inset;
+  border: solid 1px #4eb5ac;
+  box-shadow: 0 0 3px 0 #4eb5ac inset;
 }
 
 .select-wrap {
@@ -441,7 +441,6 @@ select:focus {
   word-break: break-all;
   padding: 5px;
   color: #222222;
-  background: #F5F4F4;
 }
 
 .c-item-label > span {
@@ -514,7 +513,7 @@ select:focus {
   bottom: 5px;
   right: 0px;
   font-size: 35px;
-  color: #4eb5ac;
+  color:#18c4af;
   background: #fff;
   border-radius: 20px;
   z-index: 3;

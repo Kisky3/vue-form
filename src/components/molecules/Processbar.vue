@@ -1,18 +1,49 @@
 <template>
   <div>
-    <div v-show="step === 0 || step === 1" class="c-process-container">
+    <div v-show="step === 0" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/1-active.png" />
         <span class="active">step1</span>
       </div>
+      <span class="progress-dot"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/2-gray.png" alt="" />
         <span class="gray">step2</span>
       </div>
+      <span class="progress-dot"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/3-gray.png" alt="" />
         <span class="gray">step3</span>
       </div>
+      <span class="progress-dot"></span>
+
+      <div class="progress-btn">
+        <img src="../../assets/img/4-gray.png" alt="" />
+        <span class="gray">step4</span>
+      </div>
+    </div>
+
+     <div v-show="step === 1" class="c-process-container">
+      <div class="progress-btn">
+        <img src="../../assets/img/1-active.png" />
+        <span class="active">step1</span>
+      </div>
+      <span class="progress-dot active"></span>
+
+      <div class="progress-btn">
+        <img src="../../assets/img/2-gray.png" alt="" />
+        <span class="gray">step2</span>
+      </div>
+      <span class="progress-dot"></span>
+
+      <div class="progress-btn">
+        <img src="../../assets/img/3-gray.png" alt="" />
+        <span class="gray">step3</span>
+      </div>
+      <span class="progress-dot"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/4-gray.png" alt="" />
         <span class="gray">step4</span>
@@ -111,6 +142,17 @@ export default {
   margin-bottom: 5px;
 }
 
+.progress-dot {
+  width:10px;
+  height:10px;
+  border-radius: 5px;
+  background:#dedede;
+}
+
+.progress-dot.active {
+  background:#4eb5ac;
+}
+
 /* sp レスポンス対応 */
 @media only screen and (max-width: 767px) {
   .progress-btn > span.active {
@@ -131,5 +173,12 @@ export default {
     width: 30px;
     margin-bottom: 5px;
   }
+
+  .progress-dot {
+  width:5px;
+  height:5px;
+  border-radius: 2.5px;
+  background:#dedede;
+}
 }
 </style>
