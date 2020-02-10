@@ -1,12 +1,12 @@
 .c-process-container {
-  height: 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
   width: 45%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 10px auto;
+  height: 90px;
 }
 
 .c-process-container .c-process-bar {

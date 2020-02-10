@@ -279,11 +279,12 @@ select:focus {
 
 .c-page-container {
   display: flex;
+  padding: 30px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: #F5F4F4;
-  max-width: 650px;
+  max-width: 700px;
   margin: 0 auto;
   width: 80vw;
 }
@@ -306,7 +307,6 @@ select:focus {
 
 .c-page-subtitle {
   font-size: 15px;
-  margin: 5px;
   background: #F5F4F4;
   white-space: nowrap;
 }
@@ -330,13 +330,13 @@ select:focus {
 
 .c-page-row.row {
   display: flex;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
   flex-direction: row;
   margin-bottom: 25px;
   flex-wrap: wrap;
-  width: 60vw;
-  max-width: 650px;
+  width: 100vw;
+  max-width: 700px;
   padding: 25px;
 }
 
@@ -514,7 +514,7 @@ select:focus {
   bottom: 5px;
   right: 0px;
   font-size: 35px;
-  color: #61BD4F;
+  color: #4eb5ac;
   background: #fff;
   border-radius: 20px;
   z-index: 3;
@@ -535,11 +535,12 @@ select:focus {
 @media only screen and (max-width: 767px) {
   .c-page-container {
     width: 100vw;
+    padding: 10px;
   }
   .c-page-row.row {
     justify-content: space-evenly;
     width: 100vw;
-    max-width: 650px;
+    max-width: 700px;
     margin-bottom: 15px;
     padding: 0;
   }
@@ -607,6 +608,7 @@ select:focus {
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
     width: 45vw;
+    max-width: 200px;
     margin: 0 0 20px 0;
   }
 }
