@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       btnMessage: "次へ",
-      step: 1,
+      step: 2,
       initialImageData: [
         {
           thumnail: "",

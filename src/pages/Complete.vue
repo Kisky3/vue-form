@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       btnMessage: "トップに戻る",
-      step: 3,
+      step: 4,
       v2_id: this.$route.query.v2_id ? this.$route.query.v2_id : "",
       v2_mail: this.$route.query.v2_mail ? this.$route.query.v2_mail : ""
     };

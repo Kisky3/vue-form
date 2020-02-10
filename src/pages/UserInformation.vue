@@ -122,7 +122,7 @@ export default {
   data() {
     return {
       btnMessage: "買取価格を調べる",
-      step: 2,
+      step: 3,
       elevator_options: settings.userElevatorLabel,
       userData: {
         name: null,
