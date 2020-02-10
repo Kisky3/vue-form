@@ -145,7 +145,7 @@ export default {
 }
 
 .c-upload-btn.active {
-  border: 2px solid #b1b1b1;
+  border: solid 1px #e1e1e1;
 }
 
 .c-upload-camera {
