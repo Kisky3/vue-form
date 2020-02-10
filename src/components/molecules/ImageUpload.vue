@@ -91,18 +91,14 @@ export default {
       return await lambda
         .getSignedURL(file)
         .then(res => {
-          console.log('get res from lambda')
-          console.log(res.data.url)
           return res.data.url;
         })
         .catch(err => {
-          console, log("error");
           console.log(err);
         });
     },
     async uploadS3(preSignedUrl, up_file) {
       try {
-      
         const headers = {
           "content-type": "image/jpeg"
         };
@@ -111,20 +107,26 @@ export default {
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
         });
-        console.log('S3 アップロード response');
+        console.log("S3 アップロード response");
         console.log(response);
         console.log("S3 アップロード 成功");
-        return data.url + "/" + data.fields.key;
+        let imageKey;
+        if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
+          imageKey = preSignedUrl.split("?")[0];
+          console.log(imageKey);
+        }
+        return imageKey;
       } catch (error) {
-        console.log(error)
+        console.log(error);
         console.log("S3 アップロード エラー");
       }
     },
     async submitImage(upload_file) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
-      console.log("preSignedUrl")
-      console.log(preSignedUrl)
-      let uploadS3Path = await this.uploadS3(preSignedUrl, upload_file);
+      console.log("preSignedUrl");
+      console.log(preSignedUrl);
+      let imageKey = await this.uploadS3(preSignedUrl, upload_file);
+      console.log(imageKey)
     }
   }
 };

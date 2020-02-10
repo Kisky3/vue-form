@@ -8,7 +8,7 @@
     >
       <div class="c-page-container">
         <div class="c-page-title">
-          <p>商品 {{ itemIndex + 1 }} 情報</p>
+          <p>商品{{ itemIndex + 1 }} 情報</p>
         </div>
         <div class="c-page-row">
           <div class="c-page-subtitle">
