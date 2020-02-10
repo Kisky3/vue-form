@@ -48,6 +48,7 @@
         <img src="../../assets/img/4-gray.png" alt="" />
         <span class="gray">step4</span>
       </div>
+      <span class="progress-dot"></span>
     </div>
 
     <div v-show="step === 2" class="c-process-container">
@@ -55,10 +56,14 @@
         <img src="../../assets/img/1-done.png" />
         <span class="active">step1</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/2-done.png" alt="" />
         <span class="active">step2</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/3-gray.png" alt="" />
         <span class="gray">step3</span>
@@ -74,14 +79,20 @@
         <img src="../../assets/img/1-done.png" />
         <span class="active">step1</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/2-done.png" alt="" />
         <span class="gray">step2</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/3-active.png" alt="" />
         <span class="gray">step3</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/4-gray.png" alt="" />
         <span class="gray">step4</span>
@@ -93,14 +104,20 @@
         <img src="../../assets/img/1-done.png" />
         <span class="active">step1</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/2-done.png" alt="" />
         <span class="active">step2</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/3-done.png" alt="" />
         <span class="active">step3</span>
       </div>
+      <span class="progress-dot active"></span>
+
       <div class="progress-btn">
         <img src="../../assets/img/4-done.png" alt="" />
         <span class="active">step4</span>
