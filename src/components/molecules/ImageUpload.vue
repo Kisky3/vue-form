@@ -98,36 +98,31 @@ export default {
         });
     },
     async uploadS3(preSignedUrl, up_file) {
+      console.log("up_file content type");
+      console.log(up_file.type);
       try {
+        /* headersでアップロードした画像のContent Typeを設定する */
         const headers = {
-          "content-type": "image/jpeg"
+          "content-type": up_file.type
         };
-
+        let imageKey;
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
         });
-        console.log("S3 アップロード response");
-        console.log(response);
-        console.log("S3 アップロード 成功");
-        let imageKey;
+        // console.log(response);
         if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
           imageKey = preSignedUrl.split("?")[0];
-          console.log("imageKey");
-          console.log(imageKey);
         }
         return imageKey;
       } catch (error) {
         console.log(error);
-        console.log("S3 アップロード エラー");
       }
     },
     async submitImage(upload_file) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
-      console.log("preSignedUrl");
-      console.log(preSignedUrl);
+
       let imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      console.log(imageKey)
-      this.$emit('saveImageKey')
+      this.$emit("saveImageKey", this.index, imageKey);
     }
   }
 };
