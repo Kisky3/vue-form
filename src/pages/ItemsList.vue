@@ -69,6 +69,7 @@ export default {
       ],
       initialItemData: {
         title: null,
+        images:{},
         cat_lvl0: null,
         cat_lvl1: null,
         cat_lvl2: null,
