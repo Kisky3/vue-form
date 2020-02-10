@@ -27,7 +27,9 @@ export default {
   name: "ImageUpload",
   props: ["index", "image", "itemIndex"],
   data() {
-    return {};
+    return {
+      imageKey: null
+    };
   },
   computed: {
     ...mapGetters({
@@ -85,7 +87,10 @@ export default {
       let obj = this.imageList[this.itemIndex];
       obj.splice(this.index, 1, this.image);
       this.image = obj;
+      /* 画像プレビュー用 */
       this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
+      /* 画像送信用 */
+      this.$emit("delImgKey", this.index, this.imageKey);
     },
     async getPresignedUrl(file) {
       return await lambda
@@ -105,15 +110,14 @@ export default {
         const headers = {
           "content-type": up_file.type
         };
-        let imageKey;
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
         });
         // console.log(response);
         if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
-          imageKey = preSignedUrl.split("?")[0];
+          this.imageKey = preSignedUrl.split("?")[0];
         }
-        return imageKey;
+        return this.imageKey;
       } catch (error) {
         console.log(error);
       }
@@ -121,8 +125,8 @@ export default {
     async submitImage(upload_file) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
 
-      let imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      this.$emit("saveImageKey", this.index, imageKey);
+      this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
+      this.$emit("saveImgKey", this.index, this.imageKey);
     }
   }
 };

@@ -21,7 +21,8 @@
                 :image="image"
                 :index="index"
                 :itemIndex="itemIndex"
-                @saveImageKey="saveImageKey"
+                @saveImgKey="saveImgKey"
+                @delImgKey="delImgKey"
               />
             </div>
           </div>
@@ -116,7 +117,7 @@ export default {
       step: 1,
       initialItemData: {
         title: null,
-        images:{},
+        images: {},
         cat_lvl0: null,
         cat_lvl1: null,
         cat_lvl2: null,
@@ -150,19 +151,25 @@ export default {
         await this.openItemsListPage();
       }
     },
-    async saveImageKey(index, imageKey) {
-      console.log('index');
-      console.log(index)
-      console.log('imageKey');
+    delImgKey(index, imageKey) {
+      this.$delete(this.itemData.images, index)
+      console.log('this.itemData')
+      console.log(this.itemData);
+      this.saveItemData();
+    },
+    saveImgKey(index, imageKey) {
+      console.log("index");
+      console.log(index);
+      console.log("imageKey");
       console.log(imageKey);
       this.itemData.images[index] = imageKey;
-      this.saveItemData()
+      this.saveItemData();
     },
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
-      console.log('保存后的ItemData itemList');
+      console.log("保存后的ItemData itemList");
       console.log(this.itemList);
     },
     saveItemImage() {
