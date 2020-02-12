@@ -22,6 +22,7 @@
             value="value"
             name="name"
             label="お名前（漢字）"
+            rules="required"
           />
         </div>
         <div class="c-page-row">
@@ -36,6 +37,39 @@
             value="value"
             name="kana"
             label="お名前（カナ）"
+            rules="required"
+          />
+        </div>
+
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>電話番号</p>
+            <require-tag />
+          </div>
+          <input-text
+            v-model="userData.phone_number"
+            type="text"
+            placeholder="例）090-XXX-XXXX"
+            value="value"
+            name="phone_number"
+            label="電話番号"
+            rules="required|numeric|min:10|max:11"
+          />
+        </div>
+
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>メールアドレス</p>
+            <require-tag />
+          </div>
+          <input-text
+            v-model="userData.email"
+            type="text"
+            placeholder="例）info@takakuureru.com"
+            value="value"
+            name="email"
+            label="メールアドレス"
+            rules="required|email"
           />
         </div>
 
@@ -60,6 +94,7 @@
               name="name"
               class="input-tiny"
               label="階数 "
+              rules="required"
             />階
           </div>
 
@@ -120,13 +155,23 @@ import RequireTag from "../components/atoms/RequireTag";
 import OptionTag from "../components/atoms/OptionTag";
 import NextBtn from "../components/atoms/NextBtn";
 import { extend, ValidationObserver } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
+import { required, email,numeric,min,max} from "vee-validate/dist/rules";
 import ProcessBar from "../components/molecules/Processbar";
 import settings from "./../settings/setting";
 
 /* 必須項目のエラーメッセージ設定 */
-required.message = "{_field_}は必須項目です";
 extend("required", required);
+extend("email", email);
+extend("numeric", numeric)
+extend("min", min)
+extend("max", max)
+
+required.message = "{_field_}は必須項目です";
+email.message = "{_field_}を正しく入力してください";
+numeric.message = "{_field_}を正しく入力してください";
+min.message = "{_field_}を正しく入力してください";
+max.message = "{_field_}を正しく入力してください";
+
 
 export default {
   name: "UserInformation",
@@ -141,6 +186,8 @@ export default {
         prefecture: null,
         city: null,
         town: null,
+        phone_number: null,
+        email: null,
         stair: null,
         elevator: null,
         answer_day: 3

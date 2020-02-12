@@ -1,6 +1,6 @@
 <template>
   <div class="input-container">
-    <validation-provider rules="required" :name="label">
+    <validation-provider :rules="rules" :name="label">
       <div slot-scope="ProviderProps">
         <input
           :type="type"
@@ -30,6 +30,7 @@ export default {
     ValidationProvider
   },
   props: {
+    rules: {type: String, required: true},
     value: { type: String, required: false },
     type: { type: String, required: true },
     name: { type: String, required: true },
