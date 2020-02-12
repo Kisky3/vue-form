@@ -25,8 +25,7 @@ export default {
 textarea {
   width: 100%;
   border: solid 1px #e1e1e1;
-  padding: 5px;
-
+  padding: 5px 15px;
 }
 
 textarea::placeholder {
