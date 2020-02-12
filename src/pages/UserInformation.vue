@@ -47,9 +47,9 @@
           />
         </div>
 
-        <div class="c-page-row up">
+        <div class="c-page-row">
           <div class="c-page-subtitle">
-            <p>階数 / エレベーターの有無</p>
+            <p>階数</p>
             <require-tag />
           </div>
           <div class="c-item-stair">
@@ -62,14 +62,22 @@
               label="階数 "
             />階
           </div>
-          <div class="c-item-elevator">
-            <input-radio
-              value="value"
-              v-model="userData.elevator"
-              name="elevator"
-              :options="elevator_options"
-            />
+
+          <div class="c-page-row">
+            <div class="c-page-subtitle">
+              <p>エレベーターの有無</p>
+              <option-tag />
+            </div>
+            <div class="c-item-elevator">
+              <input-radio
+                value="value"
+                v-model="userData.elevator"
+                name="elevator"
+                :options="elevator_options"
+              />
+            </div>
           </div>
+
           <div class="c-page-row">
             <div class="c-page-subtitle">
               <p>査定への回答期限</p>
@@ -79,7 +87,10 @@
               <div class="c-item-answerday-wrap">
                 <div class="c-select-wrap">
                   <i class="iconfont icon-pulldown"></i>
-                  <select v-model="userData.answer_day" @change="saveStoreUserData">
+                  <select
+                    v-model="userData.answer_day"
+                    @change="saveStoreUserData"
+                  >
                     <option v-for="day in (2, 14)" :value="day" :key="day">{{
                       day
                     }}</option>
@@ -147,7 +158,7 @@ export default {
     ValidationObserver
   },
   methods: {
-     ...mapActions({
+    ...mapActions({
       saveStoreUserData: "userInformation/saveUserData"
     }),
     async goToNext() {
@@ -184,6 +195,7 @@ export default {
 <style scoped>
 .input-tiny {
   width: 85%;
+  margin-bottom: 15px;
   margin-right: 10px;
 }
 
