@@ -168,7 +168,6 @@ export default {
   display: table-cell;
   text-align: center;
   background-color: #fff;
-  cursor: pointer;
   height: 100%;
 }
 

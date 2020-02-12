@@ -8,8 +8,8 @@
       <span class="iconfont icon-check item-check"></span>
     </div>
     <div class="c-item-edit-panel">
-      <span @click="editItem()">編集</span>
-      <span @click="deleteItem()">削除</span>
+      <a class="c-edit-button" @click="editItem()">編集</a>
+      <a class="c-edit-button" @click="deleteItem()">削除</a>
     </div>
   </div>
 </template>
@@ -46,11 +46,11 @@ export default {
       });
     },
     deleteItem: function() {
+      this.$emit("showDialog");
       this.saveStoreImageList(this.imageList.splice(this.index, 1));
       this.saveStoreItemList(this.itemList.splice(this.index, 1));
     }
   }
 };
 </script>
-<style>
-</style>
+<style></style>

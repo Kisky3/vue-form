@@ -90,13 +90,9 @@ export default {
     async submitImage(upload_file, index) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
       this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      console.log("imageKey");
-      console.log(this.imageKey);
       this.saveImgKey(index, this.imageKey);
     },
     async uploadS3(preSignedUrl, up_file) {
-      console.log("up_file");
-      console.log(up_file);
       try {
         /* headersでアップロードした画像のContent Typeを設定する */
         const headers = {
@@ -105,18 +101,16 @@ export default {
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
         });
-        // console.log(response);
         if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
           this.imageKey = preSignedUrl.split("?")[0];
         }
         return this.imageKey;
       } catch (error) {
+        this.setErrorMsg("upload-fail");
         console.log(error);
       }
     },
     saveImgKey(index, imageKey) {
-      console.log("this.itemData");
-      console.log(this.itemData);
       this.itemData.images[index] = imageKey;
       this.saveItemData();
     },
