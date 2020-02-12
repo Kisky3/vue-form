@@ -18,8 +18,6 @@ const actions = {
 
 const mutations = {
   saveUserData(state, userData) {
-    console.log('user data store')
-    console.log(userData);
     Vue.set(state.userData, userData);
   }
 };

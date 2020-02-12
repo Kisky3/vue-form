@@ -151,7 +151,6 @@ export default {
       saveStoreUserData: "userInformation/saveUserData"
     }),
     async goToNext() {
-      console.log(this.$refs.userInformation.validate())
       const isValid = await this.$refs.userInformation.validate();
       if (isValid) {
         await this.saveUserData();

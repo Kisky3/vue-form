@@ -266,7 +266,14 @@ select:focus {
 }
 
 .c-photo-wrap {
+  position: relative;
   margin-top: 20px;
+}
+
+.c-photo-mark {
+  position: absolute;
+  right: -60px;
+  top:0;
 }
 
 .c-photo-label {
@@ -360,7 +367,7 @@ select:focus {
   height: 80vw;
   max-width: 350px;
   max-height: 350px;
-  border: 2px dashed #dedede;
+  border: 1px dashed #dedede;
   border-bottom: 0;
   background: #fff;
   display: flex;
@@ -439,7 +446,7 @@ select:focus {
   text-align: left;
   word-wrap: break-word;
   word-break: break-all;
-  padding: 5px;
+  padding: 3px 10px;
   color: #222222;
 }
 

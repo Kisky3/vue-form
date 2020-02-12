@@ -6,8 +6,9 @@
         <p>商品写真登録</p>
       </div>
       <div class="c-page-row center" @click="fileClick()">
-        <label class="c-photo-label"> スマホで簡単査定!</label>
+        <label class="c-photo-label"> 60秒で簡単査定!</label>
         <div class="c-photo-wrap">
+          <img class="c-photo-mark" src="../assets/img/image-upload.png" alt="">
           <div class="c-photo-btn">
             <span class="iconfont icon-camera"></span>
           </div>
@@ -63,19 +64,28 @@ export default {
       /* 全体の商品イメージリストに保存する */
       this.imageList.splice(0, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
-
+      this.submitImage
       /* 商品情報ページに遷移 */
       this.openItemInformationPage();
+      
+    },
+    async submitImage(upload_file) {
+      let preSignedUrl = await this.getPresignedUrl(upload_file);
+
+      this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
+      this.$emit("saveImgKey", this.index, this.imageKey);
     },
     fileClick: function() {
       $("#upload_file").click();
     },
     onFileChange: function(e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (files.length > 0) {
+      if (files.length > 0 && files.length <= 3) {
         files.forEach((file, index) => {
           this.createImage(file, index);
         });
+      } else {
+        this.setErrorMsg("exceed-image");
       }
     },
     createImage: function(file, index) {
@@ -89,7 +99,7 @@ export default {
 
         // アップロード成功すれば保存する
         if (vm.checkEmptyImage(obj)) {
-          vm.setErrorMsg();
+          vm.setErrorMsg("no-image");
         } else {
           vm.saveImageData(obj, index);
         }
@@ -110,8 +120,15 @@ export default {
         () => {}
       );
     },
-    setErrorMsg: function() {
-      this.errorMsg = "クリックして写真を登録してください";
+    setErrorMsg: function(errType) {
+      switch (errType) {
+        case "no-image":
+          this.errorMsg = "クリックして写真を登録してください";
+          break;
+        case "exceed-image":
+          this.errorMsg = "画像3枚まで登録してください";
+          break;
+      }
       this.showErrorMsg = true;
     }
   }

@@ -103,8 +103,6 @@ export default {
         });
     },
     async uploadS3(preSignedUrl, up_file) {
-      console.log("up_file content type");
-      console.log(up_file.type);
       try {
         /* headersでアップロードした画像のContent Typeを設定する */
         const headers = {

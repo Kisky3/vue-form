@@ -172,15 +172,9 @@ export default {
     },
     delImgKey(index, imageKey) {
       this.$delete(this.itemData.images, index);
-      console.log("this.itemData");
-      console.log(this.itemData);
       this.saveItemData();
     },
     saveImgKey(index, imageKey) {
-      console.log("index");
-      console.log(index);
-      console.log("imageKey");
-      console.log(imageKey);
       this.itemData.images[index] = imageKey;
       this.saveItemData();
     },
@@ -188,7 +182,7 @@ export default {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
-      console.log("保存后的ItemData itemList");
+      console.log("itemList");
       console.log(this.itemList);
     },
     saveItemImage() {
