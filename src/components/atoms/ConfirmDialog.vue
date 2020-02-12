@@ -1,9 +1,10 @@
 <template>
   <div id="modal-template">
     <transition name="modal">
-      <div class="modal-mask">
+      <div class="modal-mask" @click="cancleDialog()">
         <div class="modal-wrapper">
-          <div class="modal-container">
+          <div class="modal-container" @click="stopPropagation()">
+            <span class="c-modal-close_button" @click="cancleDialog()"></span>
             <div class="modal-header">
               <slot name="header">
                 <h3>商品を削除する</h3>
@@ -36,10 +37,13 @@
 export default {
   name: "Dialog",
   methods: {
-    cancleDialog: function() {
+    cancleDialog: function () {
       this.$emit("cancleDialog");
     },
-    handleDialog: function() {
+    stopPropagation:function () {
+      event.stopPropagation();
+    },
+    handleDialog: function () {
       this.$emit("handleDialog");
     }
   }
@@ -64,10 +68,23 @@ export default {
   vertical-align: middle;
 }
 
+.c-modal-close_button::before {
+   content: "\00D7";
+}
+
+.c-modal-close_button {
+   position: absolute;
+   top: 8px;
+   right: 15px;
+   font-size: 25px;
+   color: black;
+}
+
 .modal-container {
+  position: relative;
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 30px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
