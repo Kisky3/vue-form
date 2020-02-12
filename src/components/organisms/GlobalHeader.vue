@@ -1,7 +1,7 @@
 <template>
   <header>
     <span class="iconfont icon-return" @click="goBack()"></span>
-    <img src="./../../assets/img/logo.png" alt="" />
+    <a href="https://www.takakuureru.com/"><img src="./../../assets/img/logo.png" alt="" /></a>
   </header>
 </template>
 

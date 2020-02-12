@@ -30,6 +30,19 @@
 
         <div class="c-page-row">
           <div class="c-page-subtitle">
+            <p>カテゴリー</p>
+            <require-tag />
+          </div>
+          <item-categories
+            :itemData="itemData"
+            @submitCatLvl0="changeCatLvl0"
+            @submitCatLvl1="changeCatLvl1"
+            @submitCatLvl2="changeCatLvl2"
+          />
+        </div>
+
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
             <p>商品名</p>
             <require-tag />
           </div>
@@ -40,19 +53,6 @@
             value="value"
             name="item-name"
             label="商品名"
-          />
-        </div>
-
-        <div class="c-page-row">
-          <div class="c-page-subtitle">
-            <p>カテゴリー</p>
-            <require-tag />
-          </div>
-          <item-categories
-            :itemData="itemData"
-            @submitCatLvl0="changeCatLvl0"
-            @submitCatLvl1="changeCatLvl1"
-            @submitCatLvl2="changeCatLvl2"
           />
         </div>
 
@@ -148,7 +148,9 @@ export default {
       itemList: "itemInformation/getItemList"
     }),
     itemImage() {
-      return (this.imageList[this.itemIndex]) ? (this.imageList[this.itemIndex]) :this.initialImageData;
+      return this.imageList[this.itemIndex]
+        ? this.imageList[this.itemIndex]
+        : this.initialImageData;
     },
     itemData() {
       return this.itemList.length === 0
@@ -169,8 +171,8 @@ export default {
       }
     },
     delImgKey(index, imageKey) {
-      this.$delete(this.itemData.images, index)
-      console.log('this.itemData')
+      this.$delete(this.itemData.images, index);
+      console.log("this.itemData");
       console.log(this.itemData);
       this.saveItemData();
     },
