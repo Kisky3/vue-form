@@ -37,13 +37,24 @@
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import ProcessBar from "../components/molecules/Processbar";
+import lambda from "../api/lambda";
+import axios from "axios";
 export default {
   name: "Photo",
   data() {
     return {
       errorMsg: "",
       showErrorMsg: false,
-      step: 0
+      step: 0,
+      imageKey: null,
+      initialItemData: {
+        title: null,
+        images: {},
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
+      }
     };
   },
   components: {
@@ -52,12 +63,17 @@ export default {
   computed: {
     ...mapGetters({
       imageData: "itemInformation/getImageData",
-      imageList: "itemInformation/getImageList"
-    })
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
+    }),
+    itemData() {
+      return this.initialItemData;
+    }
   },
   methods: {
     ...mapActions({
       saveStoreImageData: "itemInformation/saveImageData",
+      saveStoreItemData: "itemInformation/saveItemList",
       saveStoreImageList: "itemInformation/saveImageList"
     }),
     saveImageData(image, index) {
@@ -68,15 +84,48 @@ export default {
       /* 全体の商品イメージリストに保存する */
       this.imageList.splice(0, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
-      this.submitImage;
       /* 商品情報ページに遷移 */
       this.openItemInformationPage();
     },
-    async submitImage(upload_file) {
+    async submitImage(upload_file, index) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
-
       this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      this.$emit("saveImgKey", this.index, this.imageKey);
+      console.log("imageKey");
+      console.log(this.imageKey);
+      this.saveImgKey(index, this.imageKey);
+    },
+    async uploadS3(preSignedUrl, up_file) {
+      console.log("up_file");
+      console.log(up_file);
+      try {
+        /* headersでアップロードした画像のContent Typeを設定する */
+        const headers = {
+          "content-type": up_file.type
+        };
+        let response = await axios.put(preSignedUrl, up_file, {
+          headers: headers
+        });
+        // console.log(response);
+        if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
+          this.imageKey = preSignedUrl.split("?")[0];
+        }
+        return this.imageKey;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    saveImgKey(index, imageKey) {
+      console.log("this.itemData");
+      console.log(this.itemData);
+      this.itemData.images[index] = imageKey;
+      this.saveItemData();
+    },
+    saveItemData() {
+      this.itemList.splice(0, 1, this.itemData);
+      // 生成された商品データをstoreに保存する
+      this.saveStoreItemData(this.itemList);
+      console.log("itemList");
+      console.log(this.itemList);
     },
     async getPresignedUrl(file) {
       return await lambda
@@ -102,7 +151,7 @@ export default {
         this.setErrorMsg("exceed-image");
       }
     },
-    createImage: function(file, index) {
+    async createImage(file, index) {
       var reader = new FileReader();
       var vm = this;
       var obj = {};
@@ -115,6 +164,7 @@ export default {
         if (vm.checkEmptyImage(obj)) {
           vm.setErrorMsg("no-image");
         } else {
+          vm.submitImage(file, index);
           vm.saveImageData(obj, index);
         }
       };
@@ -143,7 +193,8 @@ export default {
           this.errorMsg = "画像3枚まで登録してください";
           break;
         case "upload-fail":
-          this.errorMsg = "画像アップロード失敗しました、もう一回試してください";
+          this.errorMsg =
+            "画像アップロード失敗しました、もう一回試してください";
           break;
       }
       this.showErrorMsg = true;
