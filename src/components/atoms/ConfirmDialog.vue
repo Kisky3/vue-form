@@ -21,7 +21,7 @@
                 <button class="modal-default-button" @click="cancleDialog()">
                   キャンセル
                 </button>
-                <button class="modal-default-button" @click="handleDialog()">
+                <button class="modal-default-button warn" @click="handleDialog()">
                   削除する
                 </button>
               </slot>
@@ -34,13 +34,13 @@
 </template>
 <script>
 export default {
-  name: "ConfirmationDialog",
+  name: "Dialog",
   methods: {
     cancleDialog: function() {
-      this.$emit('cancleDialog')
+      this.$emit("cancleDialog");
     },
     handleDialog: function() {
-      this.$emit('handleDialog')
+      this.$emit("handleDialog");
     }
   }
 };
@@ -77,7 +77,8 @@ export default {
 
 .modal-header h3 {
   margin-top: 0;
-  color: #42b983;
+  color: #4eb5ac;
+  font-weight: bold;
 }
 
 .modal-body {
@@ -86,6 +87,23 @@ export default {
 
 .modal-default-button {
   float: right;
+  margin-left: 20px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.modal-default-button.warn {
+  color: #ff6a71;
+}
+
+.modal-default-button:hover {
+  opacity: 0.8;
+  background:#f5f4f4;
+}
+
+.modal-footer {
+  height: 20px;
 }
 
 .modal-enter {

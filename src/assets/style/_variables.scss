@@ -473,10 +473,9 @@ select:focus {
   padding: 20px 15px;
 }
 
-.c-edit-button:hover,.add:hover,.c-next-btn:hover,.c-photo-wrap:hover,.c-upload-btn:hover {
-  opacity: 0.9;
+.c-edit-button:hover,.add:hover,.c-next-btn:hover,.c-photo-wrap:hover,.c-upload-btn:hover,.icon-return:hover {
+  opacity: 0.8;
   cursor: pointer;
-  box-shadow: rgba(0,0,0,.2) 0 1px 5px 0px;
 }
 
 .error-msg {

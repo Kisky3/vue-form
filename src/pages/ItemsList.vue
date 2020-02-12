@@ -11,7 +11,6 @@
           <item-preview
             :item="item"
             :index="index"
-            @showDialog="showDialog()"
           />
         </div>
       </div>
@@ -22,7 +21,6 @@
       />
       <span class="error-msg" v-show="showErrorMsg">{{ errorMsg }}</span>
     </div>
-    <confirmation-dialog @handleDialog="handleDialog()" @cancleDialog="cancleDialog()"/>
   </div>
 </template>
 
@@ -33,7 +31,6 @@ import ProcessBar from "../components/molecules/Processbar";
 import ItemPreview from "../components/molecules/ItemPreview";
 import NextBtn from "../components/atoms/NextBtn";
 import AddItem from "../components/molecules/ItemAdd";
-import ConfirmationDialog from "../components/atoms/ConfirmationDialog";
 
 export default {
   name: "ItemsList",
@@ -41,7 +38,6 @@ export default {
     return {
       btnMessage: "次へ",
       step: 2,
-      showDialog: false,
       initialImageData: [
         {
           thumnail: "",
@@ -75,8 +71,7 @@ export default {
     ProcessBar,
     ItemPreview,
     AddItem,
-    NextBtn,
-    ConfirmationDialog
+    NextBtn
   },
   computed: {
     ...mapGetters({
@@ -92,13 +87,6 @@ export default {
       saveStoreImageList: "itemInformation/saveImageList",
       saveStoreItemList: "itemInformation/saveItemList"
     }),
-    handleDialog: function() {
-      alert("handle")
-      this.showDialog = true;
-    },
-    cancleDialog: function() {
-      alert("cancle")
-    },
     addItem: function() {
       this.$router.push({
         path: "/item_information",

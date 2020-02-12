@@ -1,25 +1,41 @@
 <template>
-  <div class="c-item-wrap">
-    <div class="c-item-label">
-      {{ item.title }}
+  <div>
+    <div class="c-item-wrap">
+      <div class="c-item-label">
+        {{ item.title }}
+      </div>
+      <div class="c-item-container">
+        <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
+        <span class="iconfont icon-check item-check"></span>
+      </div>
+      <div class="c-item-edit-panel">
+        <a class="c-edit-button" @click="editItem()">編集</a>
+        <a class="c-edit-button" @click="deleteItem()">削除</a>
+      </div>
     </div>
-    <div class="c-item-container">
-      <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
-      <span class="iconfont icon-check item-check"></span>
-    </div>
-    <div class="c-item-edit-panel">
-      <a class="c-edit-button" @click="editItem()">編集</a>
-      <a class="c-edit-button" @click="deleteItem()">削除</a>
-    </div>
+    <confirm-dialog
+      v-show="showDialog"
+      @cancleDialog="cancleDialog()"
+      @handleDialog="handleDialog()"
+    />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import defaultImage from "../../assets/img/default.png";
+import ConfirmDialog from "../atoms/ConfirmDialog";
 export default {
   name: "ItemPreview",
   props: ["item", "index"],
+  data() {
+    return {
+      showDialog: false
+    };
+  },
+  components: {
+    ConfirmDialog
+  },
   computed: {
     ...mapGetters({
       imageList: "itemInformation/getImageList",
@@ -45,10 +61,17 @@ export default {
         }
       });
     },
-    deleteItem: function() {
-      this.$emit("showDialog");
+    cancleDialog: function() {
+      this.showDialog = false;
+    },
+    handleDialog: function() {
+      this.showDialog = false;
       this.saveStoreImageList(this.imageList.splice(this.index, 1));
       this.saveStoreItemList(this.itemList.splice(this.index, 1));
+    },
+    deleteItem: function() {
+      this.showDialog = true;
+
     }
   }
 };
