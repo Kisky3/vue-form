@@ -8,7 +8,11 @@
       <div class="c-page-row center" @click="fileClick()">
         <label class="c-photo-label"> 60秒で簡単査定!</label>
         <div class="c-photo-wrap">
-          <img class="c-photo-mark" src="../assets/img/image-upload.png" alt="">
+          <img
+            class="c-photo-mark"
+            src="../assets/img/image-upload.png"
+            alt=""
+          />
           <div class="c-photo-btn">
             <span class="iconfont icon-camera"></span>
           </div>
@@ -39,7 +43,7 @@ export default {
     return {
       errorMsg: "",
       showErrorMsg: false,
-      step: 0,
+      step: 0
     };
   },
   components: {
@@ -64,16 +68,26 @@ export default {
       /* 全体の商品イメージリストに保存する */
       this.imageList.splice(0, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
-      this.submitImage
+      this.submitImage;
       /* 商品情報ページに遷移 */
       this.openItemInformationPage();
-      
     },
     async submitImage(upload_file) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
 
       this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
       this.$emit("saveImgKey", this.index, this.imageKey);
+    },
+    async getPresignedUrl(file) {
+      return await lambda
+        .getSignedURL(file)
+        .then(res => {
+          return res.data.url;
+        })
+        .catch(err => {
+          this.setErrorMsg("upload-fail");
+          console.log(err);
+        });
     },
     fileClick: function() {
       $("#upload_file").click();
@@ -127,6 +141,9 @@ export default {
           break;
         case "exceed-image":
           this.errorMsg = "画像3枚まで登録してください";
+          break;
+        case "upload-fail":
+          this.errorMsg = "画像アップロード失敗しました、もう一回試してください";
           break;
       }
       this.showErrorMsg = true;
