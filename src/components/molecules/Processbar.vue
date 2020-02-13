@@ -3,13 +3,13 @@
     <div v-show="step === 0" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/step1-active.png" />
-        <span class="active">商品情報</span>
+        <span class="active">商品登録</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
         <img src="../../assets/img/step2-gray.png" alt="" />
-        <span class="gray">商品一覧</span>
+        <span class="gray">商品確認</span>
       </div>
       <span class="progress-dot"></span>
 
@@ -28,13 +28,13 @@
      <div v-show="step === 1" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/step1-active.png" />
-        <span class="active">商品情報</span>
+        <span class="active">商品登録</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
         <img src="../../assets/img/step2-gray.png" alt="" />
-        <span class="gray">商品一覧</span>
+        <span class="gray">商品確認</span>
       </div>
       <span class="progress-dot"></span>
 
@@ -54,13 +54,13 @@
     <div v-show="step === 2" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/step1-done.png" />
-        <span class="active">商品情報</span>
+        <span class="active">商品登録</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
         <img src="../../assets/img/step2-done.png" alt="" />
-        <span class="active">商品一覧</span>
+        <span class="active">商品確認</span>
       </div>
       <span class="progress-dot active"></span>
 
@@ -77,13 +77,13 @@
     <div v-show="step === 3" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/step1-done.png" />
-        <span class="active">商品情報</span>
+        <span class="active">商品登録</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
         <img src="../../assets/img/step2-done.png" alt="" />
-        <span class="gray">商品一覧</span>
+        <span class="gray">商品確認</span>
       </div>
       <span class="progress-dot active"></span>
 
@@ -102,7 +102,7 @@
     <div v-show="step === 4" class="c-process-container">
       <div class="progress-btn">
         <img src="../../assets/img/step1-done.png" />
-        <span class="active">商品情報</span>
+        <span class="active">商品登録</span>
       </div>
       <span class="progress-dot active"></span>
 

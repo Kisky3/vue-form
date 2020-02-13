@@ -3,7 +3,7 @@
     <process-bar :step="step" />
     <div class="c-page-container">
       <div class="c-page-title">
-        <p>登録商品一覧</p>
+        <p>登録商品確認</p>
       </div>
       <div class="c-page-row row">
         <add-item @addItem="addItem()" />

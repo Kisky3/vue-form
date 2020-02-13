@@ -84,7 +84,7 @@ export default {
       /* 全体の商品イメージリストに保存する */
       this.imageList.splice(0, 1, this.imageData);
       this.saveStoreImageList(this.imageList);
-      /* 商品情報ページに遷移 */
+      /* 商品登録ページに遷移 */
       this.openItemInformationPage();
     },
     async submitImage(upload_file, index) {
