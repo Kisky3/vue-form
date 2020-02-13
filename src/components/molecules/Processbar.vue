@@ -2,50 +2,50 @@
   <div>
     <div v-show="step === 0" class="c-process-container">
       <div class="progress-btn">
-        <img src="../../assets/img/1-active.png" />
+        <img src="../../assets/img/step1-active.png" />
         <span class="active">step1</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/2-gray.png" alt="" />
+        <img src="../../assets/img/step2-gray.png" alt="" />
         <span class="gray">step2</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/3-gray.png" alt="" />
+        <img src="../../assets/img/step3-gray.png" alt="" />
         <span class="gray">step3</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/4-gray.png" alt="" />
+        <img src="../../assets/img/step4-gray.png" alt="" />
         <span class="gray">step4</span>
       </div>
     </div>
 
      <div v-show="step === 1" class="c-process-container">
       <div class="progress-btn">
-        <img src="../../assets/img/1-active.png" />
+        <img src="../../assets/img/step1-active.png" />
         <span class="active">step1</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/2-gray.png" alt="" />
+        <img src="../../assets/img/step2-gray.png" alt="" />
         <span class="gray">step2</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/3-gray.png" alt="" />
+        <img src="../../assets/img/step3-gray.png" alt="" />
         <span class="gray">step3</span>
       </div>
       <span class="progress-dot"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/4-gray.png" alt="" />
+        <img src="../../assets/img/step4-gray.png" alt="" />
         <span class="gray">step4</span>
       </div>
       <span class="progress-dot"></span>
@@ -53,73 +53,73 @@
 
     <div v-show="step === 2" class="c-process-container">
       <div class="progress-btn">
-        <img src="../../assets/img/1-done.png" />
+        <img src="../../assets/img/step1-done.png" />
         <span class="active">step1</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/2-done.png" alt="" />
+        <img src="../../assets/img/step2-done.png" alt="" />
         <span class="active">step2</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/3-gray.png" alt="" />
+        <img src="../../assets/img/step3-gray.png" alt="" />
         <span class="gray">step3</span>
       </div>
       <div class="progress-btn">
-        <img src="../../assets/img/4-gray.png" alt="" />
+        <img src="../../assets/img/step4-gray.png" alt="" />
         <span class="gray">step4</span>
       </div>
     </div>
 
     <div v-show="step === 3" class="c-process-container">
       <div class="progress-btn">
-        <img src="../../assets/img/1-done.png" />
+        <img src="../../assets/img/step1-done.png" />
         <span class="active">step1</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/2-done.png" alt="" />
+        <img src="../../assets/img/step2-done.png" alt="" />
         <span class="gray">step2</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/3-active.png" alt="" />
+        <img src="../../assets/img/step3-active.png" alt="" />
         <span class="gray">step3</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/4-gray.png" alt="" />
+        <img src="../../assets/img/step4-gray.png" alt="" />
         <span class="gray">step4</span>
       </div>
     </div>
 
     <div v-show="step === 4" class="c-process-container">
       <div class="progress-btn">
-        <img src="../../assets/img/1-done.png" />
+        <img src="../../assets/img/step1-done.png" />
         <span class="active">step1</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/2-done.png" alt="" />
+        <img src="../../assets/img/step2-done.png" alt="" />
         <span class="active">step2</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/3-done.png" alt="" />
+        <img src="../../assets/img/step3-done.png" alt="" />
         <span class="active">step3</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
-        <img src="../../assets/img/4-done.png" alt="" />
+        <img src="../../assets/img/step4-done.png" alt="" />
         <span class="active">step4</span>
       </div>
     </div>

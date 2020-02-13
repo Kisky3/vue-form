@@ -13,7 +13,8 @@
         <div class="c-page-row">
           <div class="c-page-subtitle">
             <p>写真</p>
-            <require-tag />
+            <option-tag />
+            <span class="warn-message">画像をUPすると査定はもっとスムーズに！</span>
           </div>
           <div class="c-photo-row">
             <div v-for="(image, index) in itemImage" :key="index">

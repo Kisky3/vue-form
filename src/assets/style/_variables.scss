@@ -404,6 +404,12 @@ select:focus {
   margin: 2px 0 0 0;
 }
 
+.warn-message {
+  color: #4eb5ac;
+  font-weight: 100;
+  margin-left: 10px;
+}
+
 .error-active {
   border: solid 1px #ff6a71 !important;
   box-shadow: 0 0 3px 0 #ff6a71 inset !important;
