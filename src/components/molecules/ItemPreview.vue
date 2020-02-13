@@ -42,10 +42,13 @@ export default {
       itemList: "itemInformation/getItemList"
     }),
     ItemPrevieimage() {
-      if (this.imageList[this.index] !== undefined) {
-        return this.imageList[this.index][0].thumnail;
-      }
-      return defaultImage;
+      let imageExist = this.imageList[this.index].find(
+        imageObj => imageObj.thumnail != ""
+      );
+      return this.imageList[this.index] !== undefined &&
+        imageExist !== undefined
+        ? imageExist.thumnail
+        : defaultImage;
     }
   },
   methods: {
@@ -71,7 +74,6 @@ export default {
     },
     deleteItem: function() {
       this.showDialog = true;
-
     }
   }
 };
