@@ -30,7 +30,7 @@ export default {
     ValidationProvider
   },
   props: {
-    rules: {type: String, required: true},
+    rules: {type: String, required: false},
     value: { type: String, required: false },
     type: { type: String, required: true },
     name: { type: String, required: true },
