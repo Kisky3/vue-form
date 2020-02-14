@@ -111,7 +111,6 @@ export default {
         let response = await axios.put(preSignedUrl, up_file, {
           headers: headers
         });
-        // console.log(response);
         if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
           this.imageKey = preSignedUrl.split("?")[0];
         }

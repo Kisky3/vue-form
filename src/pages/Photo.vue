@@ -118,8 +118,6 @@ export default {
       this.itemList.splice(0, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
-      console.log("itemList");
-      console.log(this.itemList);
     },
     async getPresignedUrl(file) {
       return await lambda

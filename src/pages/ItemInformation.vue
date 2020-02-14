@@ -14,6 +14,7 @@
           <div class="c-page-subtitle">
             <p>写真</p>
             <option-tag />
+            <span class="warn-message">査定額UPのチャンス！</span>
           </div>
           <div class="c-photo-row">
             <div v-for="(image, index) in itemImage" :key="index">
@@ -53,17 +54,18 @@
             value="value"
             name="item-name"
             label="商品名"
+            rules="required"
           />
         </div>
 
-        <div class="c-page-row up">
+        <div class="c-page-row">
           <div class="c-page-subtitle">
-            <p>付属品</p>
+            <p>補足事項</p>
             <option-tag />
           </div>
           <textarea-model
             v-model="itemData.item_comment"
-            placeholder="付属品の内容を記入ください"
+            placeholder="例）付属品：リモコンあり、商品状態：中古"
             name="item-accessories"
             :rows="3"
             value="value"
@@ -182,8 +184,6 @@ export default {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.saveStoreItemData(this.itemList);
-      console.log("itemList");
-      console.log(this.itemList);
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する

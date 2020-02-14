@@ -467,6 +467,7 @@ const categoryList = [
       {
         "sub_category": "スマホ・携帯",
         "sub_sub_category": [
+          {"sub_sub_category": "iphone"},
           {"sub_sub_category": "ドコモ（docomo）スマホ・携帯"},
           {"sub_sub_category": "auスマホ・携帯"},
           {"sub_sub_category": "ソフトバンク スマホ・携帯"},
@@ -482,7 +483,7 @@ const categoryList = [
     "main_category": "楽器・機材",
     "sub_category": [
       {
-        "sub_category": "楽器",
+        "sub_category": "楽器・機材",
         "sub_sub_category": [
           {"sub_sub_category": "トランペット・サックス・フルート等"},
           {"sub_sub_category": "ギター・ヴァイオリン等"},
@@ -497,7 +498,7 @@ const categoryList = [
     ]
   },
   {
-    "main_category": "業務用機器",
+    "main_category": "工具・農機",
     "sub_category": [
       {
         "sub_category": "工具・農機具",
@@ -516,7 +517,7 @@ const categoryList = [
     ]
   },
   {
-    "main_category": "趣味・美術・骨董・アンティーク",
+    "main_category": "ホビー",
     "sub_category": [
       {
         "sub_category": "アンティーク・書画骨董",
@@ -542,7 +543,7 @@ const categoryList = [
         ]
       },
       {
-        "sub_category": "コレクターズアイテム",
+        "sub_category": "おもちゃ / フィギュア",
         "sub_sub_category": [
           {"sub_sub_category": "フィギュア"},
           {"sub_sub_category": "トレーディングカード"},

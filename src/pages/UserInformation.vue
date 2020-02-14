@@ -148,6 +148,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import InputText from "../components/atoms/InputText";
 import InputRadio from "../components/atoms/InputRadio";
 import UserAddress from "../components/molecules/UserAddress";
@@ -155,23 +156,23 @@ import RequireTag from "../components/atoms/RequireTag";
 import OptionTag from "../components/atoms/OptionTag";
 import NextBtn from "../components/atoms/NextBtn";
 import { extend, ValidationObserver } from "vee-validate";
-import { required, email,numeric,min,max} from "vee-validate/dist/rules";
+import { required, email, numeric, min, max } from "vee-validate/dist/rules";
 import ProcessBar from "../components/molecules/Processbar";
 import settings from "./../settings/setting";
+import api from "@/api/info";
 
 /* 必須項目のエラーメッセージ設定 */
 extend("required", required);
 extend("email", email);
-extend("numeric", numeric)
-extend("min", min)
-extend("max", max)
+extend("numeric", numeric);
+extend("min", min);
+extend("max", max);
 
 required.message = "{_field_}は必須項目です";
 email.message = "{_field_}を正しく入力してください";
 numeric.message = "{_field_}を正しく入力してください";
 min.message = "{_field_}を正しく入力してください";
 max.message = "{_field_}を正しく入力してください";
-
 
 export default {
   name: "UserInformation",
@@ -204,14 +205,24 @@ export default {
     OptionTag,
     ValidationObserver
   },
+  computed: {
+    ...mapGetters({
+      itemList: "itemInformation/getItemList",
+      userData: 'userInformation/getUserData'
+    })
+  },
   methods: {
     ...mapActions({
       saveStoreUserData: "userInformation/saveUserData"
     }),
     async goToNext() {
+      let formData = {};
+      formData['items'] = this.itemList;
+      formData['userInfo'] = this.userData;
       const isValid = await this.$refs.userInformation.validate();
       if (isValid) {
         await this.saveUserData();
+        await api.submitFromData(formData)
         await this.openCompletePage();
       }
     },

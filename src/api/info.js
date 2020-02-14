@@ -36,5 +36,15 @@ export default {
         .then(res => resolve(res.data))
         .catch(error => reject(error));
     });
-  }
+  },
+
+  submitFromData(formData) {
+    return new Promise((resolve, reject) => {
+      /* API未定 */
+      axios
+        .post("/submit", formData)
+        .then(res => resolve(res.data))
+        .catch(error => reject(error));
+    });
+  },
 };
