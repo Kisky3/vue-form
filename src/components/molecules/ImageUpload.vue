@@ -96,7 +96,8 @@ export default {
       return await lambda
         .getSignedURL(file)
         .then(res => {
-          return res.data.url;
+          // return res.data.url;
+          return res.data.uploadUrl;
         })
         .catch(err => {
           console.log(err);
@@ -121,6 +122,8 @@ export default {
     },
     async submitImage(upload_file) {
       let preSignedUrl = await this.getPresignedUrl(upload_file);
+      console.log('preSignedUrl');
+      console.log(preSignedUrl);
 
       this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
       this.$emit("saveImgKey", this.index, this.imageKey);
