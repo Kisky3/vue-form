@@ -18,7 +18,8 @@ const state = {
     }
   ],
   itemList: [],
-  imageList: []
+  imageList: [],
+  userData: {},
 };
 
 const getters = {

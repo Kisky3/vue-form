@@ -9,11 +9,9 @@ export default {
         }
         return axios.post(endpoint, payload)
             .then((res) => {
-                console.log(res)
                 return Promise.resolve(res || '/')
             })
             .catch((err) => {
-                console.error(err)
                 return Promise.reject('/')
             })
     }

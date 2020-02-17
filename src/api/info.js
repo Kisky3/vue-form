@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-  // API未定、現状はsettingsの中のリストを利用している
+  // TODO: API化する API未定、現状はsettingsの中のリストを利用している
   getPrefectures(prefCode) {
     return new Promise((resolve, reject) => {
       axios
@@ -26,7 +26,7 @@ export default {
     });
   },
 
-  // API未定、現状は未実装
+  // TODO: API化する API未定、現状は未実装
   getTownList(cityCode) {
     return new Promise((resolve, reject) => {
       axios
@@ -38,6 +38,7 @@ export default {
     });
   },
 
+  /* 最後のフォーム送信 */
   submitFromData(formData) {
     return new Promise((resolve, reject) => {
       /* API未定 */

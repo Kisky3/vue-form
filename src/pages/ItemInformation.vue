@@ -81,8 +81,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapState } from "vuex";
 import ProcessBar from "../components/molecules/Processbar";
 import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
@@ -116,55 +115,23 @@ export default {
     return {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
       btnMessage: "次へ",
-      step: 1,
-      initialImageData: [
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        },
-        {
-          thumnail: "",
-          uploadFile: {},
-          name: ""
-        }
-      ],
-      initialItemData: {
-        title: null,
-        images: {},
-        cat_lvl0: null,
-        cat_lvl1: null,
-        cat_lvl2: null,
-        item_comment: null
-      }
+      step: 1
     };
   },
   computed: {
-    ...mapGetters({
-      imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
-    }),
+    ...mapState(["itemData","imageData","itemList","imageList"]),
     itemImage() {
       return this.imageList[this.itemIndex]
         ? this.imageList[this.itemIndex]
-        : this.initialImageData;
+        : this.imageData;
     },
     itemData() {
       return this.itemList.length === 0
-        ? this.initialItemData
+        ? this.itemData
         : this.itemList[this.itemIndex];
     }
   },
   methods: {
-    ...mapActions({
-      saveStoreItemData: "itemInformation/saveItemList",
-      saveStoreImageData: "itemInformation/saveImageList"
-    }),
     async goToNext() {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
