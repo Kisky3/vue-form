@@ -154,9 +154,7 @@ export default {
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する
-      this.saveStoreImageData(
-        this.imageList.splice(this.itemIndex, 1, this.itemImage)
-      );
+      this.$store.commit('saveStoreImageData', this.imageList.splice(this.itemIndex, 1, this.itemImage))
     },
     openItemsListPage() {
       this.$router.push(
