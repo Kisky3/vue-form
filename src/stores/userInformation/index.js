@@ -23,7 +23,6 @@ const mutations = {
 };
 
 const userInformation = {
-  namespaced: true,
   state,
   getters,
   actions,

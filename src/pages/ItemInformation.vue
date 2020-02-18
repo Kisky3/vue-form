@@ -119,7 +119,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["itemData","imageData","itemList","imageList"]),
+    ...mapState(["imageData","itemList","imageList"]),
     itemImage() {
       return this.imageList[this.itemIndex]
         ? this.imageList[this.itemIndex]
@@ -127,7 +127,7 @@ export default {
     },
     itemData() {
       return this.itemList.length === 0
-        ? this.itemData
+        ? this.$store.state.itemData
         : this.itemList[this.itemIndex];
     }
   },
@@ -150,7 +150,7 @@ export default {
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      this.saveStoreItemData(this.itemList);
+      this.$store.commit('saveStoreItemData', this.itemList)
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する

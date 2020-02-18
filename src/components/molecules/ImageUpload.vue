@@ -19,10 +19,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
-import lambda from "../../api/lambda";
 import axios from "axios";
+import { mapState } from "vuex";
+import common from "../../js/common";
+import lambda from "../../api/lambda";
 export default {
   name: "ImageUpload",
   props: ["index", "image", "itemIndex"],
@@ -32,15 +32,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
-    })
+    ...mapState(["itemData", "itemList","imageList"]),
   },
   methods: {
-    ...mapActions({
-      saveStoreImageList: "itemInformation/saveImageList"
-    }),
     fileClick: function() {
       $("#upload_" + this.index).click();
     },
@@ -48,7 +42,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       this.createImage(files[0]);
     },
-    createImage(file) {
+    async createImage(file) {
       var reader = new FileReader();
       var vm = this;
       reader.onload = function(e) {
@@ -58,16 +52,26 @@ export default {
       };
       vm.previewImage(vm.image);
       reader.readAsDataURL(file);
-      vm.submitImage(file);
-      vm.saveImageStore(vm.image);
+      let imageKey = common.getImgKey(file);
+      vm.saveImageData(vm, this.index);
+      vm.saveImgKey(this.index, imageKey);
     },
-    saveImageStore: function(image) {
+    saveImgKey(index, imageKey) {
+      this.itemData.images[index] = imageKey;
+      this.saveItemData();
+    },
+    saveImageData: function(image) {
       /* 各商品の画像オブジェクトに保存 */
       let obj = this.imageList[this.itemIndex];
 
       obj.splice(this.index, 1, image);
       this.imageList.splice(this.itemIndex, 1, obj);
-      this.saveStoreImageList(this.imageList);
+      this.$store.commit('saveStoreImageList', this.imageList)
+    },
+    saveItemData() {
+      this.itemList.splice(0, 1, this.itemData);
+      // 生成された商品データをstoreに保存する
+      this.$store.commit('saveStoreItemData', this.itemList)
     },
     previewImage: function(image) {
       return !(
@@ -88,7 +92,7 @@ export default {
       obj.splice(this.index, 1, this.image);
       this.image = obj;
       /* 画像プレビュー用 */
-      this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
+       this.$store.commit('saveStoreImageList', this.imageList.splice(this.itemIndex, 1, obj))
       /* 画像送信用 */
       this.$emit("delImgKey", this.index, this.imageKey);
     },
@@ -118,11 +122,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    async submitImage(upload_file) {
-      let preSignedUrl = await this.getPresignedUrl(upload_file);
-      this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      this.$emit("saveImgKey", this.index, this.imageKey);
     }
   }
 };
