@@ -48,18 +48,12 @@ export default new Vuex.Store({
   actions: {
     saveStoreItemList({ commit }, itemList) {
       commit("saveStoreItemList", itemList);
-      console.log('saveStoreItemList itemList');
-      console.log(itemList);
     },
     saveStoreImageList({ commit }, imageList) {
       commit("saveStoreImageList", imageList);
-      console.log('saveStoreImageList imageList');
-      console.log(imageList);
     },
     saveStoreUserData({ commit }, userData) {
       commit("saveStoreUserData", userData);
-      console.log('saveStoreUserData userData');
-      console.log(userData);
     }
   }
 });

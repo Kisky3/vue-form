@@ -83,6 +83,7 @@ export default {
           item_id: this.itemList.length
         }
       });
+
       /* 画像リストに空のデータを追加する */
       this.imageList.splice(this.itemList.length, 1, this.initialImageData);
       this.$store.commit("saveStoreImageList", this.imageList);
