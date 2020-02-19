@@ -5,12 +5,10 @@ import lambda from "../api/lambda"
 export default {
   /* 画像をアップロードした後返してくれた画像キーを取得する */
   async getImgKey(upload_file) {
-    let imageUploadResponse = await this.getImageUploadResponse(upload_file);
-    let preSignedUrl = imageUploadResponse.uploadUrl;
-    let imageKey = imageUploadResponse.imageKey;
-    /* 画像をアップロード */
-    this.uploadS3(preSignedUrl, upload_file);
-    return imageKey
+    return await this.getImageUploadResponse(upload_file).then((data) => {
+      this.uploadS3(data.uploadUrl, upload_file);
+      return data.imageKey
+    })
   },
 
   async getImageUploadResponse(upload_file) {

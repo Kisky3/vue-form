@@ -151,6 +151,8 @@ export default {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.$store.commit('saveStoreItemList', this.itemList)
+      console.log('itemList')
+      console.log(this.itemList);
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する

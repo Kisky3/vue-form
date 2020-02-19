@@ -40,7 +40,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["itemList","imageList"]),
+    ...mapState(["itemList", "imageList"])
   },
   methods: {
     fileClick: function() {
@@ -63,9 +63,10 @@ export default {
         if (vm.checkEmptyImage(obj)) {
           vm.setErrorMsg("no-image");
         } else {
-          let imageKey = common.getImgKey(file);
-          vm.saveImageData(obj, index);
-          vm.saveImgKey(index, imageKey)
+          common.getImgKey(file).then(imageKey => {
+            vm.saveImgKey(index, imageKey);
+            vm.saveImageData(obj, index);
+          });
         }
       };
       reader.readAsDataURL(file);
@@ -87,12 +88,12 @@ export default {
       obj.splice(this.index, 1, image);
 
       this.imageList.splice(this.itemIndex, 1, obj);
-      this.$store.commit('saveStoreImageList', this.imageList)
+      this.$store.commit("saveStoreImageList", this.imageList);
     },
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.initialItemData);
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemList', this.itemList)
+      this.$store.commit("saveStoreItemList", this.itemList);
     },
     previewImage: function(image) {
       return !(
@@ -113,7 +114,10 @@ export default {
       obj.splice(this.index, 1, this.image);
       this.image = obj;
       /* 画像プレビュー用 */
-       this.$store.commit('saveStoreImageList', this.imageList.splice(this.itemIndex, 1, obj))
+      this.$store.commit(
+        "saveStoreImageList",
+        this.imageList.splice(this.itemIndex, 1, obj)
+      );
       /* 画像送信用 */
       this.$emit("delImgKey", this.index, this.imageKey);
     },
