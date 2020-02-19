@@ -40,6 +40,9 @@ export default new Vuex.Store({
     },
     saveStoreImageList(state, imageList) {
       Vue.set(state.imageList, imageList);
+    },
+    saveStoreUserData(state, userData) {
+      Vue.set(state.userData, userData);
     }
   },
   actions: {
@@ -52,6 +55,11 @@ export default new Vuex.Store({
       commit("saveStoreImageList", imageList);
       console.log('saveStoreImageList imageList');
       console.log(imageList);
+    },
+    saveStoreUserData({ commit }, userData) {
+      commit("saveStoreUserData", userData);
+      console.log('saveStoreUserData userData');
+      console.log(userData);
     }
   }
 });

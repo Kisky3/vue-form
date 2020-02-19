@@ -124,7 +124,7 @@
                   <i class="iconfont icon-pulldown"></i>
                   <select
                     v-model="userData.answer_day"
-                    @change="saveStoreUserData"
+                    @change="saveUserData"
                   >
                     <option v-for="day in (2, 14)" :value="day" :key="day">{{
                       day
@@ -147,8 +147,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import InputText from "../components/atoms/InputText";
 import InputRadio from "../components/atoms/InputRadio";
 import UserAddress from "../components/molecules/UserAddress";
@@ -206,15 +205,9 @@ export default {
     ValidationObserver
   },
   computed: {
-    ...mapGetters({
-      itemList: "itemInformation/getItemList",
-      userData: 'userInformation/getUserData'
-    })
+    ...mapState(["itemList","UserData"])
   },
   methods: {
-    ...mapActions({
-      saveStoreUserData: "userInformation/saveUserData"
-    }),
     async goToNext() {
       let formData = {};
       formData['items'] = this.itemList;
@@ -228,7 +221,7 @@ export default {
     },
     saveUserData() {
       // 生成された商品データをstoreに保存する
-      this.saveStoreUserData(this.userData);
+      this.$store.commit('saveStoreUserData', this.userData)
     },
     openCompletePage: function() {
       this.$router.push(

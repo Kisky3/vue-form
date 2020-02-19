@@ -40,6 +40,8 @@ export default {
 
   /* 最後のフォーム送信 */
   submitFromData(formData) {
+    console.log('form data')
+    console.log(formData)
     return new Promise((resolve, reject) => {
       /* API未定 */
       axios
