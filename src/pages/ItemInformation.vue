@@ -115,19 +115,44 @@ export default {
     return {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
       btnMessage: "次へ",
-      step: 1
+      step: 1,
+      initialItemData: {
+      title: null,
+      images: {},
+      cat_lvl0: null,
+      cat_lvl1: null,
+      cat_lvl2: null,
+      item_comment: null
+    },
+    initialImageData: [
+      {
+        thumnail: "",
+        uploadFile: {},
+        name: ""
+      },
+      {
+        thumnail: "",
+        uploadFile: {},
+        name: ""
+      },
+      {
+        thumnail: "",
+        uploadFile: {},
+        name: ""
+      }
+    ],
     };
   },
   computed: {
-    ...mapState(["imageData","itemList","imageList"]),
+    ...mapState(["itemList","imageList"]),
     itemImage() {
       return this.imageList[this.itemIndex]
         ? this.imageList[this.itemIndex]
-        : this.imageData;
+        : this.initialImageData;
     },
     itemData() {
       return this.itemList.length === 0
-        ? this.$store.state.itemData
+        ? this.initialItemData
         : this.itemList[this.itemIndex];
     }
   },

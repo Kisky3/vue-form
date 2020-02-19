@@ -28,19 +28,14 @@ export default {
   props: ["index", "image", "itemIndex"],
   data() {
     return {
-      imageKey: null,
-      initialItemData: {
-        title: null,
-        images: {},
-        cat_lvl0: null,
-        cat_lvl1: null,
-        cat_lvl2: null,
-        item_comment: null
-      }
+      imageKey: null
     };
   },
   computed: {
-    ...mapState(["itemList", "imageList"])
+    ...mapState(["itemList", "imageList"]),
+    itemData () {
+      return this.itemList[this.itemIndex]
+    }
   },
   methods: {
     fileClick: function() {
@@ -79,7 +74,7 @@ export default {
       );
     },
     saveImgKey(index, imageKey) {
-      this.initialItemData.images[index] = imageKey;
+      this.itemData.images[index] = imageKey;
       this.saveItemData();
     },
     saveImageData: function(image) {
@@ -91,7 +86,7 @@ export default {
       this.$store.commit("saveStoreImageList", this.imageList);
     },
     saveItemData() {
-      this.itemList.splice(this.itemIndex, 1, this.initialItemData);
+      this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
       this.$store.commit("saveStoreItemList", this.itemList);
     },
