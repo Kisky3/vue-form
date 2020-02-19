@@ -150,11 +150,11 @@ export default {
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemData', this.itemList)
+      this.$store.commit('saveStoreItemList', this.itemList)
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreImageData', this.imageList.splice(this.itemIndex, 1, this.itemImage))
+      this.$store.commit('saveStoreImageList', this.imageList.splice(this.itemIndex, 1, this.itemImage))
     },
     openItemsListPage() {
       this.$router.push(

@@ -97,13 +97,13 @@ export default {
     saveItemData() {
       this.itemList.splice(0, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemData', this.itemList)
+      this.$store.dispatch('saveStoreItemList', this.itemList)
     },
     saveImageData(image, index) {
       this.imageData.splice(index, 1, image);
       this.imageList.splice(0, 1, this.imageData);
       // 生成された画像データをstoreに保存する
-      this.$store.commit('saveStoreImageData', this.imageList)
+      this.$store.dispatch('saveStoreImageList', this.imageList)
       this.openItemInformationPage();
     },
     checkEmptyImage: function(image) {

@@ -21,8 +21,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapState } from "vuex";
 import defaultImage from "../../assets/img/default.png";
 import ConfirmDialog from "../atoms/ConfirmDialog";
 export default {
@@ -37,10 +36,7 @@ export default {
     ConfirmDialog
   },
   computed: {
-    ...mapGetters({
-      imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
-    }),
+    ...mapState([ "itemList","imageList"]),
     ItemPrevieimage() {
       let imageExist = this.imageList[this.index].find(
         imageObj => imageObj.thumnail != ""
@@ -52,10 +48,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      saveStoreItemList: "itemInformation/saveItemList",
-      saveStoreImageList: "itemInformation/saveImageList"
-    }),
     editItem: function() {
       this.$router.push({
         path: "/item_information",
@@ -69,8 +61,8 @@ export default {
     },
     handleDialog: function() {
       this.showDialog = false;
-      this.saveStoreImageList(this.imageList.splice(this.index, 1));
-      this.saveStoreItemList(this.itemList.splice(this.index, 1));
+      this.$store.commit('saveStoreImageList', this.imageList.splice(this.index, 1))
+      this.$store.commit('saveStoreItemList', this.itemList.splice(this.index, 1))
     },
     deleteItem: function() {
       this.showDialog = true;

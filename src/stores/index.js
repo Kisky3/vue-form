@@ -35,12 +35,23 @@ export default new Vuex.Store({
     userData: {}
   },
   mutations: {
-    saveStoreItemData: (itemList, state) => {
-      state.itemList = itemList;
+    saveStoreItemList(state, itemList) {
+      Vue.set(state.itemList, itemList);
     },
-    saveStoreImageData: (imageList, state) => {
-      state.imageList = imageList
+    saveStoreImageList(state, imageList) {
+      Vue.set(state.imageList, imageList);
     }
   },
-  actions: {}
+  actions: {
+    saveStoreItemList({ commit }, itemList) {
+      commit("saveStoreItemList", itemList);
+      console.log('saveStoreItemList itemList');
+      console.log(itemList);
+    },
+    saveStoreImageList({ commit }, imageList) {
+      commit("saveStoreImageList", imageList);
+      console.log('saveStoreImageList imageList');
+      console.log(imageList);
+    }
+  }
 });

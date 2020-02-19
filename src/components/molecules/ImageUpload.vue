@@ -40,21 +40,34 @@ export default {
     },
     onFileChange: function(e) {
       var files = e.target.files || e.dataTransfer.files;
-      this.createImage(files[0]);
+      this.createImage(files[0], this.index);
     },
-    async createImage(file) {
+    async createImage(file, index) {
       var reader = new FileReader();
       var vm = this;
+      var obj = {};
       reader.onload = function(e) {
-        vm.image.thumnail = e.target.result;
-        vm.image.uploadFile = file;
-        vm.image.name = file.name;
+        obj.thumnail = e.target.result;
+        obj.uploadFile = file;
+        obj.name = file.name;
+
+        // アップロード成功すれば保存する
+        if (vm.checkEmptyImage(obj)) {
+          vm.setErrorMsg("no-image");
+        } else {
+          let imageKey = common.getImgKey(file);
+          vm.saveImageData(obj, index);
+          vm.saveImgKey(index, imageKey)
+        }
       };
-      vm.previewImage(vm.image);
       reader.readAsDataURL(file);
-      let imageKey = common.getImgKey(file);
-      vm.saveImageData(vm, this.index);
-      vm.saveImgKey(this.index, imageKey);
+    },
+    checkEmptyImage: function(image) {
+      return (
+        image.thumnail === "" &&
+        Object.keys(image.uploadFile).length === 0 &&
+        image.name === ""
+      );
     },
     saveImgKey(index, imageKey) {
       this.itemData.images[index] = imageKey;
@@ -71,7 +84,7 @@ export default {
     saveItemData() {
       this.itemList.splice(0, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemData', this.itemList)
+      this.$store.commit('saveStoreItemList', this.itemList)
     },
     previewImage: function(image) {
       return !(
