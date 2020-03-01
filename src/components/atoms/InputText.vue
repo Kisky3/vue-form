@@ -23,15 +23,8 @@
 </template>
 
 <script>
-import { extend, ValidationProvider } from "vee-validate";
+import { ValidationProvider } from "vee-validate";
 import { required, email, numeric, min, max } from "vee-validate/dist/rules";
-
-/* 必須項目のエラーメッセージ設定 */
-extend("required", required);
-extend("email", email);
-extend("numeric", numeric);
-extend("min", min);
-extend("max", max);
 
 required.message = "{_field_}は必須項目です";
 email.message = "{_field_}を正しく入力してください";
