@@ -14,7 +14,7 @@
           <div class="c-page-subtitle">
             <p>写真</p>
             <option-tag />
-            <span class="warn-message">査定額UPのチャンス！</span>
+            <span class="warn-message">写真をアップしましょう</span>
           </div>
           <div class="c-photo-row">
             <div v-for="(image, index) in itemImage" :key="index">
@@ -81,7 +81,8 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import ProcessBar from "../components/molecules/Processbar";
 import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
@@ -116,35 +117,38 @@ export default {
       itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
       btnMessage: "次へ",
       step: 1,
+      initialImageData: [
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        },
+        {
+          thumnail: "",
+          uploadFile: {},
+          name: ""
+        }
+      ],
       initialItemData: {
-      title: null,
-      images: {},
-      cat_lvl0: null,
-      cat_lvl1: null,
-      cat_lvl2: null,
-      item_comment: null
-    },
-    initialImageData: [
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
-      },
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
-      },
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
+        title: null,
+        images: {},
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
       }
-    ],
     };
   },
   computed: {
-    ...mapState(["itemList","imageList"]),
+    ...mapGetters({
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
+    }),
     itemImage() {
       return this.imageList[this.itemIndex]
         ? this.imageList[this.itemIndex]
@@ -157,6 +161,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      saveStoreItemData: "itemInformation/saveItemList",
+      saveStoreImageData: "itemInformation/saveImageList"
+    }),
     async goToNext() {
       const isValid = await this.$refs.observer.validate();
       if (isValid) {
@@ -175,13 +183,13 @@ export default {
     saveItemData() {
       this.itemList.splice(this.itemIndex, 1, this.itemData);
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemList', this.itemList)
-      console.log('itemList')
-      console.log(this.itemList);
+      this.saveStoreItemData(this.itemList);
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreImageList', this.imageList.splice(this.itemIndex, 1, this.itemImage))
+      this.saveStoreImageData(
+        this.imageList.splice(this.itemIndex, 1, this.itemImage)
+      );
     },
     openItemsListPage() {
       this.$router.push(

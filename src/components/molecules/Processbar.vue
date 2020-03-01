@@ -83,13 +83,13 @@
 
       <div class="progress-btn">
         <img src="../../assets/img/step2-done.png" alt="" />
-        <span class="gray">商品確認</span>
+        <span class="active">商品確認</span>
       </div>
       <span class="progress-dot active"></span>
 
       <div class="progress-btn">
         <img src="../../assets/img/step3-active.png" alt="" />
-        <span class="gray">個人情報</span>
+        <span class="active">個人情報</span>
       </div>
       <span class="progress-dot active"></span>
 

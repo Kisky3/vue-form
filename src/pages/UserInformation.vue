@@ -112,29 +112,6 @@
               />
             </div>
           </div>
-
-          <div class="c-page-row">
-            <div class="c-page-subtitle">
-              <p>査定への回答期限</p>
-              <option-tag />
-            </div>
-            <div class="input-container">
-              <div class="c-item-answerday-wrap">
-                <div class="c-select-wrap">
-                  <i class="iconfont icon-pulldown"></i>
-                  <select
-                    v-model="userData.answer_day"
-                    @change="saveUserData"
-                  >
-                    <option v-for="day in (2, 14)" :value="day" :key="day">{{
-                      day
-                    }}</option>
-                  </select>
-                </div>
-                <p>日以内に回答が欲しい</p>
-              </div>
-            </div>
-          </div>
         </div>
         <next-btn
           @goToNext="goToNext()"
@@ -147,7 +124,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import InputText from "../components/atoms/InputText";
 import InputRadio from "../components/atoms/InputRadio";
 import UserAddress from "../components/molecules/UserAddress";
@@ -189,8 +167,7 @@ export default {
         phone_number: null,
         email: null,
         stair: null,
-        elevator: null,
-        answer_day: 3
+        elevator: null
       }
     };
   },
@@ -205,9 +182,15 @@ export default {
     ValidationObserver
   },
   computed: {
-    ...mapState(["itemList","UserData"])
+    ...mapGetters({
+      itemList: "itemInformation/getItemList",
+      userData: 'userInformation/getUserData'
+    })
   },
   methods: {
+    ...mapActions({
+      saveStoreUserData: "userInformation/saveUserData"
+    }),
     async goToNext() {
       let formData = {};
       formData['items'] = this.itemList;
@@ -221,7 +204,7 @@ export default {
     },
     saveUserData() {
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreUserData', this.userData)
+      this.saveStoreUserData(this.userData);
     },
     openCompletePage: function() {
       this.$router.push(

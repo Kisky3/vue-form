@@ -8,11 +8,13 @@
       <div class="c-page-row center" @click="fileClick()">
         <label class="c-photo-label"> 60秒で簡単査定!</label>
         <div class="c-photo-wrap">
+          <!--一旦コメントアウト
           <img
             class="c-photo-mark"
             src="../assets/img/image-upload.png"
             alt=""
           />
+          -->
           <div class="c-photo-btn">
             <span class="iconfont icon-camera"></span>
           </div>
@@ -34,12 +36,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import common from "../js/common";
-import { mapState } from "vuex";
-import lambda from "../api/lambda";
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import ProcessBar from "../components/molecules/Processbar";
-
+import lambda from "../api/lambda";
+import axios from "axios";
 export default {
   name: "Photo",
   data() {
@@ -47,16 +48,90 @@ export default {
       errorMsg: "",
       showErrorMsg: false,
       step: 0,
-      imageKey: null
+      imageKey: null,
+      initialItemData: {
+        title: null,
+        images: {},
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: null
+      }
     };
   },
   components: {
     ProcessBar
   },
   computed: {
-    ...mapState(["itemData","imageData","itemList","imageList"]),
+    ...mapGetters({
+      imageData: "itemInformation/getImageData",
+      imageList: "itemInformation/getImageList",
+      itemList: "itemInformation/getItemList"
+    }),
+    itemData() {
+      return this.initialItemData;
+    }
   },
   methods: {
+    ...mapActions({
+      saveStoreImageData: "itemInformation/saveImageData",
+      saveStoreItemData: "itemInformation/saveItemList",
+      saveStoreImageList: "itemInformation/saveImageList"
+    }),
+    saveImageData(image, index) {
+      /* 各商品の画像オブジェクトに保存 */
+      this.imageData.splice(index, 1, image);
+      this.saveStoreImageData(this.imageData);
+
+      /* 全体の商品イメージリストに保存する */
+      this.imageList.splice(0, 1, this.imageData);
+      this.saveStoreImageList(this.imageList);
+      /* 商品登録ページに遷移 */
+      this.openItemInformationPage();
+    },
+    async submitImage(upload_file, index) {
+      let preSignedUrl = await this.getPresignedUrl(upload_file);
+      this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
+      this.saveImgKey(index, this.imageKey);
+    },
+    async uploadS3(preSignedUrl, up_file) {
+      try {
+        /* headersでアップロードした画像のContent Typeを設定する */
+        const headers = {
+          "content-type": up_file.type
+        };
+        let response = await axios.put(preSignedUrl, up_file, {
+          headers: headers
+        });
+        if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
+          this.imageKey = preSignedUrl.split("?")[0];
+        }
+        return this.imageKey;
+      } catch (error) {
+        this.setErrorMsg("upload-fail");
+        console.log(error);
+      }
+    },
+    saveImgKey(index, imageKey) {
+      this.itemData.images[index] = imageKey;
+      this.saveItemData();
+    },
+    saveItemData() {
+      this.itemList.splice(0, 1, this.itemData);
+      // 生成された商品データをstoreに保存する
+      this.saveStoreItemData(this.itemList);
+    },
+    async getPresignedUrl(file) {
+      return await lambda
+        .getSignedURL(file)
+        .then(res => {
+          return res.data.url;
+        })
+        .catch(err => {
+          this.setErrorMsg("upload-fail");
+          console.log(err);
+        });
+    },
     fileClick: function() {
       $("#upload_file").click();
     },
@@ -83,28 +158,11 @@ export default {
         if (vm.checkEmptyImage(obj)) {
           vm.setErrorMsg("no-image");
         } else {
-          let imageKey = common.getImgKey(file);
+          vm.submitImage(file, index);
           vm.saveImageData(obj, index);
-          vm.saveImgKey(index, imageKey)
         }
       };
       reader.readAsDataURL(file);
-    },
-    saveImgKey(index, imageKey) {
-      this.itemData.images[index] = imageKey;
-      this.saveItemData();
-    },
-    saveItemData() {
-      this.itemList.splice(0, 1, this.itemData);
-      // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreItemList', this.itemList)
-    },
-    saveImageData(image, index) {
-      this.imageData.splice(index, 1, image);
-      this.imageList.splice(0, 1, this.imageData);
-      // 生成された画像データをstoreに保存する
-      this.$store.commit('saveStoreImageList', this.imageList)
-      this.openItemInformationPage();
     },
     checkEmptyImage: function(image) {
       return (

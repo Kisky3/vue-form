@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-  // TODO: API化する API未定、現状はsettingsの中のリストを利用している
+  // API未定、現状はsettingsの中のリストを利用している
   getPrefectures(prefCode) {
     return new Promise((resolve, reject) => {
       axios
@@ -26,7 +26,7 @@ export default {
     });
   },
 
-  // TODO: API化する API未定、現状は未実装
+  // API未定、現状は未実装
   getTownList(cityCode) {
     return new Promise((resolve, reject) => {
       axios
@@ -38,12 +38,11 @@ export default {
     });
   },
 
-  /* 最後のフォーム送信 */
   submitFromData(formData) {
     return new Promise((resolve, reject) => {
       /* API未定 */
       axios
-        .post("/submit", formData)
+        .post("http://localhost:8800/rest/v1.0/offers/accept/takaku", formData)
         .then(res => resolve(res.data))
         .catch(error => reject(error));
     });
