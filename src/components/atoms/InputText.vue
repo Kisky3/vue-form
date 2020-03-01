@@ -10,7 +10,6 @@
           :class="ProviderProps.errors[0] ? 'error-active' : ''"
           @input="updateValue"
         />
-        {{rules}}fff
         <div class="error-message">
           <span
             v-show="ProviderProps.errors[0]"
