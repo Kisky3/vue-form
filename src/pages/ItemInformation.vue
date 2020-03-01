@@ -10,6 +10,7 @@
         <div class="c-page-title">
           <p>商品{{ itemIndex + 1 }} 情報</p>
         </div>
+        <!--ABテストのため、画像UP機能を一旦Pending
         <div class="c-page-row">
           <div class="c-page-subtitle">
             <p>写真</p>
@@ -28,7 +29,7 @@
             </div>
           </div>
         </div>
-
+        -->
         <div class="c-page-row">
           <div class="c-page-subtitle">
             <p>カテゴリー</p>
@@ -84,7 +85,7 @@
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import ProcessBar from "../components/molecules/Processbar";
-import ImageUpload from "./../components/molecules/ImageUpload";
+// import ImageUpload from "./../components/molecules/ImageUpload";
 import RequireTag from "./../components/atoms/RequireTag";
 import OptionTag from "./../components/atoms/OptionTag";
 import TextareaModel from "./../components/atoms/TextareaModel";
@@ -103,7 +104,7 @@ export default {
   props: ["item_id"],
   components: {
     ProcessBar,
-    ImageUpload,
+    // ImageUpload,
     InputText,
     TextareaModel,
     ItemCategories,

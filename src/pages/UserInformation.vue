@@ -145,12 +145,6 @@ extend("numeric", numeric);
 extend("min", min);
 extend("max", max);
 
-required.message = "{_field_}は必須項目です";
-email.message = "{_field_}を正しく入力してください";
-numeric.message = "{_field_}を正しく入力してください";
-min.message = "{_field_}を正しく入力してください";
-max.message = "{_field_}を正しく入力してください";
-
 export default {
   name: "UserInformation",
   data() {

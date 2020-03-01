@@ -10,6 +10,7 @@
           :class="ProviderProps.errors[0] ? 'error-active' : ''"
           @input="updateValue"
         />
+        {{rules}}fff
         <div class="error-message">
           <span
             v-show="ProviderProps.errors[0]"
@@ -23,11 +24,25 @@
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { extend, ValidationProvider } from "vee-validate";
+import { required, email, numeric, min, max } from "vee-validate/dist/rules";
+
+/* 必須項目のエラーメッセージ設定 */
+extend("required", required);
+extend("email", email);
+extend("numeric", numeric);
+extend("min", min);
+extend("max", max);
+
+required.message = "{_field_}は必須項目です";
+email.message = "{_field_}を正しく入力してください";
+numeric.message = "{_field_}を正しく入力してください";
+min.message = "{_field_}を正しく入力してください";
+max.message = "{_field_}を正しく入力してください";
 export default {
   name: "InputText",
   components: {
-    ValidationProvider
+    ValidationProvider,
   },
   props: {
     rules: {type: String, required: false},

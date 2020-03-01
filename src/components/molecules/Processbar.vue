@@ -68,6 +68,8 @@
         <img src="../../assets/img/step3-gray.png" alt="" />
         <span class="gray">個人情報</span>
       </div>
+      <span class="progress-dot"></span>
+      
       <div class="progress-btn">
         <img src="../../assets/img/step4-gray.png" alt="" />
         <span class="gray">完了</span>

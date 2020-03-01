@@ -417,7 +417,7 @@ select:focus {
 
 .c-item-container {
   position: relative;
-  height: 140px;
+  height: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -447,12 +447,12 @@ select:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-align: left;
   word-wrap: break-word;
   word-break: break-all;
-  padding: 3px 10px;
+  padding: 3px 25px;
   color: #222222;
 }
 
@@ -532,10 +532,14 @@ select:focus {
 }
 .item-check {
   position: absolute;
-  bottom: 5px;
+  bottom: 45px;
   right: 0px;
   font-size: 35px;
   color: #18c4af;
+  z-index: 3;
+}
+
+.item-check::before {
   background: #fff;
   border-radius: 20px;
   z-index: 3;
@@ -545,7 +549,7 @@ select:focus {
   position: relative;
   border: solid 1px #e1e1e1;
   background: #fff;
-  height: 240px;
+  height: 140px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
   width: 180px;
@@ -625,7 +629,7 @@ select:focus {
     position: relative;
     border: solid 1px #e1e1e1;
     background: #fff;
-    height: 240px;
+    height: 140px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
     width: 45vw;

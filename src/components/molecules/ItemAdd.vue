@@ -1,8 +1,9 @@
 <template>
   <div class="c-item-wrap add" @click="addItem">
+    <!--
     <div>
       <span class="iconfont icon-camera item-camera"></span>
-    </div>
+    </div>-->
     <div class="c-item-add-panel">
       + 商品を追加する
     </div>

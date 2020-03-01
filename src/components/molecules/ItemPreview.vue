@@ -2,12 +2,15 @@
   <div>
     <div class="c-item-wrap">
       <div class="c-item-label">
-        {{ item.title }}
+        <span>商品名：</span>
+        <br/>{{ item.title }}
       </div>
-      <div class="c-item-container">
+
+      <!--<div class="c-item-container">
         <img :src="ItemPrevieimage" alt="" class="c-upload-img" />
         <span class="iconfont icon-check item-check"></span>
-      </div>
+      </div>-->
+      <span class="iconfont icon-check item-check"></span>
       <div class="c-item-edit-panel">
         <a class="c-edit-button" @click="editItem()">編集</a>
         <a class="c-edit-button" @click="deleteItem()">削除</a>
@@ -38,10 +41,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      imageList: "itemInformation/getImageList",
+      // imageList: "itemInformation/getImageList",
       itemList: "itemInformation/getItemList"
     }),
-    ItemPrevieimage() {
+    /*ItemPrevieimage() {
       let imageExist = this.imageList[this.index].find(
         imageObj => imageObj.thumnail != ""
       );
@@ -49,12 +52,12 @@ export default {
         imageExist !== undefined
         ? imageExist.thumnail
         : defaultImage;
-    }
+    }*/
   },
   methods: {
     ...mapActions({
       saveStoreItemList: "itemInformation/saveItemList",
-      saveStoreImageList: "itemInformation/saveImageList"
+      // saveStoreImageList: "itemInformation/saveImageList"
     }),
     editItem: function() {
       this.$router.push({
@@ -69,7 +72,7 @@ export default {
     },
     handleDialog: function() {
       this.showDialog = false;
-      this.saveStoreImageList(this.imageList.splice(this.index, 1));
+      // this.saveStoreImageList(this.imageList.splice(this.index, 1));
       this.saveStoreItemList(this.itemList.splice(this.index, 1));
     },
     deleteItem: function() {
