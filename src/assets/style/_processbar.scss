@@ -3,10 +3,12 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  width: 45%;
+  width: 95%;
   max-width: 650px;
   margin: auto;
-  height: 90px;
+  height: 75px;
+  margin-top: -3px;
+  margin-bottom: 8px;
 }
 
 .c-process-container .c-process-bar {
@@ -24,7 +26,7 @@
 /* sp レスポンス対応 */
 @media only screen and (max-width: 767px) {
   .c-process-container {
-    width: 90%;
-    height: 90px;
+    margin-top: -8px;
+    margin-bottom: 0;
   }
 }

@@ -1,135 +1,125 @@
 <template>
-  <div class="c-upload-btn" @click="fileClick">
+  <div
+    class="c-upload-btn"
+    @click="fileClick">
     <span
       v-show="!previewImage(image)"
-      class="iconfont icon-camera c-upload-camera"
-    ></span>
+      class="iconfont icon-camera c-upload-camera" />
     <div v-if="previewImage(image)">
       <div class="c-upload-btn active">
-        <img :src="image.thumnail" class="c-upload-img" />
+        <img
+          :src="image.thumnail"
+          class="c-upload-img">
       </div>
-      <a class="c-close_button" @click="deleteImage"></a>
+      <a
+        class="c-close_button"
+        @click="deleteImage" />
     </div>
     <input
       :id="'upload_' + index"
       type="file"
       accept="image/*"
-      @change="onFileChange($event)"
-    />
+      @change="onFileChange($event)">
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
-import lambda from "../../api/lambda";
-import axios from "axios";
+import { mapState } from 'vuex'
+import common from '../../js/common'
 export default {
-  name: "ImageUpload",
-  props: ["index", "image", "itemIndex"],
+  name: 'ImageUpload',
+  props: ['index', 'image', 'itemIndex'],
   data() {
     return {
       imageKey: null
-    };
+    }
   },
   computed: {
-    ...mapGetters({
-      imageList: "itemInformation/getImageList",
-      itemList: "itemInformation/getItemList"
-    })
+    ...mapState(['itemList', 'imageList']),
+    itemData () {
+      return this.itemList[this.itemIndex]
+    }
   },
   methods: {
-    ...mapActions({
-      saveStoreImageList: "itemInformation/saveImageList"
-    }),
     fileClick: function() {
-      $("#upload_" + this.index).click();
+      document.getElementById('#upload_' + this.index).click()
     },
     onFileChange: function(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      this.createImage(files[0]);
+      let files = e.target.files || e.dataTransfer.files
+      this.createImage(files[0], this.index)
     },
-    createImage(file) {
-      var reader = new FileReader();
-      var vm = this;
+    async createImage(file, index) {
+      let reader = new FileReader()
+      let vm = this
+      const obj = {}
       reader.onload = function(e) {
-        vm.image.thumnail = e.target.result;
-        vm.image.uploadFile = file;
-        vm.image.name = file.name;
-      };
-      vm.previewImage(vm.image);
-      reader.readAsDataURL(file);
-      vm.submitImage(file);
-      vm.saveImageStore(vm.image);
-    },
-    saveImageStore: function(image) {
-      /* 各商品の画像オブジェクトに保存 */
-      let obj = this.imageList[this.itemIndex];
+        obj.thumnail = e.target.result
+        obj.uploadFile = file
+        obj.name = file.name
 
-      obj.splice(this.index, 1, image);
-      this.imageList.splice(this.itemIndex, 1, obj);
-      this.saveStoreImageList(this.imageList);
+        // アップロード成功すれば保存する
+        if (vm.checkEmptyImage(obj)) {
+          vm.setErrorMsg('no-image')
+        } else {
+          common.getImgKey(file).then(imageKey => {
+            vm.saveImgKey(index, imageKey)
+            vm.saveImageData(obj, index)
+          })
+        }
+      }
+      reader.readAsDataURL(file)
+    },
+    checkEmptyImage: function(image) {
+      return (
+        image.thumnail === '' &&
+        Object.keys(image.uploadFile).length === 0 &&
+        image.name === ''
+      )
+    },
+    saveImgKey(index, imageKey) {
+      this.itemData.images[index] = imageKey
+      this.saveItemData()
+    },
+    saveImageData: function(image) {
+      /* 各商品の画像オブジェクトに保存 */
+      let obj = this.imageList[this.itemIndex]
+      obj.splice(this.index, 1, image)
+
+      this.imageList.splice(this.itemIndex, 1, obj)
+      this.$store.commit('saveStoreImageList', this.imageList)
+    },
+    saveItemData() {
+      this.itemList.splice(this.itemIndex, 1, this.itemData)
+      // 生成された商品データをstoreに保存する
+      this.$store.commit('saveStoreItemList', this.itemList)
     },
     previewImage: function(image) {
       return !(
-        image.thumnail === "" &&
+        image.thumnail === '' &&
         Object.keys(image.uploadFile).length === 0 &&
-        image.name === ""
-      );
+        image.name === ''
+      )
     },
     deleteImage: function() {
       this.image = {
-        thumnail: "",
+        thumnail: '',
         uploadFile: {},
-        name: ""
-      };
-
-      event.stopPropagation();
-      let obj = this.imageList[this.itemIndex];
-      obj.splice(this.index, 1, this.image);
-      this.image = obj;
-      /* 画像プレビュー用 */
-      this.saveStoreImageList(this.imageList.splice(this.itemIndex, 1, obj));
-      /* 画像送信用 */
-      this.$emit("delImgKey", this.index, this.imageKey);
-    },
-    async getPresignedUrl(file) {
-      return await lambda
-        .getSignedURL(file)
-        .then(res => {
-          // return res.data.url;
-          return res.data.uploadUrl;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    async uploadS3(preSignedUrl, up_file) {
-      try {
-        /* headersでアップロードした画像のContent Typeを設定する */
-        const headers = {
-          "content-type": up_file.type
-        };
-        let response = await axios.put(preSignedUrl, up_file, {
-          headers: headers
-        });
-        if (preSignedUrl && preSignedUrl.indexOf("?") != -1) {
-          this.imageKey = preSignedUrl.split("?")[0];
-        }
-        return this.imageKey;
-      } catch (error) {
-        console.log(error);
+        name: ''
       }
-    },
-    async submitImage(upload_file) {
-      let preSignedUrl = await this.getPresignedUrl(upload_file);
-      console.log('preSignedUrl');
-      console.log(preSignedUrl);
 
-      this.imageKey = await this.uploadS3(preSignedUrl, upload_file);
-      this.$emit("saveImgKey", this.index, this.imageKey);
+      event.stopPropagation()
+      let obj = this.imageList[this.itemIndex]
+      obj.splice(this.index, 1, this.image)
+      this.image = obj
+      /* 画像プレビュー用 */
+      this.$store.commit(
+        'saveStoreImageList',
+        this.imageList.splice(this.itemIndex, 1, obj)
+      )
+      /* 画像送信用 */
+      this.$emit('delImgKey', this.index, this.imageKey)
     }
   }
-};
+}
 </script>
 <style>
 .c-upload-btn {

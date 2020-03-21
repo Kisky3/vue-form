@@ -1,8 +1,10 @@
 <template>
-  <div class="c-item-wrap add" @click="addItem">
-    <!--
+  <div
+    class="c-item-wrap add"
+    @click="addItem">
+    <!--ABテストのため画像componentを外す
     <div>
-      <span class="iconfont icon-camera item-camera"></span>
+      <span class="iconfont icon-camera item-camera" />
     </div>-->
     <div class="c-item-add-panel">
       + 商品を追加する
@@ -11,13 +13,13 @@
 </template>
 <script>
 export default {
-  name: "AddItem",
+  name: 'AddItem',
   methods: {
     addItem: function() {
-      this.$emit("addItem");
+      this.$emit('addItem')
     }
   }
-};
+}
 </script>
 <style>
 .item-camera {
@@ -43,8 +45,5 @@ export default {
   justify-content: center;
   bottom: 0;
   border-radius: 0 0 5px 5px;
-}
-/* sp */
-@media only screen and (max-width: 767px) {
 }
 </style>
