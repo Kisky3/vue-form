@@ -26,11 +26,8 @@ export default {
     listeners () {
       return {
         ...this.$listeners,
-        change: event => {
-          // vee-validate用
+        input: event => {
           this.$emit('input', event.target.value, event)
-          // v-model用
-          this.$emit('change', event.target.value, event)
         }
       }
     }

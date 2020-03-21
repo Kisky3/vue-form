@@ -95,6 +95,7 @@ export default {
       let catLvl1Obj = this.categoryList.find(cat0 => {
         return cat0.title === this.cat_lvl0
       })
+
       let catLv1List = catLvl1Obj.option
       return catLv1List
     },
