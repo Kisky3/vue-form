@@ -1,7 +1,7 @@
-import Vuex from "vuex";
-import Vue from "vue";
+import Vuex from 'vuex'
+import Vue from 'vue'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -11,51 +11,39 @@ export default new Vuex.Store({
       cat_lvl0: null,
       cat_lvl1: null,
       cat_lvl2: null,
-      item_comment: null
+      condition: '中古',
+      item_comment: ''
     },
     imageData: [
       {
-        thumnail: "",
+        thumnail: '',
         uploadFile: {},
-        name: ""
+        name: ''
       },
       {
-        thumnail: "",
+        thumnail: '',
         uploadFile: {},
-        name: ""
+        name: ''
       },
       {
-        thumnail: "",
+        thumnail: '',
         uploadFile: {},
-        name: ""
+        name: ''
       }
     ],
     itemList: [],
     imageList: [],
     userData: {}
   },
-  actions: {
-    saveStoreItemList({ commit }, itemList) {
-      commit("saveStoreItemList", itemList);
-    },
-    saveStoreImageList({ commit }, imageList) {
-      commit("saveStoreImageList", imageList);
-    },
-    saveStoreUserData({ commit }, userData) {
-      commit("saveStoreUserData", userData);
-    }
-  },
   mutations: {
     saveStoreItemList(state, itemList) {
-      console.log('itemList in store');
-      console.log(itemList);
-      Vue.set(state.itemList, itemList);
+      state.itemList = [ ...itemList ]
     },
     saveStoreImageList(state, imageList) {
-      Vue.set(state.imageList, imageList);
+      state.imageList = [ ...imageList ]
     },
     saveStoreUserData(state, userData) {
-      Vue.set(state.userData, userData);
+      state.userData = { ...userData }
     }
   },
-});
+})

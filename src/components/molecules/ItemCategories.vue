@@ -1,148 +1,126 @@
 <template>
   <div class="input-container">
-    <div class="select-wrap">
-      <i class="iconfont icon-pulldown"></i>
-      <validation-provider rules="required" name="カテゴリー 大項目">
-        <div slot-scope="ProviderProps">
-          <select
-            v-model="cat_lvl0"
-            @change="
-              (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0)
-            "
-            :class="ProviderProps.errors[0] ? 'error-active' : ''"
-          >
-            <option disabled="disabled" :value="null">
-              大項目を選択してください</option
-            >
-            <option
-              v-for="(item, index) in categoryList"
-              :value="index"
-              :key="index"
-              >{{ item.main_category }}</option
-            >
-          </select>
-          <div class="error-message">
-            <span
-              v-show="ProviderProps.errors[0]"
-              class="iconfont icon-warn"
-            ></span>
-            {{ ProviderProps.errors[0] }}
-          </div>
-        </div>
-      </validation-provider>
-    </div>
+    <validate-select
+      v-model="cat_lvl0"
+      rules="required"
+      name="カテゴリー 大項目"
+      @input="
+        (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0),submitCatLvl1(cat_lvl1),submitCatLvl2(cat_lvl2)
+      ">
+      <option
+        selected
+        disabled="disabled"
+        :value="null">
+        大項目を選択してください
+      </option>
+      <option
+        v-for="(item, index) in categoryList"
+        :key="index"
+        :value="item.title">
+        {{ item.title }}
+      </option>
+    </validate-select>
 
-    <transition name="expand">
-      <div class="select-wrap" v-show="subCategoryArray !== null">
-        <i class="iconfont icon-pulldown"></i>
-        <validation-provider rules="required" name="カテゴリー 中項目">
-          <div slot-scope="ProviderProps">
-            <select
-              v-model="cat_lvl1"
-              @change="(cat_lvl2 = null), submitCatLvl1(cat_lvl1)"
-              :class="ProviderProps.errors[0] ? 'error-active' : ''"
-            >
-              <option disabled="disabled" :value="null"
-                >中項目を選択してください</option
-              >
-              <option
-                v-for="(item, index) in subCategoryArray"
-                :value="index"
-                :key="index"
-                >{{ item.sub_category }}</option
-              >
-            </select>
-            <div class="error-message">
-              <span
-                v-show="ProviderProps.errors[0]"
-                class="iconfont icon-warn"
-              ></span>
-              {{ ProviderProps.errors[0] }}
-            </div>
-          </div>
-        </validation-provider>
-      </div>
-    </transition>
+    <transition-wrapper :is-show="subCategoryArray.length > 0">
+      <validate-select
+        v-model="cat_lvl1"
+        rules="required"
+        name="カテゴリー 中項目"
+        @input="(cat_lvl2 = null), submitCatLvl1(cat_lvl1),submitCatLvl2(cat_lvl2)">
+        <option
+          selected
+          disabled="disabled"
+          :value="null">
+          中項目を選択してください
+        </option>
+        <option
+          v-for="(item, index) in subCategoryArray"
+          :key="index"
+          :value="item.title">
+          {{ item.title }}
+        </option>
+      </validate-select>
+    </transition-wrapper>
 
-    <transition name="expand">
-      <div
-        class="select-wrap"
-        v-show="subCategoryArray !== null && subSubCategoryArray !== null"
-      >
-        <i class="iconfont icon-pulldown"></i>
-        <validation-provider rules="required" name="カテゴリー 小項目">
-          <div slot-scope="ProviderProps">
-            <select
-              v-model="cat_lvl2"
-              @change="submitCatLvl2(cat_lvl2)"
-              :class="ProviderProps.errors[0] ? 'error-active' : ''"
-            >
-              <option disabled="disabled" :value="null"
-                >小項目を選択してください</option
-              >
-              <option
-                v-for="(item, index) in subSubCategoryArray"
-                :value="index"
-                :key="index"
-                >{{ item.sub_sub_category }}</option
-              >
-            </select>
-            <div class="error-message">
-              <span
-                v-show="ProviderProps.errors[0]"
-                class="iconfont icon-warn"
-              ></span>
-              {{ ProviderProps.errors[0] }}
-            </div>
-          </div>
-        </validation-provider>
-      </div>
-    </transition>
+    <transition-wrapper :is-show="subSubCategoryArray.length > 0">
+      <validate-select
+        v-model="cat_lvl2"
+        rules="required"
+        name="カテゴリー 小項目"
+        @input="submitCatLvl2(cat_lvl2)">
+        <option
+          selected
+          disabled="disabled"
+          :value="null">
+          小項目を選択してください
+        </option>
+        <option
+          v-for="(item, index) in subSubCategoryArray"
+          :key="index"
+          :value="item.title">
+          {{ item.title }}
+        </option>
+      </validate-select>
+    </transition-wrapper>
   </div>
 </template>
-<style>
-
-</style>
+<style></style>
 
 <script>
-import categoryList from "../../settings/categoryList";
-import { ValidationProvider, extend } from "vee-validate";
+import categoryList from '../../constants/categoryList'
+
+import ValidateSelect from '../molecules/ValidateSelect'
+import TransitionWrapper from '../molecules/TransitionWrapper'
+
 export default {
-  name: "ItemCategories",
-  props: ["itemData"],
+  name: 'ItemCategories',
   components: {
-    ValidationProvider
+    ValidateSelect,
+    TransitionWrapper
   },
+  props: ['itemData'],
   data() {
     return {
       cat_lvl0: this.itemData.cat_lvl0,
       cat_lvl1: this.itemData.cat_lvl1,
       cat_lvl2: this.itemData.cat_lvl2,
-      categoryList: categoryList
-    };
+      categoryList
+    }
   },
   computed: {
     subCategoryArray: function() {
-      return this.cat_lvl0 !== null
-        ? this.categoryList[this.cat_lvl0].sub_category
-        : null;
+      if (this.cat_lvl0 === null) {
+        return []
+      }
+      let catLvl1Obj = this.categoryList.find(cat0 => {
+        return cat0.title === this.cat_lvl0
+      })
+      let catLv1List = catLvl1Obj.option
+      return catLv1List
     },
     subSubCategoryArray: function() {
-      return this.cat_lvl1 !== null && this.subCategoryArray.length
-        ? this.subCategoryArray[this.cat_lvl1].sub_sub_category
-        : null;
+      if (this.cat_lvl0 === null || this.cat_lvl1 === null) {
+        return []
+      }
+
+      let catlvl2Obj = this.subCategoryArray.find(cat1 => {
+        return cat1.title === this.cat_lvl1
+      })
+
+      let catLvl2List = catlvl2Obj.option
+      return catLvl2List
     }
   },
   methods: {
     submitCatLvl0(catLvl0) {
-      this.$emit("submitCatLvl0", catLvl0);
+      this.$emit('submitCatLvl0', catLvl0)
     },
     submitCatLvl1(catLvl1) {
-      this.$emit("submitCatLvl1", catLvl1);
+      this.$emit('submitCatLvl1', catLvl1)
     },
     submitCatLvl2(catLvl2) {
-      this.$emit("submitCatLvl2", catLvl2);
+      this.$emit('submitCatLvl2', catLvl2)
     }
   }
-};
+}
 </script>

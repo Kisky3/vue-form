@@ -1,23 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Photo from '../pages/Photo.vue'
+// import Photo from '../pages/Photo.vue'
 import ItemInformation from '../pages/ItemInformation.vue'
 import ItemsList from '../pages/ItemsList.vue'
 import UserInformation from '../pages/UserInformation.vue'
-import Complete from '../pages/Complete.vue'
+import Thanks from '../pages/Thanks.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  scrollBehavior () {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 500)
+    })
+  },
   routes: [
-    {
+    /*{
       path: '/',
       name: 'photo',
       component: Photo
-    },
+    },*/
     {
-      path: '/item_information',
+      path: '/',
       name: 'itemInformation',
       component: ItemInformation
     },
@@ -27,14 +33,14 @@ export default new Router({
       component: ItemsList
     },
     {
-        path: '/user_information',
-        name: 'userInformation',
-        component: UserInformation
+      path: '/user_information',
+      name: 'userInformation',
+      component: UserInformation
     },
     {
-        path: '/complete',
-        name: 'complete',
-        component: Complete
-      }
+      path: '/thanks',
+      name: 'thanks',
+      component: Thanks
+    }
   ]
 })

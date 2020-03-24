@@ -69,13 +69,15 @@ input[type="radio"] {
   vertical-align: middle;
   cursor: pointer;
 }
+
 .radio:hover {
   background-color: #e2edd7;
 }
 
 .radio:hover:after {
-  border-color: #4eb5ac;
+  border-color: #4eb5ac!important;
 }
+
 .radio:after {
   -webkit-transition: border-color 0.2s linear;
   transition: border-color 0.2s linear;
@@ -286,7 +288,7 @@ select:focus {
 
 .c-page-container {
   display: flex;
-  padding: 30px;
+  padding: 10px 30px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -417,7 +419,7 @@ select:focus {
 
 .c-item-container {
   position: relative;
-  height: 140px;
+  height: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -447,12 +449,12 @@ select:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-align: left;
   word-wrap: break-word;
   word-break: break-all;
-  padding: 3px 10px;
+  padding: 3px 25px;
   color: #222222;
 }
 
@@ -472,6 +474,7 @@ select:focus {
   background: #f5f4f4;
   color: #222222;
   font-size: 16px;
+  border-radius: 5px;
 }
 
 .c-item-edit-panel .c-edit-button {
@@ -479,7 +482,7 @@ select:focus {
   padding: 20px 15px;
 }
 
-.c-edit-button:hover,.add:hover,.c-next-btn:hover,.c-photo-wrap:hover,.c-upload-btn:hover,.icon-return:hover,.c-modal-close_button:hover {
+.c-edit-button:hover,.add:hover,.c-arrow-btn:hover,.c-photo-wrap:hover,.c-upload-btn:hover,.icon-return:hover,.c-modal-close_button:hover {
   opacity: 0.8;
   cursor: pointer;
 }
@@ -503,7 +506,11 @@ select:focus {
   margin-top: -10px;
 }
 
-.c-next-btn {
+.c-page-row.down {
+  margin-bottom: 0;
+}
+
+.c-arrow-btn {
   position: relative;
   width: 100%;
   background: linear-gradient(#ff9b27, #fb7150);
@@ -512,12 +519,17 @@ select:focus {
   font-size: 15px;
   height: 50px;
   border: none;
-  margin: 30px 0;
+  margin: 10px 0 35px;
   border-radius: 5px;
 }
 
-.c-next-btn.disabled {
+.c-arrow-btn.up {
+  margin-top: -15px;
+}
+
+.c-arrow-btn.disabled {
   background: linear-gradient(#e8e8e8, #c1c1c1);
+  cursor:not-allowed;
 }
 
 .icon-next {
@@ -532,10 +544,16 @@ select:focus {
 }
 .item-check {
   position: absolute;
-  bottom: 5px;
+  bottom: 45px;
   right: 0px;
   font-size: 35px;
   color: #18c4af;
+  background: #fff;
+  border-radius: 20px;
+  z-index: 3;
+}
+
+.item-check::before {
   background: #fff;
   border-radius: 20px;
   z-index: 3;
@@ -545,24 +563,29 @@ select:focus {
   position: relative;
   border: solid 1px #e1e1e1;
   background: #fff;
-  height: 240px;
+  height: 140px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
   width: 180px;
   margin: 0 20px 20px 0;
 }
 
+.c-item-wrap.error {
+  border: solid 1px #ff6a71 !important;
+  box-shadow: 0 0 3px 0 #ff6a71 !important;
+}
+
 /*　for sp 　*/
 @media only screen and (max-width: 767px) {
   .c-page-container {
     width: 100vw;
-    padding: 10px;
+    padding: 5px;
   }
   .c-page-row.row {
     justify-content: space-evenly;
     width: 100vw;
     max-width: 650px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
     padding: 0;
   }
 
@@ -614,10 +637,10 @@ select:focus {
 
   .input-container {
     width: 100%;
-    padding: 15px 15px 0;
+    padding: 5px 15px 0;
   }
 
-  .c-next-btn {
+  .c-arrow-btn {
     width: 90%;
   }
 
@@ -625,7 +648,7 @@ select:focus {
     position: relative;
     border: solid 1px #e1e1e1;
     background: #fff;
-    height: 240px;
+    height: 140px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px 0px;
     width: 45vw;

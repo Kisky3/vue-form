@@ -1,33 +1,35 @@
 <template>
   <div>
-    <process-bar :step="step" />
+    <process-bar :step1="step1" />
+    <loading v-show="showLoading" />
     <validation-observer
       ref="observer"
       v-slot="{ invalid }"
-      @submit.prevent="goToNext()"
-    >
+      @submit.prevent="goToNext()">
       <div class="c-page-container">
         <div class="c-page-title">
           <p>商品{{ itemIndex + 1 }} 情報</p>
         </div>
+        <!--ABテストのため、画像componentを外す
         <div class="c-page-row">
           <div class="c-page-subtitle">
             <p>写真</p>
             <option-tag />
-            <span class="warn-message">査定額UPのチャンス！</span>
+            <span class="warn-message">写真をアップしましょう</span>
           </div>
           <div class="c-photo-row">
-            <div v-for="(image, index) in itemImage" :key="index">
+            <div
+              v-for="(image, index) in itemImage"
+              :key="index">
               <image-upload
                 :image="image"
                 :index="index"
-                :itemIndex="itemIndex"
+                :item-index="itemIndex"
                 @saveImgKey="saveImgKey"
-                @delImgKey="delImgKey"
-              />
+                @delImgKey="delImgKey" />
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="c-page-row">
           <div class="c-page-subtitle">
@@ -35,14 +37,13 @@
             <require-tag />
           </div>
           <item-categories
-            :itemData="itemData"
+            :item-data="itemData"
             @submitCatLvl0="changeCatLvl0"
             @submitCatLvl1="changeCatLvl1"
-            @submitCatLvl2="changeCatLvl2"
-          />
+            @submitCatLvl2="changeCatLvl2" />
         </div>
 
-        <div class="c-page-row">
+        <div class="c-page-row up">
           <div class="c-page-subtitle">
             <p>商品名</p>
             <require-tag />
@@ -54,8 +55,22 @@
             value="value"
             name="item-name"
             label="商品名"
-            rules="required"
-          />
+            rules="required" />
+        </div>
+
+        <div class="c-page-row">
+          <div class="c-page-subtitle">
+            <p>商品の状態</p>
+            <option-tag />
+          </div>
+          <div class="c-item-selectbtn">
+            <input-radio
+              v-model="itemData.condition"
+              :value="itemData.condition"
+              :checked-index="checkedIndex"
+              name="condition"
+              :options="condition_options" />
+          </div>
         </div>
 
         <div class="c-page-row">
@@ -65,141 +80,153 @@
           </div>
           <textarea-model
             v-model="itemData.item_comment"
-            placeholder="例）付属品：リモコンあり、商品状態：中古"
+            placeholder="例）付属品：リモコンあり"
             name="item-accessories"
             :rows="3"
-            value="value"
-          />
+            value="value" />
         </div>
-        <next-btn
-          @goToNext="goToNext()"
-          :message="btnMessage"
+        <arrow-btn
           :class="invalid ? 'disabled' : ''"
-        />
+          @handleOnClick="goToNext()">
+          次へ
+        </arrow-btn>
       </div>
     </validation-observer>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-import ProcessBar from "../components/molecules/Processbar";
-import ImageUpload from "./../components/molecules/ImageUpload";
-import RequireTag from "./../components/atoms/RequireTag";
-import OptionTag from "./../components/atoms/OptionTag";
-import TextareaModel from "./../components/atoms/TextareaModel";
-import InputText from "./../components/atoms/InputText";
-import ItemCategories from "./../components/molecules/ItemCategories";
-import NextBtn from "./../components/atoms/NextBtn";
-import { extend, ValidationProvider, ValidationObserver } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
+import { mapState } from 'vuex'
+import settings from './../constants/setting'
+import ProcessBar from '../components/molecules/Processbar'
+import Loading from '../components/atoms/Loading'
+// import ImageUpload from './../components/molecules/ImageUpload'
+import RequireTag from './../components/atoms/RequireTag'
+import OptionTag from './../components/atoms/OptionTag'
+import TextareaModel from './../components/atoms/TextareaModel'
+import InputText from './../components/atoms/InputText'
+import InputRadio from './../components/atoms/InputRadio'
+import ItemCategories from './../components/molecules/ItemCategories'
+import ArrowBtn from './../components/molecules/ArrowBtn'
+import { extend, ValidationObserver } from 'vee-validate'
+import { required } from 'vee-validate/dist/rules'
 
 /* 必須項目のエラーメッセージ設定 */
-required.message = "{_field_}は必須項目です";
-extend("required", required);
+required.message = '{_field_}は必須項目です'
+extend('required', required)
 
 export default {
-  name: "ItemInformation",
-  props: ["item_id"],
+  name: 'ItemInformation',
   components: {
     ProcessBar,
-    ImageUpload,
+    // ImageUpload,
+    InputRadio,
     InputText,
+    Loading,
     TextareaModel,
     ItemCategories,
     RequireTag,
     OptionTag,
-    NextBtn,
+    ArrowBtn,
     ValidationObserver
   },
   data() {
     return {
-      itemIndex: this.$route.query.item_id ? this.$route.query.item_id : 0,
-      btnMessage: "次へ",
-      step: 1,
+      showLoading: true,
+      itemIndex: this.$route.query.itemId ? Number(this.$route.query.itemId) : 0,
+      condition_options: settings.itemConditionLabel,
+      step1: 'active',
       initialItemData: {
-      title: null,
-      images: {},
-      cat_lvl0: null,
-      cat_lvl1: null,
-      cat_lvl2: null,
-      item_comment: null
-    },
-    initialImageData: [
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
+        title: null,
+        condition: '中古',
+        images: {},
+        cat_lvl0: null,
+        cat_lvl1: null,
+        cat_lvl2: null,
+        item_comment: ''
       },
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
-      },
-      {
-        thumnail: "",
-        uploadFile: {},
-        name: ""
-      }
-    ],
-    };
+      initialImageData: [
+        {
+          thumnail: '',
+          uploadFile: {},
+          name: ''
+        },
+        {
+          thumnail: '',
+          uploadFile: {},
+          name: ''
+        },
+        {
+          thumnail: '',
+          uploadFile: {},
+          name: ''
+        }
+      ]
+    }
+  },
+  mounted() {
+    this.showLoading = false
+    // itemIdが存在する場合かつ存在しないitemIndexの時はTOPページに戻す
+    if (this.$route.query.itemId && !this.itemList[this.itemIndex]) {
+      if (this.itemList.length > 0) {
+        this.$emit('routePush', 'items_list')
+      } else {
+        this.$emit('routePush', '/', { useRouter: false })
+      } 
+    }
   },
   computed: {
-    ...mapState(["itemList","imageList"]),
+    ...mapState(['itemList', 'imageList']),
     itemImage() {
-      return this.imageList[this.itemIndex]
-        ? this.imageList[this.itemIndex]
-        : this.initialImageData;
+      return this.imageList[this.itemIndex] || this.initialItemData
     },
     itemData() {
-      return this.itemList.length === 0
-        ? this.initialItemData
-        : this.itemList[this.itemIndex];
+      return this.itemList[this.itemIndex] || this.initialItemData
+    },
+    checkedIndex() {
+      const checkedIndex = this.condition_options.findIndex(opt => {
+        return opt.value === this.itemData.condition
+      })
+      return checkedIndex > 0 ? checkedIndex : 0
     }
   },
   methods: {
     async goToNext() {
-      const isValid = await this.$refs.observer.validate();
+      const isValid = await this.$refs.observer.validate()
       if (isValid) {
-        await this.saveItemData();
-        await this.openItemsListPage();
+        this.saveItemData()
+        this.$emit('routePush', 'items_list')
       }
     },
-    delImgKey(index, imageKey) {
-      this.$delete(this.itemData.images, index);
-      this.saveItemData();
+    delImgKey(index) {
+      this.$delete(this.itemData.images, index)
+      this.saveItemData()
     },
     saveImgKey(index, imageKey) {
-      this.itemData.images[index] = imageKey;
-      this.saveItemData();
+      this.itemData.images[index] = imageKey
+      this.saveItemData()
     },
     saveItemData() {
-      this.itemList.splice(this.itemIndex, 1, this.itemData);
+      this.itemList.splice(this.itemIndex, 1, this.itemData)
       // 生成された商品データをstoreに保存する
       this.$store.commit('saveStoreItemList', this.itemList)
-      console.log('itemList')
-      console.log(this.itemList);
     },
     saveItemImage() {
       // 生成された商品データをstoreに保存する
-      this.$store.commit('saveStoreImageList', this.imageList.splice(this.itemIndex, 1, this.itemImage))
-    },
-    openItemsListPage() {
-      this.$router.push(
-        "items_list",
-        () => {},
-        () => {}
-      );
+      this.$store.commit(
+        'saveStoreImageList',
+        this.imageList.splice(this.itemIndex, 1, this.itemImage)
+      )
     },
     changeCatLvl0(catLvl0) {
-      this.itemData.cat_lvl0 = catLvl0;
+      this.itemData.cat_lvl0 = catLvl0
     },
     changeCatLvl1(catLvl1) {
-      this.itemData.cat_lvl1 = catLvl1;
+      this.itemData.cat_lvl1 = catLvl1
     },
     changeCatLvl2(catLvl2) {
-      this.itemData.cat_lvl2 = catLvl2;
+      this.itemData.cat_lvl2 = catLvl2
     }
   }
-};
+}
 </script>
 <style></style>

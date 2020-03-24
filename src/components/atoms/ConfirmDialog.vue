@@ -1,10 +1,16 @@
 <template>
   <div id="modal-template">
     <transition name="modal">
-      <div class="modal-mask" @click="cancleDialog()">
+      <div
+        class="modal-mask"
+        @click="cancleDialog()">
         <div class="modal-wrapper">
-          <div class="modal-container" @click="stopPropagation()">
-            <span class="c-modal-close_button" @click="cancleDialog()"></span>
+          <div
+            class="modal-container"
+            @click="stopPropagation()">
+            <span
+              class="c-modal-close_button"
+              @click="cancleDialog()" />
             <div class="modal-header">
               <slot name="header">
                 <h3>商品を削除する</h3>
@@ -19,10 +25,14 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button class="modal-default-button" @click="cancleDialog()">
+                <button
+                  class="modal-default-button"
+                  @click="cancleDialog()">
                   キャンセル
                 </button>
-                <button class="modal-default-button warn" @click="handleDialog()">
+                <button
+                  class="modal-default-button warn"
+                  @click="handleDialog()">
                   削除する
                 </button>
               </slot>
@@ -35,19 +45,19 @@
 </template>
 <script>
 export default {
-  name: "Dialog",
+  name: 'Dialog',
   methods: {
     cancleDialog: function () {
-      this.$emit("cancleDialog");
+      this.$emit('cancleDialog')
     },
-    stopPropagation:function () {
-      event.stopPropagation();
+    stopPropagation: function () {
+      event.stopPropagation()
     },
     handleDialog: function () {
-      this.$emit("handleDialog");
+      this.$emit('handleDialog')
     }
   }
-};
+}
 </script>
 <style>
 .modal-mask {

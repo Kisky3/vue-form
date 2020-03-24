@@ -1,12 +1,16 @@
 <template>
   <div class="input-container">
-    <textarea :rows="rows" :value="value" :placeholder="placeholder" @input="updateValue"></textarea>
+    <textarea
+      :rows="rows"
+      :value="value"
+      :placeholder="placeholder"
+      @input="updateValue" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "TextareaModel",
+  name: 'TextareaModel',
   props: {
     value: { type: String, required: false },
     name: { type: String, required: true },
@@ -16,10 +20,10 @@ export default {
   },
   methods: {
     updateValue: function(e) {
-      this.$emit("input", e.target.value);
+      this.$emit('input', e.target.value)
     }
   }
-};
+}
 </script>
 <style>
 textarea {

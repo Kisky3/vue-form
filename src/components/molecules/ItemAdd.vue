@@ -1,8 +1,14 @@
 <template>
-  <div class="c-item-wrap add" @click="addItem">
+  <div
+    class="c-item-wrap add"
+    @click="addItem">
+    <!--ABテストのため画像componentを外す
     <div>
-      <span class="iconfont icon-camera item-camera"></span>
-    </div>
+      <span class="iconfont icon-camera item-camera" />
+    </div>-->
+    <div class="c-add-item-wrap">
+       <img src="../../assets/img/item.svg">
+     </div>
     <div class="c-item-add-panel">
       + 商品を追加する
     </div>
@@ -10,13 +16,13 @@
 </template>
 <script>
 export default {
-  name: "AddItem",
+  name: 'AddItem',
   methods: {
     addItem: function() {
-      this.$emit("addItem");
+      this.$emit('addItem')
     }
   }
-};
+}
 </script>
 <style>
 .item-camera {
@@ -29,11 +35,23 @@ export default {
   align-items: center;
 }
 
+.c-add-item-wrap {
+   width: 100%;
+   height :55%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .c-add-item-wrap img {
+   width: 38px;
+ }
+
 .c-item-add-panel {
   position: absolute;
-  background: linear-gradient(#ff9b27, #fb7150);
+  background: #18c4af;
   width: 100%;
-  height: 80px;
+  height: 60px;
   font-size: 15px;
   color: #fff;
   font-weight: bold;
@@ -42,8 +60,5 @@ export default {
   justify-content: center;
   bottom: 0;
   border-radius: 0 0 5px 5px;
-}
-/* sp */
-@media only screen and (max-width: 767px) {
 }
 </style>
