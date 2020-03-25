@@ -1,6 +1,7 @@
 <template>
   <div class="input-container">
     <validation-provider
+      mode="lazy"
       :rules="rules"
       :name="label">
       <div slot-scope="ProviderProps">

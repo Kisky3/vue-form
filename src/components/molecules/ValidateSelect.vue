@@ -30,25 +30,6 @@ extend('required', required)
 
 export default {
   components: { BasicSelect, ValidationProvider },
-  computed: {
-    /**
-     * this.$listeners = change, blurなどのデフォルトイベントグループ
-     * inputだけはIEの場合は発火されないが、vee-validateでは必須なので
-     * オリジナルのinputは削除して、change経由で発火する
-     */
-    listeners () {
-      delete this.$listeners.input
-      return {
-        ...this.$listeners,
-        change: event => {
-          // vee-validate用
-          this.$emit('input', event.target.value, event)
-          // v-model用
-          this.$emit('change', event.target.value, event)
-        }
-      }
-    }
-  },
   props: {
     value: {
       type: String,

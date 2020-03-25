@@ -1,7 +1,6 @@
 <template>
   <button
     type="button"
-    mode="lazy"
     class="c-arrow-btn"
     @click="submit">
     <slot />
