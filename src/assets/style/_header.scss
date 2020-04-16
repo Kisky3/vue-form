@@ -1,0 +1,29 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55px;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+
+header span {
+  color: #fa9826;
+  font-weight: bold;
+  float: left;
+  margin-left: 10px;
+}
+
+header img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 50px;
+}

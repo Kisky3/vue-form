@@ -1,0 +1,32 @@
+.c-process-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 95%;
+  max-width: 650px;
+  margin: auto;
+  height: 75px;
+  margin-top: -3px;
+  margin-bottom: 8px;
+}
+
+.c-process-container .c-process-bar {
+  height: 5px;
+  background: #dedede;
+  border-radius: 3px;
+  width: 30%;
+  display: inline-block;
+}
+
+.c-process-container .c-process-bar.active {
+  background: #ff8e74;
+}
+
+/* sp レスポンス対応 */
+@media only screen and (max-width: 767px) {
+  .c-process-container {
+    margin-top: -8px;
+    margin-bottom: 0;
+  }
+}
