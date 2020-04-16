@@ -1,115 +1,124 @@
 <template>
-  <div
-    class="c-upload-btn"
-    @click="fileClick">
+  <div class="c-upload-btn" @click="fileClick">
     <span
       v-show="!previewImage(image)"
-      class="iconfont icon-camera c-upload-camera" />
+      class="iconfont icon-camera c-upload-camera"
+    />
     <div v-if="previewImage(image)">
       <div class="c-upload-btn active">
-        <img
-          :src="image.thumnail"
-          class="c-upload-img">
+        <img :src="image.thumnail" class="c-upload-img" />
       </div>
-      <a
-        class="c-close_button"
-        @click="deleteImage" />
+      <a class="c-close_button" @click="deleteImage" />
     </div>
     <input
       :id="'upload_' + index"
       type="file"
       accept="image/*"
-      @change="onFileChange($event)">
+      @change="onFileChange($event)"
+    />
   </div>
 </template>
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue'
+import { ItemData, ImageItem } from '@/stores/types'
 import { mapState } from 'vuex'
-import common from '../../js/common'
-export default {
+import imageApi from '@/api/image'
+
+type Data = {
+  imageKey: number | null
+}
+
+export default Vue.extend({
   name: 'ImageUpload',
-  props: ['index', 'image', 'itemIndex'],
-  data() {
+  props: {
+    index: Number,
+    image: Object as PropType<ImageItem>,
+    itemIndex: Number
+  },
+  data(): Data {
     return {
       imageKey: null
     }
   },
   computed: {
     ...mapState(['itemList', 'imageList']),
-    itemData () {
+    itemData(): ItemData {
       return this.itemList[this.itemIndex]
     }
   },
   methods: {
-    fileClick: function() {
-      document.getElementById('#upload_' + this.index).click()
+    fileClick(): void {
+      const file: HTMLElement | null = document.getElementById(
+        'upload_' + this.index
+      )
+      if (file === null) return
+      file.click()
     },
-    onFileChange: function(e) {
-      let files = e.target.files || e.dataTransfer.files
-      this.createImage(files[0], this.index)
+    onFileChange(e: VueEvent<HTMLInputElement> | DragEvent): void {
+      const target = e instanceof DragEvent ? e.dataTransfer : e.target
+      if (!target || !target.files) return
+      this.createImage(target.files[0], this.index)
     },
-    async createImage(file, index) {
-      let reader = new FileReader()
-      let vm = this
-      const obj = {}
-      reader.onload = function(e) {
-        obj.thumnail = e.target.result
-        obj.uploadFile = file
-        obj.name = file.name
+    async createImage(file: File, index: number) {
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (!e.target) return
+
+        const obj: ImageItem = {
+          thumnail: e.target.result,
+          uploadFile: file,
+          name: file.name
+        }
 
         // アップロード成功すれば保存する
-        if (vm.checkEmptyImage(obj)) {
-          vm.setErrorMsg('no-image')
+        if (this.checkEmptyImage(obj)) {
+          // this.setErrorMsg('no-image')
         } else {
-          common.getImgKey(file).then(imageKey => {
-            vm.saveImgKey(index, imageKey)
-            vm.saveImageData(obj, index)
+          imageApi.getImgKey(file).then(imageKey => {
+            this.saveImgKey(index, imageKey)
+            this.saveImageData(obj)
           })
         }
       }
       reader.readAsDataURL(file)
     },
-    checkEmptyImage: function(image) {
+    checkEmptyImage(image: ImageItem): boolean {
       return (
         image.thumnail === '' &&
-        Object.keys(image.uploadFile).length === 0 &&
+        (image.uploadFile === null ||
+          Object.keys(image.uploadFile).length === 0) &&
         image.name === ''
       )
     },
-    saveImgKey(index, imageKey) {
+    saveImgKey(index: number, imageKey: string): void {
       this.itemData.images[index] = imageKey
       this.saveItemData()
     },
-    saveImageData: function(image) {
+    saveImageData(image: ImageItem): void {
       /* 各商品の画像オブジェクトに保存 */
-      let obj = this.imageList[this.itemIndex]
+      const obj = this.imageList[this.itemIndex]
       obj.splice(this.index, 1, image)
 
       this.imageList.splice(this.itemIndex, 1, obj)
       this.$store.commit('saveStoreImageList', this.imageList)
     },
-    saveItemData() {
+    saveItemData(): void {
       this.itemList.splice(this.itemIndex, 1, this.itemData)
       // 生成された商品データをstoreに保存する
       this.$store.commit('saveStoreItemList', this.itemList)
     },
-    previewImage: function(image) {
+    previewImage(image: ImageItem): boolean {
       return !(
         image.thumnail === '' &&
-        Object.keys(image.uploadFile).length === 0 &&
+        (image.uploadFile === null ||
+          Object.keys(image.uploadFile).length === 0) &&
         image.name === ''
       )
     },
-    deleteImage: function() {
-      this.image = {
-        thumnail: '',
-        uploadFile: {},
-        name: ''
-      }
-
+    deleteImage(event: VueEvent<HTMLAnchorElement>): void {
       event.stopPropagation()
-      let obj = this.imageList[this.itemIndex]
+      const obj = this.imageList[this.itemIndex]
       obj.splice(this.index, 1, this.image)
-      this.image = obj
       /* 画像プレビュー用 */
       this.$store.commit(
         'saveStoreImageList',
@@ -119,7 +128,7 @@ export default {
       this.$emit('delImgKey', this.index, this.imageKey)
     }
   }
-}
+})
 </script>
 <style>
 .c-upload-btn {
@@ -164,7 +173,7 @@ export default {
 }
 
 .c-close_button::before {
-  content: "\00D7";
+  content: '\00D7';
 }
 
 .c-close_button {

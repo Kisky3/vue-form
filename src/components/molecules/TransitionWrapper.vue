@@ -5,15 +5,16 @@
     </div>
   </transition>
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   props: {
     isShow: {
       type: Boolean,
       default: false
     }
   }
-}
+})
 </script>
 <style scoped>
 .expand-enter-active,

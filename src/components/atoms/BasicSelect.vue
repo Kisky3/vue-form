@@ -3,15 +3,17 @@
     <i class="iconfont icon-pulldown" />
     <select
       :value="value"
-      :class="{ 'error-active' : isError }"
-      v-on="listeners">
+      :class="{ 'error-active': isError }"
+      v-on="listeners"
+    >
       <slot />
     </select>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   props: {
     isError: {
       type: Boolean,
@@ -28,11 +30,11 @@ export default {
      * inputだけはIEの場合は発火されないが、vee-validateでは必須なので
      * オリジナルのinputは削除して、change経由で発火する
      */
-    listeners () {
+    listeners(): Record<string, Function | Function[]> {
       delete this.$listeners.input
       return {
         ...this.$listeners,
-        change: event => {
+        change: (event: VueEvent<HTMLSelectElement>) => {
           // vee-validate用
           this.$emit('input', event.target.value, event)
           // v-model用
@@ -41,7 +43,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +74,9 @@ export default {
     &.error-active {
       border: solid 1px #ff6a71 !important;
       box-shadow: 0 0 3px 0 #ff6a71 inset !important;
+    }
+    &::-ms-expand {
+      display: none;
     }
   }
 }

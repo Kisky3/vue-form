@@ -3,10 +3,9 @@
     <div id="wrapper">
       <global-header
         :show-back-arrow="showBackArrow"
-        @routeBack="handleRouteBack" />
-      <router-view
-        @routePush="handleRoutePush"
-        @routeBack="handleRouteBack" />
+        @routeBack="handleRouteBack"
+      />
+      <router-view @routePush="handleRoutePush" @routeBack="handleRouteBack" />
     </div>
     <global-footer />
   </div>
@@ -28,8 +27,13 @@ export default {
   },
   data() {
     let baseUrl = '/'
+
     if (process.env.NODE_ENV === 'production') {
       baseUrl = '/fotc/'
+    }
+
+    if (process.env.NODE_ENV === 'staging') {
+      baseUrl = '/fotc-d/'
     }
 
     return {
@@ -40,7 +44,7 @@ export default {
     }
   },
   watch: {
-    '$route': function (to, from) {
+    $route(to, from) {
       // App内呼び出しじゃない場合はTOPページへ強制遷移
       if (!this.callPushFromApp) {
         window.location.href = this.baseUrl
@@ -48,7 +52,10 @@ export default {
       this.callPushFromApp = false
 
       // ThanksページからTOPページに戻る時、Thanksページは”戻るボタン”を表示しない
-      if (from.path === '/thanks' && to.path === '/'|| to.path === '/thanks') {
+      if (
+        (from.path === '/thanks' && to.path === '/') ||
+        to.path === '/thanks'
+      ) {
         this.showBackArrow = false
       } else {
         this.showBackArrow = true
@@ -79,21 +86,24 @@ export default {
 
       let path, query
       if (typeof to === 'object') {
-        ({ path, query } = to)
+        path = to.path
+        query = to.query
       } else {
         path = to
       }
 
       let params = ''
       if (query) {
-        params = Object.keys(query).map(key => `${key}=${query[key]}`).join('&')
+        params = Object.keys(query)
+          .map(key => `${key}=${query[key]}`)
+          .join('&')
         params = `?${params}`
       }
       const url = `${this.baseUrl}${path.replace(/^\//, '')}${params}`
 
       if (opt.useRouter) {
         this.callPushFromApp = true
-        this.$router.push({path, query: query || {}})
+        this.$router.push({ path, query: query || {} })
       } else {
         window.location.href = url
         return
@@ -107,7 +117,7 @@ export default {
         dataLayer.push({ event: 'pageview', virtualUrl: url })
       }
     },
-    handleRouteBack(){
+    handleRouteBack() {
       this.callPushFromApp = true
       this.$router.back()
     }
@@ -147,5 +157,5 @@ export default {
 </script>
 
 <style>
-@import "../src/assets/style/global.scss";
+@import '../src/assets/style/global.scss';
 </style>

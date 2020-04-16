@@ -1,20 +1,17 @@
 <template>
-  <button
-    type="button"
-    class="c-arrow-btn"
-    @click="submit">
+  <button type="button" class="c-arrow-btn" @click="submit">
     <slot />
   </button>
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   name: 'BasicBtn',
   methods: {
-    submit: function () {
+    submit(): void {
       this.$emit('handleOnClick')
     }
   }
-}
+})
 </script>
-<style>
-</style>
+<style></style>

@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "plugins": [
+    "vue"
+  ],
+  "extends": [
+    "plugin:vue/essential",
+    "eslint:recommended",
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint"
+  ],
+  "globals":{
+    "process": true,
+    "ga": true,
+    "make_call": true,
+    "dataLayer": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "none",
+        "arrowParens": "avoid",
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    ],
+    "@typescript-eslint/camelcase": 0
+  }
+}

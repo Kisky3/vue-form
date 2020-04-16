@@ -1,10 +1,6 @@
 <template>
   <div>
-    <process-bar
-      :step1="active"
-      :step2="active"
-      :step3="active"
-      :step4="active" />
+    <process-bar :step1="true" :step2="true" :step3="true" :step4="true" />
     <div class="c-page-container">
       <div class="c-page-wrap">
         <div class="c-photo-label">
@@ -13,11 +9,14 @@
         <p class="bold">
           インターネットでのお申込み手続きは完了です。お申込みありがとうございました。
         </p>
-        <p>買取金額のお知らせはお電話またご登録されたメールアドレスに下記よりご連絡いたします。</p>
+        <p>
+          買取金額のお知らせはお電話またご登録されたメールアドレスに下記よりご連絡いたします。
+        </p>
 
         <div class="c-item-contact-wrap">
           <div class="c-contact-item">
-            <span class="iconfont icon-phone" /> 電話番号:0120-945-991
+            <span class="iconfont icon-phone" />
+            電話番号:0120-945-991
           </div>
           <div class="c-contact-item">
             <span class="iconfont icon-mail" />
@@ -31,38 +30,40 @@
           ※査定金額のお知らせの前に、ご依頼内容について連絡を
           させていただく場合がございます。
         </p>
-        <arrow-btn
-          class="full-size"
-          @handleOnClick="goToTopPage()">
+        <arrow-btn class="full-size" @handleOnClick="goToTopPage()">
           申し込みを続ける
         </arrow-btn>
-        <a
-          href="https://www.ka-shimo.com/takaku"
-          target="_blank">
-          <img
-            class="c-banner-img"
-            src="../assets/img/banner2.svg"
-            alt="WiMAXで簡単・快適インターネット！">
-        </a>
-        <a
-          href="https://prf.hn/click/camref:1011l4PI5/creativeref:1100l28721"
-          target="_blank"
-          rel="nofollow">
-          <img
-            class="c-banner-img"
-            src="../assets/img/banner1.svg"
-            alt="ネスカフェ ドルチェグスト マシン無料レンタル">
-        </a>
+        <div class="c-banner-container">
+          <a href="https://www.ka-shimo.com/wimax" target="_blank">
+            <img
+              class="c-banner-img"
+              src="../assets/img/banner2.png"
+              alt="WiMAXで簡単・快適インターネット！"
+            />
+          </a>
+          <a
+            href="https://prf.hn/click/camref:1011l4PI5/creativeref:1100l28721"
+            target="_blank"
+            rel="nofollow"
+          >
+            <img
+              class="c-banner-img"
+              src="../assets/img/banner1.svg"
+              alt="ネスカフェ ドルチェグスト マシン無料レンタル"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { mapState } from 'vuex'
-import ArrowBtn from './../components/molecules/ArrowBtn'
-import ProcessBar from '../components/molecules/Processbar'
-export default {
+import ArrowBtn from './../components/molecules/ArrowBtn.vue'
+import ProcessBar from '../components/molecules/Processbar.vue'
+export default Vue.extend({
   name: 'Complete',
   components: {
     ProcessBar,
@@ -71,13 +72,8 @@ export default {
   computed: {
     ...mapState(['itemList', 'imageList'])
   },
-  data() {
-    return {
-      active: 'active',
-    }
-  },
   methods: {
-    goToTopPage: function() {
+    goToTopPage(): void {
       this.itemList.splice(0)
       this.imageList.splice(0)
       this.$store.commit('saveStoreImageList', this.imageList)
@@ -85,10 +81,15 @@ export default {
       this.$emit('routePush', '/')
     }
   }
-}
+})
 </script>
 
 <style scoped>
+.c-banner-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .c-banner-img {
   width: 100%;
   margin-bottom: 20px;

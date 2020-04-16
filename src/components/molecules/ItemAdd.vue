@@ -1,28 +1,27 @@
 <template>
-  <div
-    class="c-item-wrap add"
-    @click="addItem">
+  <div class="c-item-wrap add" @click="addItem">
     <!--ABテストのため画像componentを外す
     <div>
       <span class="iconfont icon-camera item-camera" />
     </div>-->
     <div class="c-add-item-wrap">
-       <img src="../../assets/img/item.svg">
-     </div>
+      <img src="../../assets/img/item.svg" />
+    </div>
     <div class="c-item-add-panel">
       + 商品を追加する
     </div>
   </div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   name: 'AddItem',
   methods: {
-    addItem: function() {
+    addItem(): void {
       this.$emit('addItem')
     }
   }
-}
+})
 </script>
 <style>
 .item-camera {
@@ -36,16 +35,16 @@ export default {
 }
 
 .c-add-item-wrap {
-   width: 100%;
-   height :55%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
+  width: 100%;
+  height: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
- .c-add-item-wrap img {
-   width: 38px;
- }
+.c-add-item-wrap img {
+  width: 38px;
+}
 
 .c-item-add-panel {
   position: absolute;

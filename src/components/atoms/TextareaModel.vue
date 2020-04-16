@@ -4,12 +4,14 @@
       :rows="rows"
       :value="value"
       :placeholder="placeholder"
-      @input="updateValue" />
+      @input="updateValue"
+    />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   name: 'TextareaModel',
   props: {
     value: { type: String, required: false },
@@ -19,11 +21,11 @@ export default {
     cols: { type: Number, required: false }
   },
   methods: {
-    updateValue: function(e) {
+    updateValue(e: VueEvent<HTMLInputElement>): void {
       this.$emit('input', e.target.value)
     }
   }
-}
+})
 </script>
 <style>
 textarea {
@@ -33,6 +35,6 @@ textarea {
 }
 
 textarea::placeholder {
-  color: #7E7E7F;
+  color: #7e7e7f;
 }
 </style>

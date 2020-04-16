@@ -58,12 +58,13 @@ input[type="radio"] {
 }
 
 .radio {
+  width: 120px;
   box-sizing: border-box;
   -webkit-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
   position: relative;
   display: inline-block;
-  margin: 0 20px 8px 0;
+  margin: 0 0 0 -10px;
   padding: 12px 12px 12px 42px;
   border-radius: 8px;
   vertical-align: middle;
@@ -337,6 +338,11 @@ select:focus {
   margin-bottom: 15px;
 }
 
+.c-page-row.underline {
+  border-bottom: solid 1px #e1e1e1;
+  padding-bottom: 10px;
+}
+
 .c-page-row.row {
   display: flex;
   justify-content: start;
@@ -415,6 +421,7 @@ select:focus {
 .error-active {
   border: solid 1px #ff6a71 !important;
   box-shadow: 0 0 3px 0 #ff6a71 inset !important;
+  background: white;
 }
 
 .c-item-container {

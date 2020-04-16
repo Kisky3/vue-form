@@ -1,14 +1,12 @@
 <template>
   <div>
-    <process-bar
-      :step1="active"
-      :step2="active"
-      :step3="active" />
+    <process-bar :step1="true" :step2="true" :step3="true" />
     <loading v-show="showLoading" />
     <validation-observer
       ref="userInformation"
       v-slot="{ invalid }"
-      @submit.prevent="goToNext()">
+      @submit.prevent="goToNext()"
+    >
       <div class="c-page-container">
         <div class="c-page-title">
           <p>お客様情報</p>
@@ -25,7 +23,8 @@
             value="value"
             name="name"
             label="お名前（漢字）"
-            rules="required" />
+            rules="required"
+          />
         </div>
         <div class="c-page-row">
           <div class="c-page-subtitle">
@@ -39,7 +38,8 @@
             value="value"
             name="kana"
             label="お名前（カナ）"
-            rules="required" />
+            rules="required"
+          />
         </div>
 
         <div class="c-page-row">
@@ -54,7 +54,8 @@
             value="value"
             name="phone_number"
             label="電話番号"
-            rules="required|numeric|min:10|max:11" />
+            rules="required|numeric|min:10|max:11"
+          />
         </div>
 
         <div class="c-page-row">
@@ -69,7 +70,8 @@
             value="value"
             name="email"
             label="メールアドレス"
-            rules="required|email" />
+            rules="required|email"
+          />
         </div>
 
         <div class="c-page-row">
@@ -82,17 +84,16 @@
               v-model="showUserData.pref"
               rules="required"
               name="都道府県"
-              @input="changeCityList">
-              <option
-                selected
-                disabled="disabled"
-                :value="null">
+              @input="changeCityList"
+            >
+              <option selected disabled="disabled" :value="null">
                 都道府県を選択してください
               </option>
               <option
                 v-for="(pref, index) in prefectureList"
                 :key="index"
-                :value="pref.prefName">
+                :value="pref.prefName"
+              >
                 {{ pref.prefName }}
               </option>
             </validate-select>
@@ -109,17 +110,16 @@
               <validate-select
                 v-model="showUserData.city"
                 rules="required"
-                name="市区町村">
-                <option
-                  selected
-                  disabled="disabled"
-                  :value="null">
+                name="市区町村"
+              >
+                <option selected disabled="disabled" :value="null">
                   市区町村を選択してください
                 </option>
                 <option
                   v-for="(city, index) in cityList"
                   :key="index"
-                  :value="city.name">
+                  :value="city.name"
+                >
                   {{ city.name }}
                 </option>
               </validate-select>
@@ -137,8 +137,9 @@
             type="text"
             placeholder="例）京橋3-6-18"
             value="value"
-            name="address"
-            label="住所" />
+            name="住所"
+            label="住所"
+          />
         </div>
 
         <div class="c-page-row">
@@ -151,25 +152,25 @@
               v-model="showUserData.stair"
               type="text"
               value="value"
-              name="stair"
+              name="階数"
               class="input-tiny"
               label="階数 "
-              rules="required" />階
+              rules="required"
+            />
+            階
           </div>
 
           <div class="c-page-row">
             <div class="c-page-subtitle">
               <p>エレベーターの有無</p>
-              <option-tag />
+              <require-tag />
             </div>
-            <div class="c-item-selectbtn">
-              <input-radio
-                v-model="showUserData.elevator"
-                value="value"
-                name="elevator"
-                :checked-index="checkedIndex"
-                :options="elevator_options" />
-            </div>
+            <input-radio
+              v-model="showUserData.elevator"
+              value="value"
+              name="エレベーターの有無"
+              :options="elevator_options"
+            />
           </div>
 
           <div class="c-page-row">
@@ -182,24 +183,22 @@
                 v-model="showUserData.personal_info_confirm"
                 class="c_confirm_content"
                 value="value"
-                type="checkbox"
                 name="personal-info-confirm"
                 label="個人情報のお取り扱い同意"
-                check_label="同意する"
-                :options="personal_info_confirm"
-                @updateValue="submitPersonalConfirm" />
+              >
+                同意する
+              </input-checkbox>
             </div>
             <personal-info-confirm />
           </div>
         </div>
         <arrow-btn
           :class="invalid ? 'disabled up' : 'up'"
-          @handleOnClick="goToNext()">
+          @handleOnClick="goToNext()"
+        >
           買取価格を調べる
         </arrow-btn>
-        <basic-btn
-          class="c-backbtn up"
-          @handleOnClick="goBack()">
+        <basic-btn class="c-backbtn up" @handleOnClick="goBack()">
           戻る
         </basic-btn>
       </div>
@@ -207,7 +206,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import { UserData } from '../stores/types'
+
 import { mapState } from 'vuex'
 import { extend, ValidationObserver } from 'vee-validate'
 import { required, email, numeric, min, max } from 'vee-validate/dist/rules'
@@ -216,19 +218,23 @@ import categoryValueList from './../constants/categoryValueList'
 import settings from './../constants/setting'
 import api from '@/api/info'
 
-import ArrowBtn from '../components/molecules/ArrowBtn'
-import ProcessBar from '../components/molecules/Processbar'
-import ValidateSelect from '../components/molecules/ValidateSelect'
-import TransitionWrapper from '../components/molecules/TransitionWrapper'
+import ArrowBtn from '../components/molecules/ArrowBtn.vue'
+import ProcessBar from '../components/molecules/Processbar.vue'
+import ValidateSelect from '../components/molecules/ValidateSelect.vue'
+import TransitionWrapper from '../components/molecules/TransitionWrapper.vue'
 
-import Loading from '../components/atoms/Loading'
-import BasicBtn from '../components/atoms/BasicBtn'
-import OptionTag from '../components/atoms/OptionTag'
-import InputText from '../components/atoms/InputText'
-import RequireTag from '../components/atoms/RequireTag'
-import InputRadio from '../components/atoms/InputRadio'
-import InputCheckbox from '../components/atoms/InputCheckbox'
-import PersonalInfoConfirm from '../components/atoms/PersonalInfoConfirm'
+import { ItemData } from '../stores/types'
+import { CategoryValue, PrefectureOption, FieldItem } from '../constants/types'
+import fieldItemList from './../constants/fieldItemList'
+
+import Loading from '../components/atoms/Loading.vue'
+import BasicBtn from '../components/atoms/BasicBtn.vue'
+import OptionTag from '../components/atoms/OptionTag.vue'
+import InputText from '../components/atoms/InputText.vue'
+import RequireTag from '../components/atoms/RequireTag.vue'
+import InputRadio from '../components/atoms/InputRadio.vue'
+import InputCheckbox from '../components/atoms/InputCheckbox.vue'
+import PersonalInfoConfirm from '../components/atoms/PersonalInfoConfirm.vue'
 
 /* 必須項目のエラーメッセージ設定 */
 extend('required', required)
@@ -237,7 +243,16 @@ extend('numeric', numeric)
 extend('min', min)
 extend('max', max)
 
-export default {
+type Data = {
+  showLoading: boolean
+  elevator_options: object[]
+  prefectureList: PrefectureOption[]
+  showUserData: UserData
+  cityList: object[]
+  isMounted: boolean
+}
+
+export default Vue.extend({
   name: 'UserInformation',
   components: {
     ProcessBar,
@@ -254,77 +269,87 @@ export default {
     ValidateSelect,
     TransitionWrapper
   },
-  data() {
+  data(): Data {
     return {
       showLoading: false,
-      active: 'active',
       elevator_options: settings.userElevatorLabel,
-      personal_info_confirm: settings.personalInfoConfirm,
       prefectureList: settings.prefectureList,
       showUserData: {},
-      cityList: []
+      cityList: [],
+      isMounted: false
     }
   },
   computed: {
-    ...mapState(['itemList']),
-    checkedIndex() {
-      if (this.showUserData.elevator === 'true') {
-        return 0
-      } else if (this.showUserData.elevator === 'false') {
-        return 1
-      } else {
-        return null
-      }
-    },
-    PersonalConfirmChecked() {
-      if (this.showUserData.personal_info_confirm === 'true') {
-        return 'checked'
-      } else {
-        return 'uncheck'
-      }
-    }
+    ...mapState(['itemList'])
   },
   watch: {
     showUserData: {
-      handler: function(newValue) {
+      handler(newValue: UserData): void {
+        // IE対策
+        // 都道府県選択済みだとmounted完了前にwatchが実行されるので
+        // mountedの完了を確認してから、store.commitを行う
+        if (!this.isMounted) return
         this.$store.commit('saveStoreUserData', newValue)
       },
       deep: true
     }
   },
-  async mounted() {
+  async mounted(): Promise<void> {
     if (this.$store.state.userData.pref) {
       await this.getCityList(this.$store.state.userData.pref)
     }
     this.showUserData = this.$store.state.userData
+    this.isMounted = true
   },
   methods: {
-    goBack() {
+    goBack(): void {
       this.$emit('routeBack')
     },
-    async goToNext() {
-      let formData = new FormData()
-      let catObj = {}
+    async goToNext(): Promise<void> {
+      const formData: FormData = new FormData()
 
       if (!this.itemList || this.itemList.length === 0) {
         return
       }
 
-      this.itemList.forEach((item, index) => {
+      this.itemList.forEach((item: ItemData, index: number) => {
+        const item_id = index + 1
+        const optionItems: string[] = []
+        const catObj: CategoryValue | undefined = categoryValueList.find(
+          cat => cat.key === item.cat_lvl2
+        )
+
+        if (catObj !== undefined) {
+          formData.append('cat_lvl0-' + item_id, String(catObj.value.cat0))
+          formData.append('cat_lvl1-' + item_id, String(catObj.value.cat1))
+          formData.append('cat_lvl2-' + item_id, String(catObj.value.cat2))
+          formData.append('category-' + item_id, catObj.value.category)
+          /* 小カテゴリー は存在する場合は、追加項目のリストを取ってくる */
+          const fieldList: FieldItem[] | undefined = fieldItemList.filter(
+            opt => opt.category_id === catObj.value.cat2
+          )
+          fieldList.forEach((option: FieldItem) => {
+            optionItems.push(option.field_key)
+            formData.append(
+              `${option.field_key}-${item_id}`,
+              JSON.stringify({
+                value: item[`${option.field_key}`],
+                sort: option.sort,
+                format_id: option.format_id
+              })
+            )
+          })
+        }
+
         Object.keys(item).forEach(key => {
-          /* カテゴリー小によって、リストを取ってくる */
-          if (key === 'cat_lvl2') {
-            catObj = categoryValueList.find(cat => {
-              return cat.key === item[key]
-            })
-            formData.append('cat_lvl0-' + (index + 1), catObj.value.cat0)
-            formData.append('cat_lvl1-' + (index + 1), catObj.value.cat1)
-            formData.append('cat_lvl2-' + (index + 1), catObj.value.cat2)
-            formData.append('category-' + (index + 1), catObj.value.category)
-          }
           /* カテゴリー以外の項目を追加 */
-          if (key !== 'cat_lvl0' && key !== 'cat_lvl1' && key !== 'cat_lvl2') {
-            formData.append(key + '-' + (index + 1), item[key])
+          if (
+            key !== 'cat_lvl0' &&
+            key !== 'cat_lvl1' &&
+            key !== 'cat_lvl2' &&
+            !optionItems.includes(key)
+          ) {
+            formData.append(key + '-' + item_id, item[key])
           }
         })
       })
@@ -338,7 +363,8 @@ export default {
         formData.append(key, this.showUserData[key])
       }
 
-      const isValid = await this.$refs.userInformation.validate()
+      const isValid = await (this.$refs
+        .userInformation as ValidateObserverType).validate()
       if (isValid) {
         try {
           this.showLoading = true
@@ -352,21 +378,23 @@ export default {
         }
       }
     },
-    changeCityList: function(prefName) {
+    changeCityList(prefName: string): void {
       this.showUserData.city = null
       this.getCityList(prefName)
     },
-    getCityList: function(prefName) {
-      const { prefCode } = this.prefectureList.find(
-        pref => pref.prefName === prefName
+    async getCityList(prefName: string): Promise<void> {
+      const pref = this.prefectureList.find(
+        (pref: PrefectureOption) => pref.prefName === prefName
       )
-      return api
-        .getCityList(prefCode)
-        .then(({ data }) => {
-          this.cityList = [...data]
-        })
-        .catch(error => error)
-    },
+
+      if (pref === undefined) {
+        return
+      }
+
+      const prefCode: string = pref.prefCode
+      const { data } = await api.getCityList(prefCode)
+      this.cityList = [...data]
+    }
     /*
     changeTownList: function(cityCode) {
       return new Promise((resolve, reject) => {
@@ -379,12 +407,8 @@ export default {
           .catch(error => reject(error))
       })
     },*/
-    submitPersonalConfirm: function(model) {
-      this.showUserData.personal_info_confirm = model
-      this.$store.commit('saveStoreUserData', this.showUserData)
-    }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -1,19 +1,18 @@
 <template>
   <div>
-    <process-bar :step="step" />
+    <process-bar :step="true" />
     <div class="c-page-container">
       <div class="c-page-title">
         <p>商品写真登録</p>
       </div>
-      <div
-        class="c-page-row center"
-        @click="fileClick()">
-        <label class="c-photo-label"> 60秒で簡単査定!</label>
+      <div class="c-page-row center" @click="fileClick()">
+        <label class="c-photo-label">60秒で簡単査定!</label>
         <div class="c-photo-wrap">
           <img
             class="c-photo-mark"
             src="../assets/img/image-upload.png"
-            alt="">
+            alt=""
+          />
           <div class="c-photo-btn">
             <span class="iconfont icon-camera" />
           </div>
@@ -21,115 +20,132 @@
             + 商品を追加する
           </div>
         </div>
-        <span
-          v-show="showErrorMsg"
-          class="error-msg">{{ errorMsg }}</span>
+        <span v-show="showErrorMsg" class="error-msg">{{ errorMsg }}</span>
         <input
           id="upload_file"
           multiple="multiple"
           type="file"
           accept="image/*"
-          @change="onFileChange($event)">
+          @change="onFileChange($event)"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import common from '../js/common'
+<script lang="ts">
+import Vue from 'vue'
+import imageApi from '@/api/image'
+import { ImageItem } from '@/stores/types'
 import { mapState } from 'vuex'
-import ProcessBar from '../components/molecules/Processbar'
+import ProcessBar from '../components/molecules/Processbar.vue'
 
-export default {
+type Data = {
+  errorMsg: string | null
+  showErrorMsg: boolean
+  imageKey: number | null
+}
+
+export default Vue.extend({
   name: 'Photo',
   components: {
     ProcessBar
   },
-  data() {
+  data(): Data {
     return {
       errorMsg: '',
       showErrorMsg: false,
-      step: 0,
       imageKey: null
     }
   },
   computed: {
-    ...mapState(['itemData', 'imageData', 'itemList', 'imageList']),
+    ...mapState(['itemData', 'imageData', 'itemList', 'imageList'])
   },
   methods: {
-    fileClick: function() {
-      document.getElementById('#upload_file').click()
+    fileClick(): void {
+      const file: HTMLElement | null = document.getElementById('upload_file')
+      if (file === null) return
+      file.click()
     },
-    onFileChange: function(e) {
-      let files = e.target.files || e.dataTransfer.files
+    onFileChange(e: VueEvent<HTMLInputElement> | DragEvent): void {
+      const target = e instanceof DragEvent ? e.dataTransfer : e.target
+
+      if (!target || !target.files) return
+
+      const files: FileList = target.files
+
       if (files.length > 0 && files.length <= 3) {
-        files.forEach((file, index) => {
+        for (let index = 0; index < files.length; index++) {
+          const file: File = files[index]
           this.createImage(file, index)
-        })
+        }
       } else {
         this.setErrorMsg('exceed-image')
       }
     },
-    async createImage(file, index) {
-      let reader = new FileReader()
-      let vm = this
-      let obj = {}
-      reader.onload = function(e) {
-        obj.thumnail = e.target.result
-        obj.uploadFile = file
-        obj.name = file.name
+
+    createImage(file: File, index: number): void {
+      const reader: FileReader = new FileReader()
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (!e.target) return
+
+        const obj: ImageItem = {
+          thumnail: e.target.result,
+          uploadFile: file,
+          name: file.name
+        }
 
         // アップロード成功すれば保存する
-        if (vm.checkEmptyImage(obj)) {
-          vm.setErrorMsg('no-image')
+        if (this.checkEmptyImage(obj)) {
+          this.setErrorMsg('no-image')
         } else {
-          common.getImgKey(file).then(imageKey => {
-            vm.saveImageData(obj, index)
-            vm.saveImgKey(index, imageKey)
+          imageApi.getImgKey(file).then(imageKey => {
+            this.saveImgKey(index, imageKey)
+            this.saveImageData(obj, index)
           })
         }
       }
       reader.readAsDataURL(file)
     },
-    saveImgKey(index, imageKey) {
+    saveImgKey(index: number, imageKey: string): void {
       this.itemData.images[index] = imageKey
       this.saveItemData()
     },
-    saveItemData() {
+    saveItemData(): void {
       this.itemList.splice(0, 1, this.itemData)
       // 生成された商品データをstoreに保存する
       this.$store.commit('saveStoreItemList', this.itemList)
     },
-    saveImageData(image, index) {
+    saveImageData(image: ImageItem, index: number) {
       this.imageData.splice(index, 1, image)
       this.imageList.splice(0, 1, this.imageData)
       // 生成された画像データをstoreに保存する
       this.$store.commit('saveStoreImageList', this.imageList)
       this.$emit('routePush', '/')
     },
-    checkEmptyImage: function(image) {
+    checkEmptyImage(image: ImageItem): boolean {
       return (
         image.thumnail === '' &&
-        Object.keys(image.uploadFile).length === 0 &&
+        (image.uploadFile === null ||
+          Object.keys(image.uploadFile).length === 0) &&
         image.name === ''
       )
     },
-    setErrorMsg: function(errType) {
+    setErrorMsg(errType: string): void {
       switch (errType) {
-      case 'no-image':
-        this.errorMsg = 'クリックして写真を登録してください'
-        break
-      case 'exceed-image':
-        this.errorMsg = '画像3枚まで登録してください'
-        break
-      case 'upload-fail':
-        this.errorMsg =
-            '画像アップロード失敗しました、もう一回試してください'
-        break
+        case 'no-image':
+          this.errorMsg = 'クリックして写真を登録してください'
+          break
+        case 'exceed-image':
+          this.errorMsg = '画像3枚まで登録してください'
+          break
+        case 'upload-fail':
+          this.errorMsg = '画像アップロード失敗しました、もう一回試してください'
+          break
       }
       this.showErrorMsg = true
     }
   }
-}
+})
 </script>
 <style></style>

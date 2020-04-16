@@ -1,16 +1,10 @@
 <template>
   <div id="modal-template">
     <transition name="modal">
-      <div
-        class="modal-mask"
-        @click="cancleDialog()">
+      <div class="modal-mask" @click="cancleDialog()">
         <div class="modal-wrapper">
-          <div
-            class="modal-container"
-            @click="stopPropagation()">
-            <span
-              class="c-modal-close_button"
-              @click="cancleDialog()" />
+          <div class="modal-container" @click="stopPropagation">
+            <span class="c-modal-close_button" @click="cancleDialog()" />
             <div class="modal-header">
               <slot name="header">
                 <h3>商品を削除する</h3>
@@ -25,14 +19,13 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button
-                  class="modal-default-button"
-                  @click="cancleDialog()">
+                <button class="modal-default-button" @click="cancleDialog()">
                   キャンセル
                 </button>
                 <button
                   class="modal-default-button warn"
-                  @click="handleDialog()">
+                  @click="handleDialog()"
+                >
                   削除する
                 </button>
               </slot>
@@ -43,21 +36,22 @@
     </transition>
   </div>
 </template>
-<script>
-export default {
-  name: 'Dialog',
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  name: 'ConfirmDialog',
   methods: {
-    cancleDialog: function () {
+    cancleDialog(): void {
       this.$emit('cancleDialog')
     },
-    stopPropagation: function () {
+    stopPropagation(event: VueEvent<HTMLDivElement>): void {
       event.stopPropagation()
     },
-    handleDialog: function () {
+    handleDialog(): void {
       this.$emit('handleDialog')
     }
   }
-}
+})
 </script>
 <style>
 .modal-mask {
@@ -79,15 +73,15 @@ export default {
 }
 
 .c-modal-close_button::before {
-   content: "\00D7";
+  content: '\00D7';
 }
 
 .c-modal-close_button {
-   position: absolute;
-   top: 8px;
-   right: 15px;
-   font-size: 25px;
-   color: black;
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  font-size: 25px;
+  color: black;
 }
 
 .modal-container {
@@ -126,7 +120,7 @@ export default {
 
 .modal-default-button:hover {
   opacity: 0.8;
-  background:#f5f4f4;
+  background: #f5f4f4;
 }
 
 .modal-footer {

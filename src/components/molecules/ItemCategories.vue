@@ -5,18 +5,21 @@
       rules="required"
       name="カテゴリー 大項目"
       @input="
-        (cat_lvl1 = null), (cat_lvl2 = null), submitCatLvl0(cat_lvl0),submitCatLvl1(cat_lvl1),submitCatLvl2(cat_lvl2)
-      ">
-      <option
-        selected
-        disabled="disabled"
-        :value="null">
+        ;(cat_lvl1 = null),
+          (cat_lvl2 = null),
+          submitCatLvl0(cat_lvl0),
+          submitCatLvl1(cat_lvl1),
+          submitCatLvl2(cat_lvl2)
+      "
+    >
+      <option selected disabled="disabled" :value="null">
         大項目を選択してください
       </option>
       <option
         v-for="(item, index) in categoryList"
         :key="index"
-        :value="item.title">
+        :value="item.title"
+      >
         {{ item.title }}
       </option>
     </validate-select>
@@ -26,17 +29,18 @@
         v-model="cat_lvl1"
         rules="required"
         name="カテゴリー 中項目"
-        @input="(cat_lvl2 = null), submitCatLvl1(cat_lvl1),submitCatLvl2(cat_lvl2)">
-        <option
-          selected
-          disabled="disabled"
-          :value="null">
+        @input="
+          ;(cat_lvl2 = null), submitCatLvl1(cat_lvl1), submitCatLvl2(cat_lvl2)
+        "
+      >
+        <option selected disabled="disabled" :value="null">
           中項目を選択してください
         </option>
         <option
           v-for="(item, index) in subCategoryArray"
           :key="index"
-          :value="item.title">
+          :value="item.title"
+        >
           {{ item.title }}
         </option>
       </validate-select>
@@ -47,17 +51,16 @@
         v-model="cat_lvl2"
         rules="required"
         name="カテゴリー 小項目"
-        @input="submitCatLvl2(cat_lvl2)">
-        <option
-          selected
-          disabled="disabled"
-          :value="null">
+        @input="submitCatLvl2(cat_lvl2)"
+      >
+        <option selected disabled="disabled" :value="null">
           小項目を選択してください
         </option>
         <option
           v-for="(item, index) in subSubCategoryArray"
           :key="index"
-          :value="item.title">
+          :value="item.title"
+        >
           {{ item.title }}
         </option>
       </validate-select>
@@ -66,20 +69,29 @@
 </template>
 <style></style>
 
-<script>
-import categoryList from '../../constants/categoryList'
+<script lang="ts">
+import Vue, { PropType } from 'vue'
+import { ItemData } from '@/stores/types'
+import { Category } from '@/constants/types'
+import categoryList from '@/constants/categoryList'
+import ValidateSelect from '@/components/molecules/ValidateSelect.vue'
+import TransitionWrapper from '@/components/molecules/TransitionWrapper.vue'
 
-import ValidateSelect from '../molecules/ValidateSelect'
-import TransitionWrapper from '../molecules/TransitionWrapper'
+type Data = {
+  cat_lvl0: string | null
+  cat_lvl1: string | null
+  cat_lvl2: string | null
+  categoryList: Category[]
+}
 
-export default {
+export default Vue.extend({
   name: 'ItemCategories',
   components: {
     ValidateSelect,
     TransitionWrapper
   },
-  props: ['itemData'],
-  data() {
+  props: { itemData: Object as PropType<ItemData> },
+  data(): Data {
     return {
       cat_lvl0: this.itemData.cat_lvl0,
       cat_lvl1: this.itemData.cat_lvl1,
@@ -88,39 +100,36 @@ export default {
     }
   },
   computed: {
-    subCategoryArray: function() {
+    subCategoryArray(): Category[] {
       if (this.cat_lvl0 === null) {
         return []
       }
-      let catLvl1Obj = this.categoryList.find(cat0 => {
+      const catLvl1Obj = this.categoryList.find((cat0: Category) => {
         return cat0.title === this.cat_lvl0
       })
-      let catLv1List = catLvl1Obj.option
-      return catLv1List
+      return catLvl1Obj && catLvl1Obj.option ? catLvl1Obj.option : []
     },
-    subSubCategoryArray: function() {
+    subSubCategoryArray(): Category[] {
       if (this.cat_lvl0 === null || this.cat_lvl1 === null) {
         return []
       }
 
-      let catlvl2Obj = this.subCategoryArray.find(cat1 => {
+      const catlvl2Obj = this.subCategoryArray.find((cat1: Category) => {
         return cat1.title === this.cat_lvl1
       })
-
-      let catLvl2List = catlvl2Obj.option
-      return catLvl2List
+      return catlvl2Obj && catlvl2Obj.option ? catlvl2Obj.option : []
     }
   },
   methods: {
-    submitCatLvl0(catLvl0) {
+    submitCatLvl0(catLvl0: string) {
       this.$emit('submitCatLvl0', catLvl0)
     },
-    submitCatLvl1(catLvl1) {
+    submitCatLvl1(catLvl1: string) {
       this.$emit('submitCatLvl1', catLvl1)
     },
-    submitCatLvl2(catLvl2) {
+    submitCatLvl2(catLvl2: string) {
       this.$emit('submitCatLvl2', catLvl2)
     }
   }
-}
+})
 </script>
