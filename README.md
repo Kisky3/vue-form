@@ -1,5 +1,6 @@
 # vue-form
-🌤 Vue Form with validation:   Vue + Vuex +SCSS + JavaScript + VeeValidate + Docker
+🌤 Vue Form with validation:   Atomic Design + Vue + Vuex +SCSS + JavaScript + VeeValidate + Docker
+
 
 ## [STEP1]
 <img width="361" alt="スクリーンショット 2021-09-16 18 23 37" src="https://user-images.githubusercontent.com/23165804/133587073-47584398-7894-4baf-967a-fd96520f9e65.png">
