@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-lambda": "^1.0.5",
-    "aws-sdk": "^2.619.0",
+    "aws-sdk": "^2.814.0",
     "uuid": "^3.4.0",
     "uuidv4": "^6.0.2"
   }
